@@ -1,0 +1,56 @@
+name: Workday Recruiting API
+description: APIs for Workday's cloud-based recruiting and talent acquisition solution
+image: https://www.workday.com/content/dam/web/images/logos/workday-logo.svg
+url: https://www.workday.com
+created: '2024'
+modified: '2024'
+apis:
+- name: Workday Recruiting API
+  description: Comprehensive API for managing recruiting operations, candidates, jobs, and hiring processes in Workday
+  image: https://www.workday.com/content/dam/web/images/logos/workday-logo.svg
+  humanUrl: https://www.workday.com/en-us/products/human-capital-management/recruiting.html
+  baseUrl: https://wd2-impl-services1.workday.com/ccx/service
+  tags:
+  - Recruiting
+  - Talent Acquisition
+  - HR
+  - Candidates
+  - Jobs
+  - Applications
+  - HCM
+  properties:
+  - type: Documentation
+    url: https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v41.2/Recruiting.html
+  - type: OpenAPI
+    url: https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v41.2/Recruiting_OpenAPI.yaml
+  - type: Authentication
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+  - type: SDKs
+    url: https://community.workday.com/integrations
+  - type: RateLimits
+    url: https://community.workday.com/api-rate-limits
+  - type: Changelog
+    url: https://community.workday.com/release-notes
+  - type: Status
+    url: https://status.workday.com
+  - type: Support
+    url: https://community.workday.com/support
+common:
+- type: Portal
+  url: https://community.workday.com
+- type: GettingStarted
+  url: https://community.workday.com/api/getting-started
+- type: Authentication
+  url: https://community.workday.com/api/authentication
+- type: Terms
+  url: https://www.workday.com/en-us/legal.html
+- type: Privacy
+  url: https://www.workday.com/en-us/privacy.html
+- type: Contact
+  url: https://www.workday.com/en-us/company/contact-us.html
+- type: SignUp
+  url: https://www.workday.com/en-us/company/get-started.html
+maintainers:
+- FN: Workday API Team
+  email: api-support@workday.com
+  url: https://community.workday.com
