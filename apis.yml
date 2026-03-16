@@ -1,13 +1,15 @@
+aid: workday-recruiting
 name: Workday Recruiting
 description: >-
   APIs for Workday's cloud-based recruiting and talent acquisition solution,
   providing programmatic access to job requisitions, candidate management,
   applications, interviews, job postings, and hiring workflows.
-image: https://www.workday.com/content/dam/web/images/logos/workday-logo.svg
-url: https://www.workday.com
-created: '2024'
-modified: '2026-03-04'
-specificationVersion: '0.18'
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/apis.yml
+created: '2024-01-01'
+modified: '2026-03-16'
+specificationVersion: '0.19'
 tags:
   - Recruiting
   - Talent Acquisition
