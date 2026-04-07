@@ -23,18 +23,30 @@ servers:
         description: Workday tenant identifier (e.g., wd2-impl-services1)
         default: your-tenant
 tags:
-  - name: Job Requisitions
+  - name: Applicants
     description: >-
-      Create, retrieve, edit, close, freeze, and manage job requisitions for
-      open positions within Workday recruiting workflows.
-  - name: Evergreen Requisitions
+      Retrieve and manage pre-hire and applicant records, including
+      high-volume applicant import operations.
+  - name: Background Checks
     description: >-
-      Manage evergreen requisitions used for ongoing hiring needs without a
-      specific number of openings or close date.
+      Submit and retrieve background check results and manage background
+      check packages for candidate screening.
   - name: Candidates
     description: >-
       Create, retrieve, and update candidate profiles including personal
       information, attachments, photos, and assessment data.
+  - name: Configuration
+    description: >-
+      Manage recruiting configuration settings including questionnaires,
+      assessment categories, veteran statuses, site brands, and regions.
+  - name: Evergreen Requisitions
+    description: >-
+      Manage evergreen requisitions used for ongoing hiring needs without a
+      specific number of openings or close date.
+  - name: Interviews
+    description: >-
+      Schedule interviews, submit interview feedback, manage interview
+      settings, and configure self-schedule calendars.
   - name: Job Applications
     description: >-
       Manage the lifecycle of job applications from submission through
@@ -43,30 +55,18 @@ tags:
     description: >-
       Post, update, and unpost jobs to internal and external career sites,
       and manage job posting site configurations.
-  - name: Interviews
+  - name: Job Requisitions
     description: >-
-      Schedule interviews, submit interview feedback, manage interview
-      settings, and configure self-schedule calendars.
-  - name: Background Checks
-    description: >-
-      Submit and retrieve background check results and manage background
-      check packages for candidate screening.
-  - name: Recruiting Agencies
-    description: >-
-      Manage recruiting agency relationships, agency users, and agency
-      candidate submissions.
-  - name: Applicants
-    description: >-
-      Retrieve and manage pre-hire and applicant records, including
-      high-volume applicant import operations.
+      Create, retrieve, edit, close, freeze, and manage job requisitions for
+      open positions within Workday recruiting workflows.
   - name: Positions
     description: >-
       Create and manage positions and position restrictions within the
       position management staffing model.
-  - name: Configuration
+  - name: Recruiting Agencies
     description: >-
-      Manage recruiting configuration settings including questionnaires,
-      assessment categories, veteran statuses, site brands, and regions.
+      Manage recruiting agency relationships, agency users, and agency
+      candidate submissions.
 security:
   - oauth2: []
 paths:
