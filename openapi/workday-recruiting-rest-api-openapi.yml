@@ -73,7 +73,7 @@ paths:
   /jobRequisitions:
     get:
       operationId: listJobRequisitions
-      summary: List job requisitions
+      summary: Workday Recruiting List job requisitions
       description: >-
         Retrieve a collection of job requisitions with optional filtering by
         status, supervisory organization, job profile, or date range. Returns
@@ -130,7 +130,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createJobRequisition
-      summary: Create a job requisition
+      summary: Workday Recruiting Create a job requisition
       description: >-
         Create a new job requisition for a position within a supervisory
         organization. The requisition defines the hiring need including job
@@ -158,7 +158,7 @@ paths:
   /jobRequisitions/{id}:
     get:
       operationId: getJobRequisition
-      summary: Get a job requisition
+      summary: Workday Recruiting Get a job requisition
       description: >-
         Retrieve detailed information for a specific job requisition including
         position reference, hiring manager, job profile, compensation range,
@@ -180,7 +180,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     patch:
       operationId: editJobRequisition
-      summary: Edit a job requisition
+      summary: Workday Recruiting Edit a job requisition
       description: >-
         Update an open job requisition. Allows modification of job profile,
         number of openings, compensation details, qualifications, and other
@@ -211,7 +211,7 @@ paths:
   /jobRequisitions/{id}/close:
     post:
       operationId: closeJobRequisition
-      summary: Close a job requisition
+      summary: Workday Recruiting Close a job requisition
       description: >-
         Close a job requisition that has no pending events or filled status.
         Closing a requisition prevents new applications from being submitted
@@ -242,7 +242,7 @@ paths:
   /jobRequisitions/{id}/freeze:
     post:
       operationId: manageJobRequisitionFreeze
-      summary: Freeze or unfreeze a job requisition
+      summary: Workday Recruiting Freeze or unfreeze a job requisition
       description: >-
         Freeze or unfreeze a job requisition to temporarily halt or resume
         recruiting activity. Freezing a requisition pauses the hiring process
@@ -278,7 +278,7 @@ paths:
   /evergreenRequisitions:
     get:
       operationId: listEvergreenRequisitions
-      summary: List evergreen requisitions
+      summary: Workday Recruiting List evergreen requisitions
       description: >-
         Retrieve a collection of evergreen requisitions. Evergreen requisitions
         represent ongoing hiring needs without a specific number of openings
@@ -307,7 +307,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createEvergreenRequisition
-      summary: Create an evergreen requisition
+      summary: Workday Recruiting Create an evergreen requisition
       description: >-
         Create a new evergreen requisition for ongoing hiring needs. Evergreen
         requisitions remain open indefinitely and can be linked to standard
@@ -334,7 +334,7 @@ paths:
   /evergreenRequisitions/{id}:
     get:
       operationId: getEvergreenRequisition
-      summary: Get an evergreen requisition
+      summary: Workday Recruiting Get an evergreen requisition
       description: >-
         Retrieve detailed information for a specific evergreen requisition
         including position reference, linked job requisitions, and
@@ -357,7 +357,7 @@ paths:
   /evergreenRequisitions/{id}/close:
     post:
       operationId: closeEvergreenRequisition
-      summary: Close an evergreen requisition
+      summary: Workday Recruiting Close an evergreen requisition
       description: >-
         Close an evergreen requisition that has no pending events. Closing
         removes the requisition from active recruiting workflows.
@@ -377,7 +377,7 @@ paths:
   /candidates:
     get:
       operationId: listCandidates
-      summary: List candidates
+      summary: Workday Recruiting List candidates
       description: >-
         Retrieve a collection of candidates with optional filtering. Returns
         candidate profile information including name, contact details, source,
@@ -426,7 +426,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createCandidate
-      summary: Create a candidate
+      summary: Workday Recruiting Create a candidate
       description: >-
         Add a new candidate record to the Workday recruiting system. Includes
         personal information, contact details, and optionally associates the
@@ -453,7 +453,7 @@ paths:
   /candidates/{id}:
     get:
       operationId: getCandidate
-      summary: Get a candidate
+      summary: Workday Recruiting Get a candidate
       description: >-
         Retrieve detailed information for a specific candidate including
         personal information, contact details, source, tags, and associated
@@ -475,7 +475,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     patch:
       operationId: updateCandidate
-      summary: Update a candidate
+      summary: Workday Recruiting Update a candidate
       description: >-
         Update an existing candidate record with new personal information,
         contact details, or other profile attributes.
@@ -505,7 +505,7 @@ paths:
   /candidates/{id}/attachments:
     get:
       operationId: listCandidateAttachments
-      summary: List candidate attachments
+      summary: Workday Recruiting List candidate attachments
       description: >-
         Retrieve attachments associated with a candidate, including resumes,
         cover letters, and other supporting documents.
@@ -533,7 +533,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: addCandidateAttachment
-      summary: Add a candidate attachment
+      summary: Workday Recruiting Add a candidate attachment
       description: >-
         Upload an attachment such as a resume, cover letter, or portfolio
         document to a candidate record.
@@ -579,7 +579,7 @@ paths:
   /candidates/{id}/photo:
     get:
       operationId: getCandidatePhoto
-      summary: Get a candidate photo
+      summary: Workday Recruiting Get a candidate photo
       description: >-
         Retrieve the photo associated with a candidate record.
       tags:
@@ -600,7 +600,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: updateCandidatePhoto
-      summary: Update a candidate photo
+      summary: Workday Recruiting Update a candidate photo
       description: >-
         Upload or replace the photo for a candidate record.
       tags:
@@ -626,7 +626,7 @@ paths:
   /candidates/{id}/assess:
     post:
       operationId: assessCandidate
-      summary: Assess a candidate
+      summary: Workday Recruiting Assess a candidate
       description: >-
         Create or modify a candidate assessment and optionally advance the
         candidate through job application stages based on the assessment
@@ -657,7 +657,7 @@ paths:
   /candidates/{id}/refer:
     post:
       operationId: referCandidate
-      summary: Refer a candidate
+      summary: Workday Recruiting Refer a candidate
       description: >-
         Submit a candidate referral from an existing worker. Associates the
         referred candidate with a job requisition and records the referral
@@ -697,7 +697,7 @@ paths:
   /jobApplications:
     get:
       operationId: listJobApplications
-      summary: List job applications
+      summary: Workday Recruiting List job applications
       description: >-
         Retrieve a collection of job applications with optional filtering by
         requisition, candidate, or status. Returns application details
@@ -754,7 +754,7 @@ paths:
   /jobApplications/{id}:
     get:
       operationId: getJobApplication
-      summary: Get a job application
+      summary: Workday Recruiting Get a job application
       description: >-
         Retrieve detailed information for a specific job application including
         candidate reference, job requisition, current recruiting stage,
@@ -777,7 +777,7 @@ paths:
   /jobApplications/{id}/move:
     post:
       operationId: moveCandidateStage
-      summary: Move candidate to a different stage
+      summary: Workday Recruiting Move candidate to a different stage
       description: >-
         Move a candidate to a different recruiting stage or disposition stage
         within a job application. Used to advance candidates through the hiring
@@ -817,7 +817,7 @@ paths:
   /jobApplications/{id}/offer:
     post:
       operationId: initiateOffer
-      summary: Initiate an offer
+      summary: Workday Recruiting Initiate an offer
       description: >-
         Initiate an employment offer for a job application. Triggers the offer
         approval workflow and generates the offer letter based on the
@@ -848,7 +848,7 @@ paths:
   /jobPostings:
     get:
       operationId: listJobPostings
-      summary: List job postings
+      summary: Workday Recruiting List job postings
       description: >-
         Retrieve a collection of job postings with optional filtering by
         requisition, posting site, or status. Returns posting details
@@ -896,7 +896,7 @@ paths:
   /jobPostings/{id}:
     get:
       operationId: getJobPosting
-      summary: Get a job posting
+      summary: Workday Recruiting Get a job posting
       description: >-
         Retrieve detailed information for a specific job posting including
         title, description, qualifications, location, compensation, posting
@@ -918,7 +918,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     patch:
       operationId: updateJobPosting
-      summary: Update a job posting
+      summary: Workday Recruiting Update a job posting
       description: >-
         Update an existing job posting with new content, dates, or
         configuration. Can be used to modify the posting start and end dates.
@@ -957,7 +957,7 @@ paths:
   /jobPostings/{id}/post:
     post:
       operationId: postJob
-      summary: Post a job to career sites
+      summary: Workday Recruiting Post a job to career sites
       description: >-
         Post a job to internal and external career sites. Requires an
         associated job requisition in an open status.
@@ -989,7 +989,7 @@ paths:
   /jobPostings/{id}/unpost:
     post:
       operationId: unpostJob
-      summary: Unpost a job
+      summary: Workday Recruiting Unpost a job
       description: >-
         Remove a job posting from career sites. The job posting record is
         retained but is no longer visible to external candidates.
@@ -1007,7 +1007,7 @@ paths:
   /interviews:
     get:
       operationId: listInterviews
-      summary: List interviews
+      summary: Workday Recruiting List interviews
       description: >-
         Retrieve a collection of scheduled interviews with optional filtering
         by job application, interviewer, or date range. Returns interview
@@ -1056,7 +1056,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: scheduleInterview
-      summary: Schedule an interview
+      summary: Workday Recruiting Schedule an interview
       description: >-
         Create a new interview schedule for a job application. Assigns
         interviewers, sets the date and time, and optionally configures
@@ -1083,7 +1083,7 @@ paths:
   /interviews/{id}:
     get:
       operationId: getInterview
-      summary: Get an interview
+      summary: Workday Recruiting Get an interview
       description: >-
         Retrieve detailed information for a specific interview including
         schedule, interviewers, job application reference, and any
@@ -1106,7 +1106,7 @@ paths:
   /interviews/{id}/feedback:
     get:
       operationId: listInterviewFeedback
-      summary: List interview feedback
+      summary: Workday Recruiting List interview feedback
       description: >-
         Retrieve feedback submitted by interviewers for a specific interview
         including ratings, comments, and hiring recommendations.
@@ -1134,7 +1134,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: submitInterviewFeedback
-      summary: Submit interview feedback
+      summary: Workday Recruiting Submit interview feedback
       description: >-
         Submit feedback for a completed interview. Includes overall rating,
         competency assessments, comments, and a hiring recommendation.
@@ -1166,7 +1166,7 @@ paths:
   /backgroundChecks:
     get:
       operationId: listBackgroundChecks
-      summary: List background checks
+      summary: Workday Recruiting List background checks
       description: >-
         Retrieve a collection of background check results for candidates
         including status, provider, and check details.
@@ -1199,7 +1199,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: submitBackgroundCheck
-      summary: Submit a background check result
+      summary: Workday Recruiting Submit a background check result
       description: >-
         Load background check results from an external provider into Workday.
         Associates the results with a candidate and job application.
@@ -1225,7 +1225,7 @@ paths:
   /backgroundCheckPackages:
     get:
       operationId: listBackgroundCheckPackages
-      summary: List background check packages
+      summary: Workday Recruiting List background check packages
       description: >-
         Retrieve available background check packages that can be assigned
         to job requisitions for candidate screening.
@@ -1253,7 +1253,7 @@ paths:
   /recruitingAgencies:
     get:
       operationId: listRecruitingAgencies
-      summary: List recruiting agencies
+      summary: Workday Recruiting List recruiting agencies
       description: >-
         Retrieve a collection of recruiting agencies configured in Workday
         for external candidate sourcing.
@@ -1281,7 +1281,7 @@ paths:
   /recruitingAgencies/{id}:
     get:
       operationId: getRecruitingAgency
-      summary: Get a recruiting agency
+      summary: Workday Recruiting Get a recruiting agency
       description: >-
         Retrieve detailed information for a specific recruiting agency
         including contact details, agency users, and fee structure.
@@ -1303,7 +1303,7 @@ paths:
   /recruitingAgencies/{id}/candidates:
     post:
       operationId: submitAgencyCandidate
-      summary: Submit an agency candidate
+      summary: Workday Recruiting Submit an agency candidate
       description: >-
         Submit a candidate from a recruiting agency for a specific job
         requisition. Creates the candidate record and associates it with
@@ -1342,7 +1342,7 @@ paths:
   /applicants:
     get:
       operationId: listApplicants
-      summary: List applicants
+      summary: Workday Recruiting List applicants
       description: >-
         Retrieve pre-hire and applicant information. Returns applicant records
         that have been processed through the recruiting pipeline.
@@ -1370,7 +1370,7 @@ paths:
   /applicants/import:
     post:
       operationId: importApplicants
-      summary: Import applicants in bulk
+      summary: Workday Recruiting Import applicants in bulk
       description: >-
         High-volume applicant import service for processing multiple
         applicant records asynchronously. Designed for bulk loading of
@@ -1412,7 +1412,7 @@ paths:
   /positions:
     get:
       operationId: listPositions
-      summary: List positions
+      summary: Workday Recruiting List positions
       description: >-
         Retrieve position management positions including position details,
         restrictions, and associated job requisitions.
@@ -1439,7 +1439,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createPosition
-      summary: Create a position
+      summary: Workday Recruiting Create a position
       description: >-
         Create and open a new position using the position management staffing
         model. The position can subsequently be associated with a job
@@ -1466,7 +1466,7 @@ paths:
   /jobPostingSites:
     get:
       operationId: listJobPostingSites
-      summary: List job posting sites
+      summary: Workday Recruiting List job posting sites
       description: >-
         Retrieve available job posting sites including internal career pages
         and external job boards configured in Workday.
@@ -1494,7 +1494,7 @@ paths:
   /questionnaires:
     get:
       operationId: listQuestionnaires
-      summary: List questionnaires
+      summary: Workday Recruiting List questionnaires
       description: >-
         Retrieve recruiting questionnaires used for screening and assessment
         during the application process.
@@ -1522,7 +1522,7 @@ paths:
   /veteranStatuses:
     get:
       operationId: listVeteranStatuses
-      summary: List veteran statuses
+      summary: Workday Recruiting List veteran statuses
       description: >-
         Retrieve veteran status reference values used for EEO compliance
         reporting and candidate tracking.
