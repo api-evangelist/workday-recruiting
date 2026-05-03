@@ -1,0 +1,18 @@
+{
+  "id": "11111111-2222-3333-4444-555555555555",
+  "candidate": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "jobApplication": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "package": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "status": "Initiated",
+  "result": "Clear",
+  "completedOn": "2026-05-03T14:30:00Z"
+}

@@ -1,0 +1,40 @@
+{
+  "id": "11111111-2222-3333-4444-555555555555",
+  "firstName": "Jordan",
+  "lastName": "Reyes",
+  "fullName": "Jordan Reyes",
+  "email": "candidate@example.com",
+  "phone": "+1-415-555-0123",
+  "address": {
+    "addressLine1": "123 Market Street",
+    "addressLine2": "123 Market Street",
+    "city": "San Francisco",
+    "stateProvince": "CA",
+    "postalCode": "94105",
+    "country": {
+      "id": "11111111-2222-3333-4444-555555555555",
+      "descriptor": "Senior Software Engineer"
+    }
+  },
+  "source": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "tags": [
+    "value-09163b",
+    "value-455f70"
+  ],
+  "jobApplications": [
+    {
+      "id": "11111111-2222-3333-4444-555555555555",
+      "descriptor": "Senior Software Engineer"
+    },
+    {
+      "id": "11111111-2222-3333-4444-555555555555",
+      "descriptor": "Senior Software Engineer"
+    }
+  ],
+  "isInternal": false,
+  "createdOn": "2026-05-03T14:30:00Z",
+  "updatedOn": "2026-05-03T14:30:00Z"
+}

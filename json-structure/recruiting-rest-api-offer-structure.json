@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-structure/recruiting-rest-api-offer-structure.json",
+  "name": "Offer",
+  "description": "An employment offer extended to a candidate through a job application, including compensation details and start date.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Workday ID (WID) of the offer",
+      "example": "11111111-2222-3333-4444-555555555555"
+    },
+    "jobApplication": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Pending Approval",
+        "Approved",
+        "Extended",
+        "Accepted",
+        "Declined",
+        "Rescinded"
+      ],
+      "description": "Current offer status",
+      "example": "Draft"
+    },
+    "proposedStartDate": {
+      "type": "date",
+      "description": "Proposed start date for employment",
+      "example": "2026-05-03"
+    },
+    "compensationAmount": {
+      "type": "double",
+      "description": "Offered compensation amount",
+      "example": 120000.0
+    },
+    "compensationFrequency": {
+      "type": "string",
+      "enum": [
+        "Annual",
+        "Hourly",
+        "Monthly"
+      ],
+      "description": "Compensation frequency",
+      "example": "Annual"
+    },
+    "currency": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "expirationDate": {
+      "type": "date",
+      "description": "Date the offer expires",
+      "example": "2026-05-03"
+    },
+    "createdOn": {
+      "type": "datetime",
+      "description": "Timestamp when the offer was created",
+      "example": "2026-05-03T14:30:00Z"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "firstName": "Jordan",
+  "lastName": "Reyes",
+  "email": "candidate@example.com",
+  "phone": "+1-415-555-0123",
+  "address": {
+    "addressLine1": "123 Market Street",
+    "addressLine2": "123 Market Street",
+    "city": "San Francisco",
+    "stateProvince": "CA",
+    "postalCode": "94105",
+    "country": {
+      "id": "11111111-2222-3333-4444-555555555555",
+      "descriptor": "Senior Software Engineer"
+    }
+  },
+  "source": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  }
+}

@@ -12,103 +12,109 @@ info:
     name: Workday Support
     url: https://www.workday.com/en-us/services/support.html
   termsOfService: https://www.workday.com/en-us/legal.html
+  x-generated-from: documentation
+  x-source-url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  x-last-validated: '2026-05-03'
 externalDocs:
   description: Workday Recruiting REST API Documentation
   url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
 servers:
-  - url: https://{tenant}.workday.com/ccx/api/recruiting/v41.2
-    description: Workday Recruiting Production
-    variables:
-      tenant:
-        description: Workday tenant identifier (e.g., wd2-impl-services1)
-        default: your-tenant
+- url: https://{tenant}.workday.com/ccx/api/recruiting/v41.2
+  description: Workday Recruiting Production
+  variables:
+    tenant:
+      description: Workday tenant identifier (e.g., wd2-impl-services1)
+      default: your-tenant
 tags:
-  - name: Applicants
-    description: >-
-      Retrieve and manage pre-hire and applicant records, including
-      high-volume applicant import operations.
-  - name: Background Checks
-    description: >-
-      Submit and retrieve background check results and manage background
-      check packages for candidate screening.
-  - name: Candidates
-    description: >-
-      Create, retrieve, and update candidate profiles including personal
-      information, attachments, photos, and assessment data.
-  - name: Configuration
-    description: >-
-      Manage recruiting configuration settings including questionnaires,
-      assessment categories, veteran statuses, site brands, and regions.
-  - name: Evergreen Requisitions
-    description: >-
-      Manage evergreen requisitions used for ongoing hiring needs without a
-      specific number of openings or close date.
-  - name: Interviews
-    description: >-
-      Schedule interviews, submit interview feedback, manage interview
-      settings, and configure self-schedule calendars.
-  - name: Job Applications
-    description: >-
-      Manage the lifecycle of job applications from submission through
-      disposition, including stage movement and offer initiation.
-  - name: Job Postings
-    description: >-
-      Post, update, and unpost jobs to internal and external career sites,
-      and manage job posting site configurations.
-  - name: Job Requisitions
-    description: >-
-      Create, retrieve, edit, close, freeze, and manage job requisitions for
-      open positions within Workday recruiting workflows.
-  - name: Positions
-    description: >-
-      Create and manage positions and position restrictions within the
-      position management staffing model.
-  - name: Recruiting Agencies
-    description: >-
-      Manage recruiting agency relationships, agency users, and agency
-      candidate submissions.
+- name: Applicants
+  description: >-
+    Retrieve and manage pre-hire and applicant records, including
+    high-volume applicant import operations.
+- name: Background Checks
+  description: >-
+    Submit and retrieve background check results and manage background
+    check packages for candidate screening.
+- name: Candidates
+  description: >-
+    Create, retrieve, and update candidate profiles including personal
+    information, attachments, photos, and assessment data.
+- name: Configuration
+  description: >-
+    Manage recruiting configuration settings including questionnaires,
+    assessment categories, veteran statuses, site brands, and regions.
+- name: Evergreen Requisitions
+  description: >-
+    Manage evergreen requisitions used for ongoing hiring needs without a
+    specific number of openings or close date.
+- name: Interviews
+  description: >-
+    Schedule interviews, submit interview feedback, manage interview
+    settings, and configure self-schedule calendars.
+- name: Job Applications
+  description: >-
+    Manage the lifecycle of job applications from submission through
+    disposition, including stage movement and offer initiation.
+- name: Job Postings
+  description: >-
+    Post, update, and unpost jobs to internal and external career sites,
+    and manage job posting site configurations.
+- name: Job Requisitions
+  description: >-
+    Create, retrieve, edit, close, freeze, and manage job requisitions for
+    open positions within Workday recruiting workflows.
+- name: Positions
+  description: >-
+    Create and manage positions and position restrictions within the
+    position management staffing model.
+- name: Recruiting Agencies
+  description: >-
+    Manage recruiting agency relationships, agency users, and agency
+    candidate submissions.
 security:
-  - oauth2: []
+- oauth2: []
 paths:
   /jobRequisitions:
     get:
       operationId: listJobRequisitions
-      summary: Workday Recruiting List job requisitions
+      summary: Workday Recruiting List Job Requisitions
       description: >-
         Retrieve a collection of job requisitions with optional filtering by
         status, supervisory organization, job profile, or date range. Returns
         requisition details including position references, hiring manager,
         recruiting status, and associated job postings.
       tags:
-        - Job Requisitions
+      - Job Requisitions
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
-        - name: status
-          in: query
-          description: >-
-            Filter job requisitions by recruiting status
-          schema:
-            type: string
-            enum:
-              - Open
-              - Filled
-              - Frozen
-              - Closed
-              - Draft
-        - name: supervisoryOrganization
-          in: query
-          description: >-
-            Filter by supervisory organization Workday ID
-          schema:
-            type: string
-        - name: updatedFrom
-          in: query
-          description: >-
-            Return requisitions updated on or after this date-time
-          schema:
-            type: string
-            format: date-time
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - name: status
+        in: query
+        description: >-
+          Filter job requisitions by recruiting status
+        schema:
+          type: string
+          enum:
+          - Open
+          - Filled
+          - Frozen
+          - Closed
+          - Draft
+        example: Open
+      - name: supervisoryOrganization
+        in: query
+        description: >-
+          Filter by supervisory organization Workday ID
+        schema:
+          type: string
+        example: string
+      - name: updatedFrom
+        in: query
+        description: >-
+          Return requisitions updated on or after this date-time
+        schema:
+          type: string
+          format: date-time
+        example: '2026-05-03T14:30:00Z'
       responses:
         '200':
           description: Job requisitions retrieved successfully
@@ -124,26 +130,108 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/JobRequisition'
+              examples:
+                ListJobRequisitions200Example:
+                  summary: Default listJobRequisitions 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      requisitionNumber: REQ-100245
+                      title: Senior Software Engineer
+                      status: Open
+                      jobProfile:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      position:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      supervisoryOrganization:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      hiringManager:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      recruiter:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      numberOfOpenings: 3
+                      location:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      workerType:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      timeType: Full time
+                      targetHireDate: '2026-05-03'
+                      targetEndDate: '2026-05-03'
+                      compensationRange:
+                        minimum: 95000.0
+                        maximum: 145000.0
+                        currency:
+                          id: 11111111-2222-3333-4444-555555555555
+                          descriptor: Senior Software Engineer
+                        frequency: Annual
+                      jobDescription: Strong technical background with 8+ years of experience in distributed systems.
+                      qualifications: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+                      createdOn: '2026-05-03T14:30:00Z'
+                      updatedOn: '2026-05-03T14:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createJobRequisition
-      summary: Workday Recruiting Create a job requisition
+      summary: Workday Recruiting Create a Job Requisition
       description: >-
         Create a new job requisition for a position within a supervisory
         organization. The requisition defines the hiring need including job
         profile, number of openings, compensation details, and required
         qualifications.
       tags:
-        - Job Requisitions
+      - Job Requisitions
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/JobRequisitionCreate'
+            examples:
+              CreateJobRequisitionRequestExample:
+                summary: Default createJobRequisition request
+                x-microcks-default: true
+                value:
+                  title: Senior Software Engineer
+                  jobProfile:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  position:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  supervisoryOrganization:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  hiringManager:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  recruiter:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  numberOfOpenings: 3
+                  location:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  workerType:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  timeType: Full time
+                  targetHireDate: '2026-05-03'
+                  jobDescription: Strong technical background with 8+ years of experience in distributed systems.
+                  qualifications: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
       responses:
         '201':
           description: Job requisition created successfully
@@ -151,22 +239,70 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JobRequisition'
+              examples:
+                CreateJobRequisition201Example:
+                  summary: Default createJobRequisition 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    requisitionNumber: REQ-100245
+                    title: Senior Software Engineer
+                    status: Open
+                    jobProfile:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    position:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    supervisoryOrganization:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    hiringManager:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    recruiter:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    numberOfOpenings: 3
+                    location:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    workerType:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    timeType: Full time
+                    targetHireDate: '2026-05-03'
+                    targetEndDate: '2026-05-03'
+                    compensationRange:
+                      minimum: 95000.0
+                      maximum: 145000.0
+                      currency:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      frequency: Annual
+                    jobDescription: Strong technical background with 8+ years of experience in distributed systems.
+                    qualifications: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+                    createdOn: '2026-05-03T14:30:00Z'
+                    updatedOn: '2026-05-03T14:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /jobRequisitions/{id}:
     get:
       operationId: getJobRequisition
-      summary: Workday Recruiting Get a job requisition
+      summary: Workday Recruiting Get a Job Requisition
       description: >-
         Retrieve detailed information for a specific job requisition including
         position reference, hiring manager, job profile, compensation range,
         recruiting status, and associated job postings.
       tags:
-        - Job Requisitions
+      - Job Requisitions
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: Job requisition retrieved successfully
@@ -174,27 +310,107 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JobRequisition'
+              examples:
+                GetJobRequisition200Example:
+                  summary: Default getJobRequisition 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    requisitionNumber: REQ-100245
+                    title: Senior Software Engineer
+                    status: Open
+                    jobProfile:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    position:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    supervisoryOrganization:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    hiringManager:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    recruiter:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    numberOfOpenings: 3
+                    location:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    workerType:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    timeType: Full time
+                    targetHireDate: '2026-05-03'
+                    targetEndDate: '2026-05-03'
+                    compensationRange:
+                      minimum: 95000.0
+                      maximum: 145000.0
+                      currency:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      frequency: Annual
+                    jobDescription: Strong technical background with 8+ years of experience in distributed systems.
+                    qualifications: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+                    createdOn: '2026-05-03T14:30:00Z'
+                    updatedOn: '2026-05-03T14:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: editJobRequisition
-      summary: Workday Recruiting Edit a job requisition
+      summary: Workday Recruiting Edit a Job Requisition
       description: >-
         Update an open job requisition. Allows modification of job profile,
         number of openings, compensation details, qualifications, and other
         requisition attributes.
       tags:
-        - Job Requisitions
+      - Job Requisitions
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/JobRequisitionCreate'
+            examples:
+              EditJobRequisitionRequestExample:
+                summary: Default editJobRequisition request
+                x-microcks-default: true
+                value:
+                  title: Senior Software Engineer
+                  jobProfile:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  position:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  supervisoryOrganization:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  hiringManager:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  recruiter:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  numberOfOpenings: 3
+                  location:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  workerType:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  timeType: Full time
+                  targetHireDate: '2026-05-03'
+                  jobDescription: Strong technical background with 8+ years of experience in distributed systems.
+                  qualifications: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
       responses:
         '200':
           description: Job requisition updated successfully
@@ -202,24 +418,72 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JobRequisition'
+              examples:
+                EditJobRequisition200Example:
+                  summary: Default editJobRequisition 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    requisitionNumber: REQ-100245
+                    title: Senior Software Engineer
+                    status: Open
+                    jobProfile:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    position:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    supervisoryOrganization:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    hiringManager:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    recruiter:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    numberOfOpenings: 3
+                    location:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    workerType:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    timeType: Full time
+                    targetHireDate: '2026-05-03'
+                    targetEndDate: '2026-05-03'
+                    compensationRange:
+                      minimum: 95000.0
+                      maximum: 145000.0
+                      currency:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      frequency: Annual
+                    jobDescription: Strong technical background with 8+ years of experience in distributed systems.
+                    qualifications: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+                    createdOn: '2026-05-03T14:30:00Z'
+                    updatedOn: '2026-05-03T14:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /jobRequisitions/{id}/close:
     post:
       operationId: closeJobRequisition
-      summary: Workday Recruiting Close a job requisition
+      summary: Workday Recruiting Close a Job Requisition
       description: >-
         Close a job requisition that has no pending events or filled status.
         Closing a requisition prevents new applications from being submitted
         and removes associated job postings.
       tags:
-        - Job Requisitions
+      - Job Requisitions
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       requestBody:
         required: false
         content:
@@ -230,6 +494,14 @@ paths:
                 closeReason:
                   $ref: '#/components/schemas/Reference'
                   description: Reason for closing the requisition
+            examples:
+              CloseJobRequisitionRequestExample:
+                summary: Default closeJobRequisition request
+                x-microcks-default: true
+                value:
+                  closeReason:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
       responses:
         '200':
           description: Job requisition closed successfully
@@ -239,18 +511,21 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /jobRequisitions/{id}/freeze:
     post:
       operationId: manageJobRequisitionFreeze
-      summary: Workday Recruiting Freeze or unfreeze a job requisition
+      summary: Workday Recruiting Freeze or Unfreeze a Job Requisition
       description: >-
         Freeze or unfreeze a job requisition to temporarily halt or resume
         recruiting activity. Freezing a requisition pauses the hiring process
         without closing the requisition.
       tags:
-        - Job Requisitions
+      - Job Requisitions
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       requestBody:
         required: true
         content:
@@ -258,7 +533,7 @@ paths:
             schema:
               type: object
               required:
-                - freeze
+              - freeze
               properties:
                 freeze:
                   type: boolean
@@ -266,6 +541,13 @@ paths:
                 reason:
                   type: string
                   description: Reason for freezing or unfreezing the requisition
+            examples:
+              ManageJobRequisitionFreezeRequestExample:
+                summary: Default manageJobRequisitionFreeze request
+                x-microcks-default: true
+                value:
+                  freeze: true
+                  reason: Position no longer needed
       responses:
         '200':
           description: Job requisition freeze status updated successfully
@@ -275,19 +557,22 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /evergreenRequisitions:
     get:
       operationId: listEvergreenRequisitions
-      summary: Workday Recruiting List evergreen requisitions
+      summary: Workday Recruiting List Evergreen Requisitions
       description: >-
         Retrieve a collection of evergreen requisitions. Evergreen requisitions
         represent ongoing hiring needs without a specific number of openings
         or anticipated close date.
       tags:
-        - Evergreen Requisitions
+      - Evergreen Requisitions
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
       responses:
         '200':
           description: Evergreen requisitions retrieved successfully
@@ -303,23 +588,65 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/EvergreenRequisition'
+              examples:
+                ListEvergreenRequisitions200Example:
+                  summary: Default listEvergreenRequisitions 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      requisitionNumber: REQ-100245
+                      title: Senior Software Engineer
+                      status: Open
+                      jobProfile:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      supervisoryOrganization:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      hiringManager:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      linkedJobRequisitions:
+                      - id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      createdOn: '2026-05-03T14:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createEvergreenRequisition
-      summary: Workday Recruiting Create an evergreen requisition
+      summary: Workday Recruiting Create an Evergreen Requisition
       description: >-
         Create a new evergreen requisition for ongoing hiring needs. Evergreen
         requisitions remain open indefinitely and can be linked to standard
         job requisitions for candidate pipeline management.
       tags:
-        - Evergreen Requisitions
+      - Evergreen Requisitions
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/EvergreenRequisitionCreate'
+            examples:
+              CreateEvergreenRequisitionRequestExample:
+                summary: Default createEvergreenRequisition request
+                x-microcks-default: true
+                value:
+                  title: Senior Software Engineer
+                  jobProfile:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  supervisoryOrganization:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  hiringManager:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
       responses:
         '201':
           description: Evergreen requisition created successfully
@@ -327,22 +654,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EvergreenRequisition'
+              examples:
+                CreateEvergreenRequisition201Example:
+                  summary: Default createEvergreenRequisition 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    requisitionNumber: REQ-100245
+                    title: Senior Software Engineer
+                    status: Open
+                    jobProfile:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    supervisoryOrganization:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    hiringManager:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    linkedJobRequisitions:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    createdOn: '2026-05-03T14:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /evergreenRequisitions/{id}:
     get:
       operationId: getEvergreenRequisition
-      summary: Workday Recruiting Get an evergreen requisition
+      summary: Workday Recruiting Get an Evergreen Requisition
       description: >-
         Retrieve detailed information for a specific evergreen requisition
         including position reference, linked job requisitions, and
         candidate pipeline status.
       tags:
-        - Evergreen Requisitions
+      - Evergreen Requisitions
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: Evergreen requisition retrieved successfully
@@ -350,21 +702,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EvergreenRequisition'
+              examples:
+                GetEvergreenRequisition200Example:
+                  summary: Default getEvergreenRequisition 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    requisitionNumber: REQ-100245
+                    title: Senior Software Engineer
+                    status: Open
+                    jobProfile:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    supervisoryOrganization:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    hiringManager:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    linkedJobRequisitions:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    createdOn: '2026-05-03T14:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /evergreenRequisitions/{id}/close:
     post:
       operationId: closeEvergreenRequisition
-      summary: Workday Recruiting Close an evergreen requisition
+      summary: Workday Recruiting Close an Evergreen Requisition
       description: >-
         Close an evergreen requisition that has no pending events. Closing
         removes the requisition from active recruiting workflows.
       tags:
-        - Evergreen Requisitions
+      - Evergreen Requisitions
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: Evergreen requisition closed successfully
@@ -374,39 +751,45 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /candidates:
     get:
       operationId: listCandidates
-      summary: Workday Recruiting List candidates
+      summary: Workday Recruiting List Candidates
       description: >-
         Retrieve a collection of candidates with optional filtering. Returns
         candidate profile information including name, contact details, source,
         and associated job applications.
       tags:
-        - Candidates
+      - Candidates
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
-        - name: updatedFrom
-          in: query
-          description: >-
-            Return candidates updated on or after this date-time
-          schema:
-            type: string
-            format: date-time
-        - name: name
-          in: query
-          description: >-
-            Filter candidates by name (partial match supported)
-          schema:
-            type: string
-        - name: email
-          in: query
-          description: >-
-            Filter candidates by email address
-          schema:
-            type: string
-            format: email
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - name: updatedFrom
+        in: query
+        description: >-
+          Return candidates updated on or after this date-time
+        schema:
+          type: string
+          format: date-time
+        example: '2026-05-03T14:30:00Z'
+      - name: name
+        in: query
+        description: >-
+          Filter candidates by name (partial match supported)
+        schema:
+          type: string
+        example: Senior Software Engineer
+      - name: email
+        in: query
+        description: >-
+          Filter candidates by email address
+        schema:
+          type: string
+          format: email
+        example: candidate@example.com
       responses:
         '200':
           description: Candidates retrieved successfully
@@ -422,23 +805,80 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Candidate'
+              examples:
+                ListCandidates200Example:
+                  summary: Default listCandidates 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      firstName: Jordan
+                      lastName: Reyes
+                      fullName: Jordan Reyes
+                      email: candidate@example.com
+                      phone: +1-415-555-0123
+                      address:
+                        addressLine1: 123 Market Street
+                        addressLine2: 123 Market Street
+                        city: San Francisco
+                        stateProvince: CA
+                        postalCode: '94105'
+                        country:
+                          id: 11111111-2222-3333-4444-555555555555
+                          descriptor: Senior Software Engineer
+                      source:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      tags:
+                      - priority
+                      jobApplications:
+                      - id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      isInternal: false
+                      createdOn: '2026-05-03T14:30:00Z'
+                      updatedOn: '2026-05-03T14:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createCandidate
-      summary: Workday Recruiting Create a candidate
+      summary: Workday Recruiting Create a Candidate
       description: >-
         Add a new candidate record to the Workday recruiting system. Includes
         personal information, contact details, and optionally associates the
         candidate with a job application.
       tags:
-        - Candidates
+      - Candidates
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CandidateCreate'
+            examples:
+              CreateCandidateRequestExample:
+                summary: Default createCandidate request
+                x-microcks-default: true
+                value:
+                  firstName: Jordan
+                  lastName: Reyes
+                  email: candidate@example.com
+                  phone: +1-415-555-0123
+                  address:
+                    addressLine1: 123 Market Street
+                    addressLine2: 123 Market Street
+                    city: San Francisco
+                    stateProvince: CA
+                    postalCode: '94105'
+                    country:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                  source:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
       responses:
         '201':
           description: Candidate created successfully
@@ -446,22 +886,56 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Candidate'
+              examples:
+                CreateCandidate201Example:
+                  summary: Default createCandidate 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    firstName: Jordan
+                    lastName: Reyes
+                    fullName: Jordan Reyes
+                    email: candidate@example.com
+                    phone: +1-415-555-0123
+                    address:
+                      addressLine1: 123 Market Street
+                      addressLine2: 123 Market Street
+                      city: San Francisco
+                      stateProvince: CA
+                      postalCode: '94105'
+                      country:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                    source:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    tags:
+                    - priority
+                    jobApplications:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    isInternal: false
+                    createdOn: '2026-05-03T14:30:00Z'
+                    updatedOn: '2026-05-03T14:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /candidates/{id}:
     get:
       operationId: getCandidate
-      summary: Workday Recruiting Get a candidate
+      summary: Workday Recruiting Get a Candidate
       description: >-
         Retrieve detailed information for a specific candidate including
         personal information, contact details, source, tags, and associated
         job applications.
       tags:
-        - Candidates
+      - Candidates
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: Candidate retrieved successfully
@@ -469,26 +943,81 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Candidate'
+              examples:
+                GetCandidate200Example:
+                  summary: Default getCandidate 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    firstName: Jordan
+                    lastName: Reyes
+                    fullName: Jordan Reyes
+                    email: candidate@example.com
+                    phone: +1-415-555-0123
+                    address:
+                      addressLine1: 123 Market Street
+                      addressLine2: 123 Market Street
+                      city: San Francisco
+                      stateProvince: CA
+                      postalCode: '94105'
+                      country:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                    source:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    tags:
+                    - priority
+                    jobApplications:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    isInternal: false
+                    createdOn: '2026-05-03T14:30:00Z'
+                    updatedOn: '2026-05-03T14:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateCandidate
-      summary: Workday Recruiting Update a candidate
+      summary: Workday Recruiting Update a Candidate
       description: >-
         Update an existing candidate record with new personal information,
         contact details, or other profile attributes.
       tags:
-        - Candidates
+      - Candidates
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CandidateCreate'
+            examples:
+              UpdateCandidateRequestExample:
+                summary: Default updateCandidate request
+                x-microcks-default: true
+                value:
+                  firstName: Jordan
+                  lastName: Reyes
+                  email: candidate@example.com
+                  phone: +1-415-555-0123
+                  address:
+                    addressLine1: 123 Market Street
+                    addressLine2: 123 Market Street
+                    city: San Francisco
+                    stateProvince: CA
+                    postalCode: '94105'
+                    country:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                  source:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
       responses:
         '200':
           description: Candidate updated successfully
@@ -496,23 +1025,57 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Candidate'
+              examples:
+                UpdateCandidate200Example:
+                  summary: Default updateCandidate 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    firstName: Jordan
+                    lastName: Reyes
+                    fullName: Jordan Reyes
+                    email: candidate@example.com
+                    phone: +1-415-555-0123
+                    address:
+                      addressLine1: 123 Market Street
+                      addressLine2: 123 Market Street
+                      city: San Francisco
+                      stateProvince: CA
+                      postalCode: '94105'
+                      country:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                    source:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    tags:
+                    - priority
+                    jobApplications:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    isInternal: false
+                    createdOn: '2026-05-03T14:30:00Z'
+                    updatedOn: '2026-05-03T14:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /candidates/{id}/attachments:
     get:
       operationId: listCandidateAttachments
-      summary: Workday Recruiting List candidate attachments
+      summary: Workday Recruiting List Candidate Attachments
       description: >-
         Retrieve attachments associated with a candidate, including resumes,
         cover letters, and other supporting documents.
       tags:
-        - Candidates
+      - Candidates
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: Candidate attachments retrieved successfully
@@ -527,20 +1090,36 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Attachment'
+              examples:
+                ListCandidateAttachments200Example:
+                  summary: Default listCandidateAttachments 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      fileName: resume.pdf
+                      category: Resume
+                      contentType: Full time
+                      fileSize: 245678
+                      uploadedOn: '2026-05-03T14:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: addCandidateAttachment
-      summary: Workday Recruiting Add a candidate attachment
+      summary: Workday Recruiting Add a Candidate Attachment
       description: >-
         Upload an attachment such as a resume, cover letter, or portfolio
         document to a candidate record.
       tags:
-        - Candidates
+      - Candidates
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       requestBody:
         required: true
         content:
@@ -548,8 +1127,8 @@ paths:
             schema:
               type: object
               required:
-                - file
-                - category
+              - file
+              - category
               properties:
                 file:
                   type: string
@@ -559,10 +1138,10 @@ paths:
                   type: string
                   description: Attachment category (e.g., Resume, Cover Letter)
                   enum:
-                    - Resume
-                    - Cover Letter
-                    - Portfolio
-                    - Other
+                  - Resume
+                  - Cover Letter
+                  - Portfolio
+                  - Other
       responses:
         '201':
           description: Attachment uploaded successfully
@@ -570,22 +1149,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Attachment'
+              examples:
+                AddCandidateAttachment201Example:
+                  summary: Default addCandidateAttachment 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    fileName: resume.pdf
+                    category: Resume
+                    contentType: Full time
+                    fileSize: 245678
+                    uploadedOn: '2026-05-03T14:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /candidates/{id}/photo:
     get:
       operationId: getCandidatePhoto
-      summary: Workday Recruiting Get a candidate photo
+      summary: Workday Recruiting Get a Candidate Photo
       description: >-
         Retrieve the photo associated with a candidate record.
       tags:
-        - Candidates
+      - Candidates
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: Candidate photo retrieved successfully
@@ -598,15 +1191,18 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updateCandidatePhoto
-      summary: Workday Recruiting Update a candidate photo
+      summary: Workday Recruiting Update a Candidate Photo
       description: >-
         Upload or replace the photo for a candidate record.
       tags:
-        - Candidates
+      - Candidates
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       requestBody:
         required: true
         content:
@@ -623,24 +1219,40 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /candidates/{id}/assess:
     post:
       operationId: assessCandidate
-      summary: Workday Recruiting Assess a candidate
+      summary: Workday Recruiting Assess a Candidate
       description: >-
         Create or modify a candidate assessment and optionally advance the
         candidate through job application stages based on the assessment
         outcome.
       tags:
-        - Candidates
+      - Candidates
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CandidateAssessment'
+            examples:
+              AssessCandidateRequestExample:
+                summary: Default assessCandidate request
+                x-microcks-default: true
+                value:
+                  id: 11111111-2222-3333-4444-555555555555
+                  assessmentCategory:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  result: Pass
+                  score: 87.5
+                  comments: Strong technical background with 8+ years of experience in distributed systems.
+                  assessedOn: '2026-05-03T14:30:00Z'
       responses:
         '200':
           description: Candidate assessment submitted successfully
@@ -648,24 +1260,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CandidateAssessment'
+              examples:
+                AssessCandidate200Example:
+                  summary: Default assessCandidate 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    assessmentCategory:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    result: Pass
+                    score: 87.5
+                    comments: Strong technical background with 8+ years of experience in distributed systems.
+                    assessedOn: '2026-05-03T14:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /candidates/{id}/refer:
     post:
       operationId: referCandidate
-      summary: Workday Recruiting Refer a candidate
+      summary: Workday Recruiting Refer a Candidate
       description: >-
         Submit a candidate referral from an existing worker. Associates the
         referred candidate with a job requisition and records the referral
         source.
       tags:
-        - Candidates
+      - Candidates
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       requestBody:
         required: true
         content:
@@ -673,8 +1301,8 @@ paths:
             schema:
               type: object
               required:
-                - jobRequisition
-                - referrer
+              - jobRequisition
+              - referrer
               properties:
                 jobRequisition:
                   $ref: '#/components/schemas/Reference'
@@ -685,6 +1313,18 @@ paths:
                 referralComments:
                   type: string
                   description: Comments from the referrer about the candidate
+            examples:
+              ReferCandidateRequestExample:
+                summary: Default referCandidate request
+                x-microcks-default: true
+                value:
+                  jobRequisition:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  referrer:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  referralComments: Strong technical background with 8+ years of experience in distributed systems.
       responses:
         '201':
           description: Candidate referral submitted successfully
@@ -694,46 +1334,52 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /jobApplications:
     get:
       operationId: listJobApplications
-      summary: Workday Recruiting List job applications
+      summary: Workday Recruiting List Job Applications
       description: >-
         Retrieve a collection of job applications with optional filtering by
         requisition, candidate, or status. Returns application details
         including current stage, disposition, and candidate reference.
       tags:
-        - Job Applications
+      - Job Applications
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
-        - name: jobRequisition
-          in: query
-          description: >-
-            Filter by job requisition Workday ID
-          schema:
-            type: string
-        - name: candidate
-          in: query
-          description: >-
-            Filter by candidate Workday ID
-          schema:
-            type: string
-        - name: stage
-          in: query
-          description: >-
-            Filter by current recruiting stage
-          schema:
-            type: string
-            enum:
-              - Review
-              - Screen
-              - Interview
-              - Assessment
-              - Offer
-              - Background Check
-              - Ready for Hire
-              - Hired
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - name: jobRequisition
+        in: query
+        description: >-
+          Filter by job requisition Workday ID
+        schema:
+          type: string
+        example: string
+      - name: candidate
+        in: query
+        description: >-
+          Filter by candidate Workday ID
+        schema:
+          type: string
+        example: string
+      - name: stage
+        in: query
+        description: >-
+          Filter by current recruiting stage
+        schema:
+          type: string
+          enum:
+          - Review
+          - Screen
+          - Interview
+          - Assessment
+          - Offer
+          - Background Check
+          - Ready for Hire
+          - Hired
+        example: Review
       responses:
         '200':
           description: Job applications retrieved successfully
@@ -749,20 +1395,47 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/JobApplication'
+              examples:
+                ListJobApplications200Example:
+                  summary: Default listJobApplications 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      candidate:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      jobRequisition:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      currentStage: Review
+                      dispositionReason:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      isDispositioned: false
+                      source:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      appliedOn: '2026-05-03T14:30:00Z'
+                      updatedOn: '2026-05-03T14:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /jobApplications/{id}:
     get:
       operationId: getJobApplication
-      summary: Workday Recruiting Get a job application
+      summary: Workday Recruiting Get a Job Application
       description: >-
         Retrieve detailed information for a specific job application including
         candidate reference, job requisition, current recruiting stage,
         disposition status, and application history.
       tags:
-        - Job Applications
+      - Job Applications
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: Job application retrieved successfully
@@ -770,23 +1443,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JobApplication'
+              examples:
+                GetJobApplication200Example:
+                  summary: Default getJobApplication 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    candidate:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    jobRequisition:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    currentStage: Review
+                    dispositionReason:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    isDispositioned: false
+                    source:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    appliedOn: '2026-05-03T14:30:00Z'
+                    updatedOn: '2026-05-03T14:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /jobApplications/{id}/move:
     post:
       operationId: moveCandidateStage
-      summary: Workday Recruiting Move candidate to a different stage
+      summary: Workday Recruiting Move Candidate to a Different Stage
       description: >-
         Move a candidate to a different recruiting stage or disposition stage
         within a job application. Used to advance candidates through the hiring
         pipeline or to disposition candidates who are no longer being
         considered.
       tags:
-        - Job Applications
+      - Job Applications
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       requestBody:
         required: true
         content:
@@ -794,7 +1492,7 @@ paths:
             schema:
               type: object
               required:
-                - stage
+              - stage
               properties:
                 stage:
                   $ref: '#/components/schemas/Reference'
@@ -805,6 +1503,18 @@ paths:
                 comments:
                   type: string
                   description: Comments about the stage transition
+            examples:
+              MoveCandidateStageRequestExample:
+                summary: Default moveCandidateStage request
+                x-microcks-default: true
+                value:
+                  stage:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  reason:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  comments: Strong technical background with 8+ years of experience in distributed systems.
       responses:
         '200':
           description: Candidate moved to new stage successfully
@@ -814,24 +1524,39 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /jobApplications/{id}/offer:
     post:
       operationId: initiateOffer
-      summary: Workday Recruiting Initiate an offer
+      summary: Workday Recruiting Initiate an Offer
       description: >-
         Initiate an employment offer for a job application. Triggers the offer
         approval workflow and generates the offer letter based on the
         configured template.
       tags:
-        - Job Applications
+      - Job Applications
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/OfferCreate'
+            examples:
+              InitiateOfferRequestExample:
+                summary: Default initiateOffer request
+                x-microcks-default: true
+                value:
+                  proposedStartDate: '2026-05-03'
+                  compensationAmount: 120000.0
+                  compensationFrequency: Annual
+                  currency:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  expirationDate: '2026-05-03'
       responses:
         '201':
           description: Offer initiated successfully
@@ -839,43 +1564,67 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Offer'
+              examples:
+                InitiateOffer201Example:
+                  summary: Default initiateOffer 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    jobApplication:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    status: Draft
+                    proposedStartDate: '2026-05-03'
+                    compensationAmount: 120000.0
+                    compensationFrequency: Annual
+                    currency:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    expirationDate: '2026-05-03'
+                    createdOn: '2026-05-03T14:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /jobPostings:
     get:
       operationId: listJobPostings
-      summary: Workday Recruiting List job postings
+      summary: Workday Recruiting List Job Postings
       description: >-
         Retrieve a collection of job postings with optional filtering by
         requisition, posting site, or status. Returns posting details
         including title, description, location, and posting dates.
       tags:
-        - Job Postings
+      - Job Postings
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
-        - name: jobRequisition
-          in: query
-          description: >-
-            Filter by job requisition Workday ID
-          schema:
-            type: string
-        - name: postingSite
-          in: query
-          description: >-
-            Filter by posting site Workday ID
-          schema:
-            type: string
-        - name: active
-          in: query
-          description: >-
-            Filter by active posting status
-          schema:
-            type: boolean
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - name: jobRequisition
+        in: query
+        description: >-
+          Filter by job requisition Workday ID
+        schema:
+          type: string
+        example: string
+      - name: postingSite
+        in: query
+        description: >-
+          Filter by posting site Workday ID
+        schema:
+          type: string
+        example: Corporate Careers
+      - name: active
+        in: query
+        description: >-
+          Filter by active posting status
+        schema:
+          type: boolean
+        example: true
       responses:
         '200':
           description: Job postings retrieved successfully
@@ -891,20 +1640,55 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/JobPosting'
+              examples:
+                ListJobPostings200Example:
+                  summary: Default listJobPostings 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      title: Senior Software Engineer
+                      jobRequisition:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      postingSite:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      description: Strong technical background with 8+ years of experience in distributed systems.
+                      qualifications: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+                      location:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      compensationRange:
+                        minimum: 95000.0
+                        maximum: 145000.0
+                        currency:
+                          id: 11111111-2222-3333-4444-555555555555
+                          descriptor: Senior Software Engineer
+                        frequency: Annual
+                      isActive: true
+                      isPrimary: true
+                      startDate: '2026-05-03'
+                      endDate: '2026-05-03'
+                      postedOn: '2026-05-03T14:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /jobPostings/{id}:
     get:
       operationId: getJobPosting
-      summary: Workday Recruiting Get a job posting
+      summary: Workday Recruiting Get a Job Posting
       description: >-
         Retrieve detailed information for a specific job posting including
         title, description, qualifications, location, compensation, posting
         dates, and associated job requisition.
       tags:
-        - Job Postings
+      - Job Postings
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: Job posting retrieved successfully
@@ -912,20 +1696,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JobPosting'
+              examples:
+                GetJobPosting200Example:
+                  summary: Default getJobPosting 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    title: Senior Software Engineer
+                    jobRequisition:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    postingSite:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    description: Strong technical background with 8+ years of experience in distributed systems.
+                    qualifications: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+                    location:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    compensationRange:
+                      minimum: 95000.0
+                      maximum: 145000.0
+                      currency:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      frequency: Annual
+                    isActive: true
+                    isPrimary: true
+                    startDate: '2026-05-03'
+                    endDate: '2026-05-03'
+                    postedOn: '2026-05-03T14:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateJobPosting
-      summary: Workday Recruiting Update a job posting
+      summary: Workday Recruiting Update a Job Posting
       description: >-
         Update an existing job posting with new content, dates, or
         configuration. Can be used to modify the posting start and end dates.
       tags:
-        - Job Postings
+      - Job Postings
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       requestBody:
         required: true
         content:
@@ -941,6 +1758,13 @@ paths:
                   type: string
                   format: date
                   description: Updated posting end date
+            examples:
+              UpdateJobPostingRequestExample:
+                summary: Default updateJobPosting request
+                x-microcks-default: true
+                value:
+                  startDate: '2026-05-03'
+                  endDate: '2026-05-03'
       responses:
         '200':
           description: Job posting updated successfully
@@ -948,23 +1772,56 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JobPosting'
+              examples:
+                UpdateJobPosting200Example:
+                  summary: Default updateJobPosting 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    title: Senior Software Engineer
+                    jobRequisition:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    postingSite:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    description: Strong technical background with 8+ years of experience in distributed systems.
+                    qualifications: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+                    location:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    compensationRange:
+                      minimum: 95000.0
+                      maximum: 145000.0
+                      currency:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      frequency: Annual
+                    isActive: true
+                    isPrimary: true
+                    startDate: '2026-05-03'
+                    endDate: '2026-05-03'
+                    postedOn: '2026-05-03T14:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /jobPostings/{id}/post:
     post:
       operationId: postJob
-      summary: Workday Recruiting Post a job to career sites
+      summary: Workday Recruiting Post a Job to Career Sites
       description: >-
         Post a job to internal and external career sites. Requires an
         associated job requisition in an open status.
       tags:
-        - Job Postings
+      - Job Postings
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       requestBody:
         required: false
         content:
@@ -977,6 +1834,14 @@ paths:
                   items:
                     $ref: '#/components/schemas/Reference'
                   description: Career sites to post the job to
+            examples:
+              PostJobRequestExample:
+                summary: Default postJob request
+                x-microcks-default: true
+                value:
+                  postingSites:
+                  - id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
       responses:
         '200':
           description: Job posted successfully
@@ -986,17 +1851,20 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /jobPostings/{id}/unpost:
     post:
       operationId: unpostJob
-      summary: Workday Recruiting Unpost a job
+      summary: Workday Recruiting Unpost a Job
       description: >-
         Remove a job posting from career sites. The job posting record is
         retained but is no longer visible to external candidates.
       tags:
-        - Job Postings
+      - Job Postings
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: Job unposted successfully
@@ -1004,39 +1872,45 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /interviews:
     get:
       operationId: listInterviews
-      summary: Workday Recruiting List interviews
+      summary: Workday Recruiting List Interviews
       description: >-
         Retrieve a collection of scheduled interviews with optional filtering
         by job application, interviewer, or date range. Returns interview
         details including schedule, interviewer assignments, and status.
       tags:
-        - Interviews
+      - Interviews
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
-        - name: jobApplication
-          in: query
-          description: >-
-            Filter by job application Workday ID
-          schema:
-            type: string
-        - name: dateFrom
-          in: query
-          description: >-
-            Return interviews scheduled on or after this date
-          schema:
-            type: string
-            format: date
-        - name: dateTo
-          in: query
-          description: >-
-            Return interviews scheduled on or before this date
-          schema:
-            type: string
-            format: date
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - name: jobApplication
+        in: query
+        description: >-
+          Filter by job application Workday ID
+        schema:
+          type: string
+        example: string
+      - name: dateFrom
+        in: query
+        description: >-
+          Return interviews scheduled on or after this date
+        schema:
+          type: string
+          format: date
+        example: '2026-05-03'
+      - name: dateTo
+        in: query
+        description: >-
+          Return interviews scheduled on or before this date
+        schema:
+          type: string
+          format: date
+        example: '2026-05-03'
       responses:
         '200':
           description: Interviews retrieved successfully
@@ -1052,23 +1926,64 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Interview'
+              examples:
+                ListInterviews200Example:
+                  summary: Default listInterviews 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      jobApplication:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      interviewType: Phone Screen
+                      scheduledDate: '2026-05-03'
+                      startTime: 14:30:00
+                      endTime: 14:30:00
+                      interviewers:
+                      - id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      location: San Francisco, CA
+                      webConferenceUrl: https://example.com/resource
+                      status: Scheduled
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: scheduleInterview
-      summary: Workday Recruiting Schedule an interview
+      summary: Workday Recruiting Schedule an Interview
       description: >-
         Create a new interview schedule for a job application. Assigns
         interviewers, sets the date and time, and optionally configures
         web conferencing details.
       tags:
-        - Interviews
+      - Interviews
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/InterviewCreate'
+            examples:
+              ScheduleInterviewRequestExample:
+                summary: Default scheduleInterview request
+                x-microcks-default: true
+                value:
+                  jobApplication:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  interviewType: Phone Screen
+                  scheduledDate: '2026-05-03'
+                  startTime: 14:30:00
+                  endTime: 14:30:00
+                  interviewers:
+                  - id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  location: San Francisco, CA
+                  webConferenceUrl: https://example.com/resource
       responses:
         '201':
           description: Interview scheduled successfully
@@ -1076,22 +1991,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Interview'
+              examples:
+                ScheduleInterview201Example:
+                  summary: Default scheduleInterview 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    jobApplication:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    interviewType: Phone Screen
+                    scheduledDate: '2026-05-03'
+                    startTime: 14:30:00
+                    endTime: 14:30:00
+                    interviewers:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    location: San Francisco, CA
+                    webConferenceUrl: https://example.com/resource
+                    status: Scheduled
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /interviews/{id}:
     get:
       operationId: getInterview
-      summary: Workday Recruiting Get an interview
+      summary: Workday Recruiting Get an Interview
       description: >-
         Retrieve detailed information for a specific interview including
         schedule, interviewers, job application reference, and any
         submitted feedback.
       tags:
-        - Interviews
+      - Interviews
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: Interview retrieved successfully
@@ -1099,21 +2036,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Interview'
+              examples:
+                GetInterview200Example:
+                  summary: Default getInterview 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    jobApplication:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    interviewType: Phone Screen
+                    scheduledDate: '2026-05-03'
+                    startTime: 14:30:00
+                    endTime: 14:30:00
+                    interviewers:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    location: San Francisco, CA
+                    webConferenceUrl: https://example.com/resource
+                    status: Scheduled
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /interviews/{id}/feedback:
     get:
       operationId: listInterviewFeedback
-      summary: Workday Recruiting List interview feedback
+      summary: Workday Recruiting List Interview Feedback
       description: >-
         Retrieve feedback submitted by interviewers for a specific interview
         including ratings, comments, and hiring recommendations.
       tags:
-        - Interviews
+      - Interviews
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: Interview feedback retrieved successfully
@@ -1128,28 +2087,64 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/InterviewFeedback'
+              examples:
+                ListInterviewFeedback200Example:
+                  summary: Default listInterviewFeedback 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      interviewer:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      overallRating: Strong Hire
+                      competencyRatings:
+                      - competency:
+                          id: 11111111-2222-3333-4444-555555555555
+                          descriptor: Senior Software Engineer
+                        rating: 4
+                        comments: Strong technical background with 8+ years of experience in distributed systems.
+                      comments: Strong technical background with 8+ years of experience in distributed systems.
+                      submittedOn: '2026-05-03T14:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: submitInterviewFeedback
-      summary: Workday Recruiting Submit interview feedback
+      summary: Workday Recruiting Submit Interview Feedback
       description: >-
         Submit feedback for a completed interview. Includes overall rating,
         competency assessments, comments, and a hiring recommendation.
         Submitting feedback may optionally advance the candidate to the
         next stage.
       tags:
-        - Interviews
+      - Interviews
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/InterviewFeedbackCreate'
+            examples:
+              SubmitInterviewFeedbackRequestExample:
+                summary: Default submitInterviewFeedback request
+                x-microcks-default: true
+                value:
+                  overallRating: Strong Hire
+                  competencyRatings:
+                  - competency:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    rating: 4
+                    comments: Strong technical background with 8+ years of experience in distributed systems.
+                  comments: Strong technical background with 8+ years of experience in distributed systems.
       responses:
         '201':
           description: Interview feedback submitted successfully
@@ -1157,30 +2152,52 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InterviewFeedback'
+              examples:
+                SubmitInterviewFeedback201Example:
+                  summary: Default submitInterviewFeedback 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    interviewer:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    overallRating: Strong Hire
+                    competencyRatings:
+                    - competency:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      rating: 4
+                      comments: Strong technical background with 8+ years of experience in distributed systems.
+                    comments: Strong technical background with 8+ years of experience in distributed systems.
+                    submittedOn: '2026-05-03T14:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /backgroundChecks:
     get:
       operationId: listBackgroundChecks
-      summary: Workday Recruiting List background checks
+      summary: Workday Recruiting List Background Checks
       description: >-
         Retrieve a collection of background check results for candidates
         including status, provider, and check details.
       tags:
-        - Background Checks
+      - Background Checks
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
-        - name: candidate
-          in: query
-          description: >-
-            Filter by candidate Workday ID
-          schema:
-            type: string
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - name: candidate
+        in: query
+        description: >-
+          Filter by candidate Workday ID
+        schema:
+          type: string
+        example: string
       responses:
         '200':
           description: Background checks retrieved successfully
@@ -1195,22 +2212,61 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/BackgroundCheck'
+              examples:
+                ListBackgroundChecks200Example:
+                  summary: Default listBackgroundChecks 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      candidate:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      jobApplication:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      package:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      status: Initiated
+                      result: Clear
+                      completedOn: '2026-05-03T14:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: submitBackgroundCheck
-      summary: Workday Recruiting Submit a background check result
+      summary: Workday Recruiting Submit a Background Check Result
       description: >-
         Load background check results from an external provider into Workday.
         Associates the results with a candidate and job application.
       tags:
-        - Background Checks
+      - Background Checks
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/BackgroundCheckCreate'
+            examples:
+              SubmitBackgroundCheckRequestExample:
+                summary: Default submitBackgroundCheck request
+                x-microcks-default: true
+                value:
+                  candidate:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  jobApplication:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  package:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  status: Initiated
+                  result: Clear
       responses:
         '201':
           description: Background check result submitted successfully
@@ -1218,22 +2274,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BackgroundCheck'
+              examples:
+                SubmitBackgroundCheck201Example:
+                  summary: Default submitBackgroundCheck 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    candidate:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    jobApplication:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    package:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    status: Initiated
+                    result: Clear
+                    completedOn: '2026-05-03T14:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /backgroundCheckPackages:
     get:
       operationId: listBackgroundCheckPackages
-      summary: Workday Recruiting List background check packages
+      summary: Workday Recruiting List Background Check Packages
       description: >-
         Retrieve available background check packages that can be assigned
         to job requisitions for candidate screening.
       tags:
-        - Background Checks
+      - Background Checks
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
       responses:
         '200':
           description: Background check packages retrieved successfully
@@ -1248,20 +2325,37 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/BackgroundCheckPackage'
+              examples:
+                ListBackgroundCheckPackages200Example:
+                  summary: Default listBackgroundCheckPackages 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      name: Senior Software Engineer
+                      description: Strong technical background with 8+ years of experience in distributed systems.
+                      provider:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      active: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /recruitingAgencies:
     get:
       operationId: listRecruitingAgencies
-      summary: Workday Recruiting List recruiting agencies
+      summary: Workday Recruiting List Recruiting Agencies
       description: >-
         Retrieve a collection of recruiting agencies configured in Workday
         for external candidate sourcing.
       tags:
-        - Recruiting Agencies
+      - Recruiting Agencies
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
       responses:
         '200':
           description: Recruiting agencies retrieved successfully
@@ -1276,19 +2370,36 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/RecruitingAgency'
+              examples:
+                ListRecruitingAgencies200Example:
+                  summary: Default listRecruitingAgencies 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      name: Senior Software Engineer
+                      contactName: Senior Software Engineer
+                      contactEmail: candidate@example.com
+                      phone: +1-415-555-0123
+                      feePercentage: 22.5
+                      active: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /recruitingAgencies/{id}:
     get:
       operationId: getRecruitingAgency
-      summary: Workday Recruiting Get a recruiting agency
+      summary: Workday Recruiting Get a Recruiting Agency
       description: >-
         Retrieve detailed information for a specific recruiting agency
         including contact details, agency users, and fee structure.
       tags:
-        - Recruiting Agencies
+      - Recruiting Agencies
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       responses:
         '200':
           description: Recruiting agency retrieved successfully
@@ -1296,22 +2407,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RecruitingAgency'
+              examples:
+                GetRecruitingAgency200Example:
+                  summary: Default getRecruitingAgency 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    name: Senior Software Engineer
+                    contactName: Senior Software Engineer
+                    contactEmail: candidate@example.com
+                    phone: +1-415-555-0123
+                    feePercentage: 22.5
+                    active: true
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /recruitingAgencies/{id}/candidates:
     post:
       operationId: submitAgencyCandidate
-      summary: Workday Recruiting Submit an agency candidate
+      summary: Workday Recruiting Submit an Agency Candidate
       description: >-
         Submit a candidate from a recruiting agency for a specific job
         requisition. Creates the candidate record and associates it with
         the agency source.
       tags:
-        - Recruiting Agencies
+      - Recruiting Agencies
       parameters:
-        - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/id'
       requestBody:
         required: true
         content:
@@ -1319,8 +2445,8 @@ paths:
             schema:
               type: object
               required:
-                - candidate
-                - jobRequisition
+              - candidate
+              - jobRequisition
               properties:
                 candidate:
                   $ref: '#/components/schemas/CandidateCreate'
@@ -1330,6 +2456,34 @@ paths:
                 agencyUser:
                   $ref: '#/components/schemas/Reference'
                   description: Agency user submitting the candidate
+            examples:
+              SubmitAgencyCandidateRequestExample:
+                summary: Default submitAgencyCandidate request
+                x-microcks-default: true
+                value:
+                  candidate:
+                    firstName: Jordan
+                    lastName: Reyes
+                    email: candidate@example.com
+                    phone: +1-415-555-0123
+                    address:
+                      addressLine1: 123 Market Street
+                      addressLine2: 123 Market Street
+                      city: San Francisco
+                      stateProvince: CA
+                      postalCode: '94105'
+                      country:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                    source:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                  jobRequisition:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  agencyUser:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
       responses:
         '201':
           description: Agency candidate submitted successfully
@@ -1339,18 +2493,21 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /applicants:
     get:
       operationId: listApplicants
-      summary: Workday Recruiting List applicants
+      summary: Workday Recruiting List Applicants
       description: >-
         Retrieve pre-hire and applicant information. Returns applicant records
         that have been processed through the recruiting pipeline.
       tags:
-        - Applicants
+      - Applicants
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
       responses:
         '200':
           description: Applicants retrieved successfully
@@ -1365,18 +2522,40 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Applicant'
+              examples:
+                ListApplicants200Example:
+                  summary: Default listApplicants 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      candidate:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      firstName: Jordan
+                      lastName: Reyes
+                      email: candidate@example.com
+                      hireDate: '2026-05-03'
+                      position:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      status: Open
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /applicants/import:
     post:
       operationId: importApplicants
-      summary: Workday Recruiting Import applicants in bulk
+      summary: Workday Recruiting Import Applicants in Bulk
       description: >-
         High-volume applicant import service for processing multiple
         applicant records asynchronously. Designed for bulk loading of
         applicant data from external systems.
       tags:
-        - Applicants
+      - Applicants
       requestBody:
         required: true
         content:
@@ -1384,13 +2563,29 @@ paths:
             schema:
               type: object
               required:
-                - applicants
+              - applicants
               properties:
                 applicants:
                   type: array
                   items:
                     $ref: '#/components/schemas/ApplicantImport'
                   description: Array of applicant records to import
+            examples:
+              ImportApplicantsRequestExample:
+                summary: Default importApplicants request
+                x-microcks-default: true
+                value:
+                  applicants:
+                  - firstName: Jordan
+                    lastName: Reyes
+                    email: candidate@example.com
+                    phone: +1-415-555-0123
+                    source:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    jobRequisition:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
       responses:
         '202':
           description: Import request accepted for asynchronous processing
@@ -1405,22 +2600,32 @@ paths:
                   status:
                     type: string
                     description: Current status of the import job
+              examples:
+                ImportApplicants202Example:
+                  summary: Default importApplicants 202 response
+                  x-microcks-default: true
+                  value:
+                    importId: 11111111-2222-3333-4444-555555555555
+                    status: Open
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /positions:
     get:
       operationId: listPositions
-      summary: Workday Recruiting List positions
+      summary: Workday Recruiting List Positions
       description: >-
         Retrieve position management positions including position details,
         restrictions, and associated job requisitions.
       tags:
-        - Positions
+      - Positions
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
       responses:
         '200':
           description: Positions retrieved successfully
@@ -1435,23 +2640,74 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Position'
+              examples:
+                ListPositions200Example:
+                  summary: Default listPositions 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      positionId: 11111111-2222-3333-4444-555555555555
+                      title: Senior Software Engineer
+                      jobProfile:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      supervisoryOrganization:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      location:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      workerType:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      timeType: Full time
+                      availableDate: '2026-05-03'
+                      isFilled: false
+                      worker:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createPosition
-      summary: Workday Recruiting Create a position
+      summary: Workday Recruiting Create a Position
       description: >-
         Create and open a new position using the position management staffing
         model. The position can subsequently be associated with a job
         requisition for recruiting.
       tags:
-        - Positions
+      - Positions
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PositionCreate'
+            examples:
+              CreatePositionRequestExample:
+                summary: Default createPosition request
+                x-microcks-default: true
+                value:
+                  title: Senior Software Engineer
+                  jobProfile:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  supervisoryOrganization:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  location:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  workerType:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  timeType: Full time
+                  availableDate: '2026-05-03'
       responses:
         '201':
           description: Position created successfully
@@ -1459,22 +2715,51 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Position'
+              examples:
+                CreatePosition201Example:
+                  summary: Default createPosition 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    positionId: 11111111-2222-3333-4444-555555555555
+                    title: Senior Software Engineer
+                    jobProfile:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    supervisoryOrganization:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    location:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    workerType:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    timeType: Full time
+                    availableDate: '2026-05-03'
+                    isFilled: false
+                    worker:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /jobPostingSites:
     get:
       operationId: listJobPostingSites
-      summary: Workday Recruiting List job posting sites
+      summary: Workday Recruiting List Job Posting Sites
       description: >-
         Retrieve available job posting sites including internal career pages
         and external job boards configured in Workday.
       tags:
-        - Configuration
+      - Configuration
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
       responses:
         '200':
           description: Job posting sites retrieved successfully
@@ -1489,20 +2774,35 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/JobPostingSite'
+              examples:
+                ListJobPostingSites200Example:
+                  summary: Default listJobPostingSites 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      name: Senior Software Engineer
+                      siteUrl: https://example.com/resource
+                      isInternal: false
+                      active: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /questionnaires:
     get:
       operationId: listQuestionnaires
-      summary: Workday Recruiting List questionnaires
+      summary: Workday Recruiting List Questionnaires
       description: >-
         Retrieve recruiting questionnaires used for screening and assessment
         during the application process.
       tags:
-        - Configuration
+      - Configuration
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
       responses:
         '200':
           description: Questionnaires retrieved successfully
@@ -1517,20 +2817,40 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Questionnaire'
+              examples:
+                ListQuestionnaires200Example:
+                  summary: Default listQuestionnaires 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      name: Senior Software Engineer
+                      description: Strong technical background with 8+ years of experience in distributed systems.
+                      questions:
+                      - questionText: Describe a challenging project you've delivered.
+                        questionType: Single Select
+                        required: true
+                        options:
+                        - string
+                      active: true
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /veteranStatuses:
     get:
       operationId: listVeteranStatuses
-      summary: Workday Recruiting List veteran statuses
+      summary: Workday Recruiting List Veteran Statuses
       description: >-
         Retrieve veteran status reference values used for EEO compliance
         reporting and candidate tracking.
       tags:
-        - Configuration
+      - Configuration
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
       responses:
         '200':
           description: Veteran statuses retrieved successfully
@@ -1545,8 +2865,21 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/VeteranStatus'
+              examples:
+                ListVeteranStatuses200Example:
+                  summary: Default listVeteranStatuses 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      name: Senior Software Engineer
+                      code: VET-01
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     oauth2:
@@ -1569,6 +2902,7 @@ components:
       description: Workday ID (WID) of the resource
       schema:
         type: string
+      example: 11111111-2222-3333-4444-555555555555
     limit:
       name: limit
       in: query
@@ -1578,6 +2912,7 @@ components:
         minimum: 1
         maximum: 100
         default: 20
+      example: 20
     offset:
       name: offset
       in: query
@@ -1586,6 +2921,7 @@ components:
         type: integer
         minimum: 0
         default: 0
+      example: 0
   responses:
     BadRequest:
       description: Invalid request parameters or request body
@@ -1613,9 +2949,11 @@ components:
         id:
           type: string
           description: Workday ID (WID) of the referenced resource
+          example: 11111111-2222-3333-4444-555555555555
         descriptor:
           type: string
           description: Display name of the referenced resource
+          example: Senior Software Engineer
     Error:
       type: object
       description: API error response
@@ -1623,9 +2961,11 @@ components:
         error:
           type: string
           description: Error code
+          example: string
         message:
           type: string
           description: Human-readable error message
+          example: string
         details:
           type: array
           items:
@@ -1634,9 +2974,11 @@ components:
               field:
                 type: string
                 description: Field that caused the error
+                example: string
               message:
                 type: string
                 description: Description of the field-level error
+                example: string
     JobRequisition:
       type: object
       description: >-
@@ -1647,21 +2989,25 @@ components:
         id:
           type: string
           description: Workday ID (WID) uniquely identifying the job requisition
+          example: 11111111-2222-3333-4444-555555555555
         requisitionNumber:
           type: string
           description: System-generated requisition reference number
+          example: REQ-100245
         title:
           type: string
           description: Job requisition title
+          example: Senior Software Engineer
         status:
           type: string
           enum:
-            - Open
-            - Filled
-            - Frozen
-            - Closed
-            - Draft
+          - Open
+          - Filled
+          - Frozen
+          - Closed
+          - Draft
           description: Current status of the job requisition
+          example: Open
         jobProfile:
           $ref: '#/components/schemas/Reference'
           description: Job profile associated with the requisition
@@ -1681,6 +3027,7 @@ components:
           type: integer
           minimum: 1
           description: Number of positions to fill
+          example: 3
         location:
           $ref: '#/components/schemas/Reference'
           description: Primary work location for the position
@@ -1690,63 +3037,74 @@ components:
         timeType:
           type: string
           enum:
-            - Full time
-            - Part time
+          - Full time
+          - Part time
           description: Full-time or part-time designation
+          example: Full time
         targetHireDate:
           type: string
           format: date
           description: Target date for filling the position
+          example: '2026-05-03'
         targetEndDate:
           type: string
           format: date
           description: Target end date for temporary positions
+          example: '2026-05-03'
         compensationRange:
           type: object
           properties:
             minimum:
               type: number
               description: Minimum compensation amount
+              example: 95000.0
             maximum:
               type: number
               description: Maximum compensation amount
+              example: 145000.0
             currency:
               $ref: '#/components/schemas/Reference'
               description: Compensation currency
             frequency:
               type: string
               enum:
-                - Annual
-                - Hourly
-                - Monthly
+              - Annual
+              - Hourly
+              - Monthly
               description: Compensation frequency
+              example: Annual
           description: Compensation range for the position
         jobDescription:
           type: string
           description: Detailed job description
+          example: Strong technical background with 8+ years of experience in distributed systems.
         qualifications:
           type: string
           description: Required qualifications for the position
+          example: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
         createdOn:
           type: string
           format: date-time
           description: Timestamp when the requisition was created
+          example: '2026-05-03T14:30:00Z'
         updatedOn:
           type: string
           format: date-time
           description: Timestamp when the requisition was last updated
+          example: '2026-05-03T14:30:00Z'
     JobRequisitionCreate:
       type: object
       description: Request body for creating or updating a job requisition
       required:
-        - title
-        - jobProfile
-        - supervisoryOrganization
-        - numberOfOpenings
+      - title
+      - jobProfile
+      - supervisoryOrganization
+      - numberOfOpenings
       properties:
         title:
           type: string
           description: Job requisition title
+          example: Senior Software Engineer
         jobProfile:
           $ref: '#/components/schemas/Reference'
           description: Job profile to associate with the requisition
@@ -1766,6 +3124,7 @@ components:
           type: integer
           minimum: 1
           description: Number of positions to fill
+          example: 3
         location:
           $ref: '#/components/schemas/Reference'
           description: Primary work location
@@ -1775,19 +3134,23 @@ components:
         timeType:
           type: string
           enum:
-            - Full time
-            - Part time
+          - Full time
+          - Part time
           description: Full-time or part-time designation
+          example: Full time
         targetHireDate:
           type: string
           format: date
           description: Target date for filling the position
+          example: '2026-05-03'
         jobDescription:
           type: string
           description: Detailed job description
+          example: Strong technical background with 8+ years of experience in distributed systems.
         qualifications:
           type: string
           description: Required qualifications
+          example: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
     EvergreenRequisition:
       type: object
       description: >-
@@ -1798,18 +3161,22 @@ components:
         id:
           type: string
           description: Workday ID (WID) uniquely identifying the evergreen requisition
+          example: 11111111-2222-3333-4444-555555555555
         requisitionNumber:
           type: string
           description: System-generated requisition reference number
+          example: REQ-100245
         title:
           type: string
           description: Evergreen requisition title
+          example: Senior Software Engineer
         status:
           type: string
           enum:
-            - Open
-            - Closed
+          - Open
+          - Closed
           description: Current status of the evergreen requisition
+          example: Open
         jobProfile:
           $ref: '#/components/schemas/Reference'
           description: Job profile associated with the requisition
@@ -1828,17 +3195,19 @@ components:
           type: string
           format: date-time
           description: Timestamp when the requisition was created
+          example: '2026-05-03T14:30:00Z'
     EvergreenRequisitionCreate:
       type: object
       description: Request body for creating an evergreen requisition
       required:
-        - title
-        - jobProfile
-        - supervisoryOrganization
+      - title
+      - jobProfile
+      - supervisoryOrganization
       properties:
         title:
           type: string
           description: Evergreen requisition title
+          example: Senior Software Engineer
         jobProfile:
           $ref: '#/components/schemas/Reference'
           description: Job profile to associate
@@ -1858,40 +3227,51 @@ components:
         id:
           type: string
           description: Workday ID (WID) uniquely identifying the candidate
+          example: 11111111-2222-3333-4444-555555555555
         firstName:
           type: string
           description: Candidate first name
+          example: Jordan
         lastName:
           type: string
           description: Candidate last name
+          example: Reyes
         fullName:
           type: string
           description: Candidate full display name
+          example: Jordan Reyes
         email:
           type: string
           format: email
           description: Primary email address
+          example: candidate@example.com
         phone:
           type: string
           description: Primary phone number
+          example: +1-415-555-0123
         address:
           type: object
           properties:
             addressLine1:
               type: string
               description: Street address line 1
+              example: 123 Market Street
             addressLine2:
               type: string
               description: Street address line 2
+              example: 123 Market Street
             city:
               type: string
               description: City
+              example: San Francisco
             stateProvince:
               type: string
               description: State or province
+              example: CA
             postalCode:
               type: string
               description: Postal or ZIP code
+              example: '94105'
             country:
               $ref: '#/components/schemas/Reference'
               description: Country reference
@@ -1912,48 +3292,60 @@ components:
         isInternal:
           type: boolean
           description: Whether the candidate is an existing Workday worker
+          example: false
         createdOn:
           type: string
           format: date-time
           description: Timestamp when the candidate record was created
+          example: '2026-05-03T14:30:00Z'
         updatedOn:
           type: string
           format: date-time
           description: Timestamp when the candidate was last updated
+          example: '2026-05-03T14:30:00Z'
     CandidateCreate:
       type: object
       description: Request body for creating or updating a candidate
       required:
-        - firstName
-        - lastName
-        - email
+      - firstName
+      - lastName
+      - email
       properties:
         firstName:
           type: string
           description: Candidate first name
+          example: Jordan
         lastName:
           type: string
           description: Candidate last name
+          example: Reyes
         email:
           type: string
           format: email
           description: Primary email address
+          example: candidate@example.com
         phone:
           type: string
           description: Primary phone number
+          example: +1-415-555-0123
         address:
           type: object
           properties:
             addressLine1:
               type: string
+              example: 123 Market Street
             addressLine2:
               type: string
+              example: 123 Market Street
             city:
               type: string
+              example: San Francisco
             stateProvince:
               type: string
+              example: CA
             postalCode:
               type: string
+              example: '94105'
             country:
               $ref: '#/components/schemas/Reference'
           description: Candidate mailing address
@@ -1969,26 +3361,31 @@ components:
         id:
           type: string
           description: Workday ID (WID) of the assessment
+          example: 11111111-2222-3333-4444-555555555555
         assessmentCategory:
           $ref: '#/components/schemas/Reference'
           description: Assessment category
         result:
           type: string
           enum:
-            - Pass
-            - Fail
-            - Pending
+          - Pass
+          - Fail
+          - Pending
           description: Assessment outcome
+          example: Pass
         score:
           type: number
           description: Numeric assessment score
+          example: 87.5
         comments:
           type: string
           description: Assessment comments or notes
+          example: Strong technical background with 8+ years of experience in distributed systems.
         assessedOn:
           type: string
           format: date-time
           description: Date and time the assessment was completed
+          example: '2026-05-03T14:30:00Z'
     Attachment:
       type: object
       description: A file attachment associated with a candidate or job application
@@ -1996,27 +3393,33 @@ components:
         id:
           type: string
           description: Workday ID (WID) of the attachment
+          example: 11111111-2222-3333-4444-555555555555
         fileName:
           type: string
           description: Original file name
+          example: resume.pdf
         category:
           type: string
           enum:
-            - Resume
-            - Cover Letter
-            - Portfolio
-            - Other
+          - Resume
+          - Cover Letter
+          - Portfolio
+          - Other
           description: Attachment category
+          example: Resume
         contentType:
           type: string
           description: MIME type of the attachment
+          example: Full time
         fileSize:
           type: integer
           description: File size in bytes
+          example: 245678
         uploadedOn:
           type: string
           format: date-time
           description: Timestamp when the attachment was uploaded
+          example: '2026-05-03T14:30:00Z'
     JobApplication:
       type: object
       description: >-
@@ -2027,6 +3430,7 @@ components:
         id:
           type: string
           description: Workday ID (WID) uniquely identifying the job application
+          example: 11111111-2222-3333-4444-555555555555
         candidate:
           $ref: '#/components/schemas/Reference'
           description: Candidate associated with this application
@@ -2036,21 +3440,23 @@ components:
         currentStage:
           type: string
           enum:
-            - Review
-            - Screen
-            - Interview
-            - Assessment
-            - Offer
-            - Background Check
-            - Ready for Hire
-            - Hired
+          - Review
+          - Screen
+          - Interview
+          - Assessment
+          - Offer
+          - Background Check
+          - Ready for Hire
+          - Hired
           description: Current recruiting stage
+          example: Review
         dispositionReason:
           $ref: '#/components/schemas/Reference'
           description: Reason for disposition if the candidate was rejected
         isDispositioned:
           type: boolean
           description: Whether the candidate has been dispositioned
+          example: false
         source:
           $ref: '#/components/schemas/Reference'
           description: Application source
@@ -2058,10 +3464,12 @@ components:
           type: string
           format: date-time
           description: Date and time the application was submitted
+          example: '2026-05-03T14:30:00Z'
         updatedOn:
           type: string
           format: date-time
           description: Timestamp when the application was last updated
+          example: '2026-05-03T14:30:00Z'
     Offer:
       type: object
       description: >-
@@ -2071,34 +3479,39 @@ components:
         id:
           type: string
           description: Workday ID (WID) of the offer
+          example: 11111111-2222-3333-4444-555555555555
         jobApplication:
           $ref: '#/components/schemas/Reference'
           description: Job application associated with the offer
         status:
           type: string
           enum:
-            - Draft
-            - Pending Approval
-            - Approved
-            - Extended
-            - Accepted
-            - Declined
-            - Rescinded
+          - Draft
+          - Pending Approval
+          - Approved
+          - Extended
+          - Accepted
+          - Declined
+          - Rescinded
           description: Current offer status
+          example: Draft
         proposedStartDate:
           type: string
           format: date
           description: Proposed start date for employment
+          example: '2026-05-03'
         compensationAmount:
           type: number
           description: Offered compensation amount
+          example: 120000.0
         compensationFrequency:
           type: string
           enum:
-            - Annual
-            - Hourly
-            - Monthly
+          - Annual
+          - Hourly
+          - Monthly
           description: Compensation frequency
+          example: Annual
         currency:
           $ref: '#/components/schemas/Reference'
           description: Compensation currency
@@ -2106,30 +3519,35 @@ components:
           type: string
           format: date
           description: Date the offer expires
+          example: '2026-05-03'
         createdOn:
           type: string
           format: date-time
           description: Timestamp when the offer was created
+          example: '2026-05-03T14:30:00Z'
     OfferCreate:
       type: object
       description: Request body for initiating an employment offer
       required:
-        - proposedStartDate
+      - proposedStartDate
       properties:
         proposedStartDate:
           type: string
           format: date
           description: Proposed start date for employment
+          example: '2026-05-03'
         compensationAmount:
           type: number
           description: Offered compensation amount
+          example: 120000.0
         compensationFrequency:
           type: string
           enum:
-            - Annual
-            - Hourly
-            - Monthly
+          - Annual
+          - Hourly
+          - Monthly
           description: Compensation frequency
+          example: Annual
         currency:
           $ref: '#/components/schemas/Reference'
           description: Compensation currency
@@ -2137,6 +3555,7 @@ components:
           type: string
           format: date
           description: Date the offer expires
+          example: '2026-05-03'
     JobPosting:
       type: object
       description: >-
@@ -2147,9 +3566,11 @@ components:
         id:
           type: string
           description: Workday ID (WID) uniquely identifying the job posting
+          example: 11111111-2222-3333-4444-555555555555
         title:
           type: string
           description: Job posting title
+          example: Senior Software Engineer
         jobRequisition:
           $ref: '#/components/schemas/Reference'
           description: Job requisition associated with the posting
@@ -2159,9 +3580,11 @@ components:
         description:
           type: string
           description: Full job posting description including responsibilities
+          example: Strong technical background with 8+ years of experience in distributed systems.
         qualifications:
           type: string
           description: Required qualifications and skills
+          example: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
         location:
           $ref: '#/components/schemas/Reference'
           description: Primary work location
@@ -2171,36 +3594,44 @@ components:
             minimum:
               type: number
               description: Minimum compensation amount
+              example: 95000.0
             maximum:
               type: number
               description: Maximum compensation amount
+              example: 145000.0
             currency:
               $ref: '#/components/schemas/Reference'
             frequency:
               type: string
               enum:
-                - Annual
-                - Hourly
-                - Monthly
+              - Annual
+              - Hourly
+              - Monthly
+              example: Annual
           description: Compensation range displayed on the posting
         isActive:
           type: boolean
           description: Whether the posting is currently active
+          example: true
         isPrimary:
           type: boolean
           description: Whether this is the primary posting for the requisition
+          example: true
         startDate:
           type: string
           format: date
           description: Date the posting becomes active
+          example: '2026-05-03'
         endDate:
           type: string
           format: date
           description: Date the posting expires
+          example: '2026-05-03'
         postedOn:
           type: string
           format: date-time
           description: Timestamp when the job was posted
+          example: '2026-05-03T14:30:00Z'
     Interview:
       type: object
       description: >-
@@ -2210,30 +3641,35 @@ components:
         id:
           type: string
           description: Workday ID (WID) uniquely identifying the interview
+          example: 11111111-2222-3333-4444-555555555555
         jobApplication:
           $ref: '#/components/schemas/Reference'
           description: Job application being evaluated
         interviewType:
           type: string
           enum:
-            - Phone Screen
-            - Video Interview
-            - In-Person Interview
-            - Panel Interview
-            - Technical Interview
+          - Phone Screen
+          - Video Interview
+          - In-Person Interview
+          - Panel Interview
+          - Technical Interview
           description: Type of interview
+          example: Phone Screen
         scheduledDate:
           type: string
           format: date
           description: Scheduled date of the interview
+          example: '2026-05-03'
         startTime:
           type: string
           format: time
           description: Start time of the interview
+          example: 14:30:00
         endTime:
           type: string
           format: time
           description: End time of the interview
+          example: 14:30:00
         interviewers:
           type: array
           items:
@@ -2242,27 +3678,30 @@ components:
         location:
           type: string
           description: Interview location or virtual meeting details
+          example: San Francisco, CA
         webConferenceUrl:
           type: string
           format: uri
           description: URL for web conference interview
+          example: https://example.com/resource
         status:
           type: string
           enum:
-            - Scheduled
-            - Completed
-            - Canceled
-            - No Show
+          - Scheduled
+          - Completed
+          - Canceled
+          - No Show
           description: Current interview status
+          example: Scheduled
     InterviewCreate:
       type: object
       description: Request body for scheduling an interview
       required:
-        - jobApplication
-        - scheduledDate
-        - startTime
-        - endTime
-        - interviewers
+      - jobApplication
+      - scheduledDate
+      - startTime
+      - endTime
+      - interviewers
       properties:
         jobApplication:
           $ref: '#/components/schemas/Reference'
@@ -2270,24 +3709,28 @@ components:
         interviewType:
           type: string
           enum:
-            - Phone Screen
-            - Video Interview
-            - In-Person Interview
-            - Panel Interview
-            - Technical Interview
+          - Phone Screen
+          - Video Interview
+          - In-Person Interview
+          - Panel Interview
+          - Technical Interview
           description: Type of interview
+          example: Phone Screen
         scheduledDate:
           type: string
           format: date
           description: Scheduled date of the interview
+          example: '2026-05-03'
         startTime:
           type: string
           format: time
           description: Start time
+          example: 14:30:00
         endTime:
           type: string
           format: time
           description: End time
+          example: 14:30:00
         interviewers:
           type: array
           items:
@@ -2296,10 +3739,12 @@ components:
         location:
           type: string
           description: Interview location
+          example: San Francisco, CA
         webConferenceUrl:
           type: string
           format: uri
           description: URL for web conference
+          example: https://example.com/resource
     InterviewFeedback:
       type: object
       description: >-
@@ -2309,18 +3754,20 @@ components:
         id:
           type: string
           description: Workday ID (WID) of the feedback record
+          example: 11111111-2222-3333-4444-555555555555
         interviewer:
           $ref: '#/components/schemas/Reference'
           description: Interviewer who submitted the feedback
         overallRating:
           type: string
           enum:
-            - Strong Hire
-            - Hire
-            - No Decision
-            - Do Not Hire
-            - Strong Do Not Hire
+          - Strong Hire
+          - Hire
+          - No Decision
+          - Do Not Hire
+          - Strong Do Not Hire
           description: Overall hiring recommendation
+          example: Strong Hire
         competencyRatings:
           type: array
           items:
@@ -2334,39 +3781,44 @@ components:
                 minimum: 1
                 maximum: 5
                 description: Rating value (1-5 scale)
+                example: 4
               comments:
                 type: string
                 description: Competency-level comments
+                example: Strong technical background with 8+ years of experience in distributed systems.
           description: Individual competency ratings
         comments:
           type: string
           description: General interview feedback comments
+          example: Strong technical background with 8+ years of experience in distributed systems.
         submittedOn:
           type: string
           format: date-time
           description: Timestamp when the feedback was submitted
+          example: '2026-05-03T14:30:00Z'
     InterviewFeedbackCreate:
       type: object
       description: Request body for submitting interview feedback
       required:
-        - overallRating
+      - overallRating
       properties:
         overallRating:
           type: string
           enum:
-            - Strong Hire
-            - Hire
-            - No Decision
-            - Do Not Hire
-            - Strong Do Not Hire
+          - Strong Hire
+          - Hire
+          - No Decision
+          - Do Not Hire
+          - Strong Do Not Hire
           description: Overall hiring recommendation
+          example: Strong Hire
         competencyRatings:
           type: array
           items:
             type: object
             required:
-              - competency
-              - rating
+            - competency
+            - rating
             properties:
               competency:
                 $ref: '#/components/schemas/Reference'
@@ -2374,12 +3826,15 @@ components:
                 type: integer
                 minimum: 1
                 maximum: 5
+                example: 4
               comments:
                 type: string
+                example: Strong technical background with 8+ years of experience in distributed systems.
           description: Individual competency ratings
         comments:
           type: string
           description: General interview feedback comments
+          example: Strong technical background with 8+ years of experience in distributed systems.
     BackgroundCheck:
       type: object
       description: >-
@@ -2389,6 +3844,7 @@ components:
         id:
           type: string
           description: Workday ID (WID) of the background check
+          example: 11111111-2222-3333-4444-555555555555
         candidate:
           $ref: '#/components/schemas/Reference'
           description: Candidate being screened
@@ -2401,29 +3857,32 @@ components:
         status:
           type: string
           enum:
-            - Initiated
-            - In Progress
-            - Completed
-            - Canceled
+          - Initiated
+          - In Progress
+          - Completed
+          - Canceled
           description: Current status of the background check
+          example: Initiated
         result:
           type: string
           enum:
-            - Clear
-            - Consider
-            - Adverse Action
+          - Clear
+          - Consider
+          - Adverse Action
           description: Background check result
+          example: Clear
         completedOn:
           type: string
           format: date-time
           description: Timestamp when the check was completed
+          example: '2026-05-03T14:30:00Z'
     BackgroundCheckCreate:
       type: object
       description: Request body for submitting background check results
       required:
-        - candidate
-        - jobApplication
-        - status
+      - candidate
+      - jobApplication
+      - status
       properties:
         candidate:
           $ref: '#/components/schemas/Reference'
@@ -2437,18 +3896,20 @@ components:
         status:
           type: string
           enum:
-            - Initiated
-            - In Progress
-            - Completed
-            - Canceled
+          - Initiated
+          - In Progress
+          - Completed
+          - Canceled
           description: Background check status
+          example: Initiated
         result:
           type: string
           enum:
-            - Clear
-            - Consider
-            - Adverse Action
+          - Clear
+          - Consider
+          - Adverse Action
           description: Background check result
+          example: Clear
     BackgroundCheckPackage:
       type: object
       description: >-
@@ -2458,18 +3919,22 @@ components:
         id:
           type: string
           description: Workday ID (WID) of the package
+          example: 11111111-2222-3333-4444-555555555555
         name:
           type: string
           description: Package name
+          example: Senior Software Engineer
         description:
           type: string
           description: Description of the checks included
+          example: Strong technical background with 8+ years of experience in distributed systems.
         provider:
           $ref: '#/components/schemas/Reference'
           description: Background check provider
         active:
           type: boolean
           description: Whether the package is currently active
+          example: true
     RecruitingAgency:
       type: object
       description: >-
@@ -2479,27 +3944,34 @@ components:
         id:
           type: string
           description: Workday ID (WID) of the recruiting agency
+          example: 11111111-2222-3333-4444-555555555555
         name:
           type: string
           description: Agency name
+          example: Senior Software Engineer
         contactName:
           type: string
           description: Primary contact name
+          example: Senior Software Engineer
         contactEmail:
           type: string
           format: email
           description: Primary contact email
+          example: candidate@example.com
         phone:
           type: string
           description: Agency phone number
+          example: +1-415-555-0123
         feePercentage:
           type: number
           minimum: 0
           maximum: 100
           description: Agency fee as a percentage of first-year compensation
+          example: 22.5
         active:
           type: boolean
           description: Whether the agency relationship is currently active
+          example: true
     Applicant:
       type: object
       description: >-
@@ -2509,50 +3981,60 @@ components:
         id:
           type: string
           description: Workday ID (WID) of the applicant record
+          example: 11111111-2222-3333-4444-555555555555
         candidate:
           $ref: '#/components/schemas/Reference'
           description: Associated candidate record
         firstName:
           type: string
           description: Applicant first name
+          example: Jordan
         lastName:
           type: string
           description: Applicant last name
+          example: Reyes
         email:
           type: string
           format: email
           description: Primary email address
+          example: candidate@example.com
         hireDate:
           type: string
           format: date
           description: Planned or actual hire date
+          example: '2026-05-03'
         position:
           $ref: '#/components/schemas/Reference'
           description: Position being hired into
         status:
           type: string
           description: Applicant processing status
+          example: Open
     ApplicantImport:
       type: object
       description: Request body for a single applicant in bulk import
       required:
-        - firstName
-        - lastName
-        - email
+      - firstName
+      - lastName
+      - email
       properties:
         firstName:
           type: string
           description: Applicant first name
+          example: Jordan
         lastName:
           type: string
           description: Applicant last name
+          example: Reyes
         email:
           type: string
           format: email
           description: Primary email address
+          example: candidate@example.com
         phone:
           type: string
           description: Phone number
+          example: +1-415-555-0123
         source:
           $ref: '#/components/schemas/Reference'
           description: Application source
@@ -2568,12 +4050,15 @@ components:
         id:
           type: string
           description: Workday ID (WID) of the position
+          example: 11111111-2222-3333-4444-555555555555
         positionId:
           type: string
           description: System-generated position identifier
+          example: 11111111-2222-3333-4444-555555555555
         title:
           type: string
           description: Position title
+          example: Senior Software Engineer
         jobProfile:
           $ref: '#/components/schemas/Reference'
           description: Job profile for the position
@@ -2589,16 +4074,19 @@ components:
         timeType:
           type: string
           enum:
-            - Full time
-            - Part time
+          - Full time
+          - Part time
           description: Full-time or part-time designation
+          example: Full time
         availableDate:
           type: string
           format: date
           description: Date the position becomes available
+          example: '2026-05-03'
         isFilled:
           type: boolean
           description: Whether the position is currently filled
+          example: false
         worker:
           $ref: '#/components/schemas/Reference'
           description: Worker currently occupying the position (if filled)
@@ -2606,12 +4094,13 @@ components:
       type: object
       description: Request body for creating a position
       required:
-        - jobProfile
-        - supervisoryOrganization
+      - jobProfile
+      - supervisoryOrganization
       properties:
         title:
           type: string
           description: Position title
+          example: Senior Software Engineer
         jobProfile:
           $ref: '#/components/schemas/Reference'
           description: Job profile
@@ -2627,13 +4116,15 @@ components:
         timeType:
           type: string
           enum:
-            - Full time
-            - Part time
+          - Full time
+          - Part time
           description: Full-time or part-time
+          example: Full time
         availableDate:
           type: string
           format: date
           description: Date the position becomes available
+          example: '2026-05-03'
     JobPostingSite:
       type: object
       description: >-
@@ -2643,19 +4134,24 @@ components:
         id:
           type: string
           description: Workday ID (WID) of the posting site
+          example: 11111111-2222-3333-4444-555555555555
         name:
           type: string
           description: Posting site name
+          example: Senior Software Engineer
         siteUrl:
           type: string
           format: uri
           description: URL of the posting site
+          example: https://example.com/resource
         isInternal:
           type: boolean
           description: Whether this is an internal career site
+          example: false
         active:
           type: boolean
           description: Whether the posting site is currently active
+          example: true
     Questionnaire:
       type: object
       description: >-
@@ -2665,12 +4161,15 @@ components:
         id:
           type: string
           description: Workday ID (WID) of the questionnaire
+          example: 11111111-2222-3333-4444-555555555555
         name:
           type: string
           description: Questionnaire name
+          example: Senior Software Engineer
         description:
           type: string
           description: Description of the questionnaire purpose
+          example: Strong technical background with 8+ years of experience in distributed systems.
         questions:
           type: array
           items:
@@ -2679,17 +4178,20 @@ components:
               questionText:
                 type: string
                 description: The question text
+                example: Describe a challenging project you've delivered.
               questionType:
                 type: string
                 enum:
-                  - Single Select
-                  - Multi Select
-                  - Free Text
-                  - Numeric
+                - Single Select
+                - Multi Select
+                - Free Text
+                - Numeric
                 description: Type of response expected
+                example: Single Select
               required:
                 type: boolean
                 description: Whether the question requires a response
+                example: true
               options:
                 type: array
                 items:
@@ -2699,6 +4201,7 @@ components:
         active:
           type: boolean
           description: Whether the questionnaire is currently active
+          example: true
     VeteranStatus:
       type: object
       description: >-
@@ -2708,9 +4211,12 @@ components:
         id:
           type: string
           description: Workday ID (WID) of the veteran status
+          example: 11111111-2222-3333-4444-555555555555
         name:
           type: string
           description: Veteran status display name
+          example: Senior Software Engineer
         code:
           type: string
           description: Status code for reporting
+          example: VET-01

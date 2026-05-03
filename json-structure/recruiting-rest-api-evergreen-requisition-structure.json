@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-structure/recruiting-rest-api-evergreen-requisition-structure.json",
+  "name": "EvergreenRequisition",
+  "description": "An evergreen requisition represents an ongoing hiring need without a specific number of openings or close date, used to maintain a continuous candidate pipeline.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Workday ID (WID) uniquely identifying the evergreen requisition",
+      "example": "11111111-2222-3333-4444-555555555555"
+    },
+    "requisitionNumber": {
+      "type": "string",
+      "description": "System-generated requisition reference number",
+      "example": "REQ-100245"
+    },
+    "title": {
+      "type": "string",
+      "description": "Evergreen requisition title",
+      "example": "Senior Software Engineer"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Open",
+        "Closed"
+      ],
+      "description": "Current status of the evergreen requisition",
+      "example": "Open"
+    },
+    "jobProfile": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "supervisoryOrganization": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "hiringManager": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "linkedJobRequisitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "A reference to a related Workday resource",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Workday ID (WID) of the referenced resource",
+            "example": "11111111-2222-3333-4444-555555555555"
+          },
+          "descriptor": {
+            "type": "string",
+            "description": "Display name of the referenced resource",
+            "example": "Senior Software Engineer"
+          }
+        }
+      },
+      "description": "Job requisitions linked to this evergreen requisition"
+    },
+    "createdOn": {
+      "type": "datetime",
+      "description": "Timestamp when the requisition was created",
+      "example": "2026-05-03T14:30:00Z"
+    }
+  }
+}

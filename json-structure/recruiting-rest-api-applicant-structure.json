@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-structure/recruiting-rest-api-applicant-structure.json",
+  "name": "Applicant",
+  "description": "A pre-hire or applicant record in Workday representing an individual who has been processed through the recruiting pipeline toward hire.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Workday ID (WID) of the applicant record",
+      "example": "11111111-2222-3333-4444-555555555555"
+    },
+    "candidate": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "firstName": {
+      "type": "string",
+      "description": "Applicant first name",
+      "example": "Jordan"
+    },
+    "lastName": {
+      "type": "string",
+      "description": "Applicant last name",
+      "example": "Reyes"
+    },
+    "email": {
+      "type": "string",
+      "description": "Primary email address",
+      "example": "candidate@example.com"
+    },
+    "hireDate": {
+      "type": "date",
+      "description": "Planned or actual hire date",
+      "example": "2026-05-03"
+    },
+    "position": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "description": "Applicant processing status",
+      "example": "Open"
+    }
+  }
+}

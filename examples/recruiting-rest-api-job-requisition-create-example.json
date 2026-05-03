@@ -1,0 +1,36 @@
+{
+  "title": "Senior Software Engineer",
+  "jobProfile": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "position": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "supervisoryOrganization": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "hiringManager": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "recruiter": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "numberOfOpenings": 3,
+  "location": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "workerType": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "timeType": "Full time",
+  "targetHireDate": "2026-05-03",
+  "jobDescription": "Strong technical background with 8+ years of experience in distributed systems.",
+  "qualifications": "Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development."
+}

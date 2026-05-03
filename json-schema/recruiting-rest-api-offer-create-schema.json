@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OfferCreate",
+  "description": "Request body for initiating an employment offer",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-schema/recruiting-rest-api-offer-create-schema.json",
+  "type": "object",
+  "properties": {
+    "proposedStartDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Proposed start date for employment",
+      "example": "2026-05-03"
+    },
+    "compensationAmount": {
+      "type": "number",
+      "description": "Offered compensation amount",
+      "example": 120000.0
+    },
+    "compensationFrequency": {
+      "type": "string",
+      "enum": [
+        "Annual",
+        "Hourly",
+        "Monthly"
+      ],
+      "description": "Compensation frequency",
+      "example": "Annual"
+    },
+    "currency": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "expirationDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the offer expires",
+      "example": "2026-05-03"
+    }
+  },
+  "required": [
+    "proposedStartDate"
+  ]
+}

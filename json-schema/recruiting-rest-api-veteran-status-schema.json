@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VeteranStatus",
+  "description": "A veteran status reference value for EEO compliance reporting and candidate self-identification.",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-schema/recruiting-rest-api-veteran-status-schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Workday ID (WID) of the veteran status",
+      "example": "11111111-2222-3333-4444-555555555555"
+    },
+    "name": {
+      "type": "string",
+      "description": "Veteran status display name",
+      "example": "Senior Software Engineer"
+    },
+    "code": {
+      "type": "string",
+      "description": "Status code for reporting",
+      "example": "VET-01"
+    }
+  }
+}

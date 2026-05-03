@@ -1,0 +1,28 @@
+{
+  "id": "11111111-2222-3333-4444-555555555555",
+  "positionId": "11111111-2222-3333-4444-555555555555",
+  "title": "Senior Software Engineer",
+  "jobProfile": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "supervisoryOrganization": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "location": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "workerType": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "timeType": "Full time",
+  "availableDate": "2026-05-03",
+  "isFilled": false,
+  "worker": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  }
+}

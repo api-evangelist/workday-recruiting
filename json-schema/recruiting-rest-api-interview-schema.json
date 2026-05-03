@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Interview",
+  "description": "An interview represents a scheduled meeting between a candidate and one or more interviewers as part of the recruiting evaluation process.",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-schema/recruiting-rest-api-interview-schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Workday ID (WID) uniquely identifying the interview",
+      "example": "11111111-2222-3333-4444-555555555555"
+    },
+    "jobApplication": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "interviewType": {
+      "type": "string",
+      "enum": [
+        "Phone Screen",
+        "Video Interview",
+        "In-Person Interview",
+        "Panel Interview",
+        "Technical Interview"
+      ],
+      "description": "Type of interview",
+      "example": "Phone Screen"
+    },
+    "scheduledDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Scheduled date of the interview",
+      "example": "2026-05-03"
+    },
+    "startTime": {
+      "type": "string",
+      "format": "time",
+      "description": "Start time of the interview",
+      "example": 52200
+    },
+    "endTime": {
+      "type": "string",
+      "format": "time",
+      "description": "End time of the interview",
+      "example": 52200
+    },
+    "interviewers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "A reference to a related Workday resource",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Workday ID (WID) of the referenced resource",
+            "example": "11111111-2222-3333-4444-555555555555"
+          },
+          "descriptor": {
+            "type": "string",
+            "description": "Display name of the referenced resource",
+            "example": "Senior Software Engineer"
+          }
+        }
+      },
+      "description": "Workers assigned as interviewers"
+    },
+    "location": {
+      "type": "string",
+      "description": "Interview location or virtual meeting details",
+      "example": "San Francisco, CA"
+    },
+    "webConferenceUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL for web conference interview",
+      "example": "https://example.com/resource"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Scheduled",
+        "Completed",
+        "Canceled",
+        "No Show"
+      ],
+      "description": "Current interview status",
+      "example": "Scheduled"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "id": "11111111-2222-3333-4444-555555555555",
+  "title": "Senior Software Engineer",
+  "jobRequisition": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "postingSite": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "description": "Strong technical background with 8+ years of experience in distributed systems.",
+  "qualifications": "Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.",
+  "location": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "compensationRange": {
+    "minimum": 95000.0,
+    "maximum": 145000.0,
+    "currency": {
+      "id": "11111111-2222-3333-4444-555555555555",
+      "descriptor": "Senior Software Engineer"
+    },
+    "frequency": "Annual"
+  },
+  "isActive": true,
+  "isPrimary": true,
+  "startDate": "2026-05-03",
+  "endDate": "2026-05-03",
+  "postedOn": "2026-05-03T14:30:00Z"
+}

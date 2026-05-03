@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ApplicantImport",
+  "description": "Request body for a single applicant in bulk import",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-schema/recruiting-rest-api-applicant-import-schema.json",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "description": "Applicant first name",
+      "example": "Jordan"
+    },
+    "lastName": {
+      "type": "string",
+      "description": "Applicant last name",
+      "example": "Reyes"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Primary email address",
+      "example": "candidate@example.com"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Phone number",
+      "example": "+1-415-555-0123"
+    },
+    "source": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "jobRequisition": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    }
+  },
+  "required": [
+    "firstName",
+    "lastName",
+    "email"
+  ]
+}

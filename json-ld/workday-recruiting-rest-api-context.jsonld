@@ -1,0 +1,443 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "workday": "https://community.workday.com/schemas/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "Applicant": "workday:Applicant",
+    "ApplicantImport": "workday:ApplicantImport",
+    "Attachment": "workday:Attachment",
+    "BackgroundCheck": "workday:BackgroundCheck",
+    "BackgroundCheckCreate": "workday:BackgroundCheckCreate",
+    "BackgroundCheckPackage": "workday:BackgroundCheckPackage",
+    "Candidate": "workday:Candidate",
+    "CandidateAssessment": "workday:CandidateAssessment",
+    "CandidateCreate": "workday:CandidateCreate",
+    "EvergreenRequisition": "workday:EvergreenRequisition",
+    "EvergreenRequisitionCreate": "workday:EvergreenRequisitionCreate",
+    "Interview": "workday:Interview",
+    "InterviewCreate": "workday:InterviewCreate",
+    "InterviewFeedback": "workday:InterviewFeedback",
+    "InterviewFeedbackCreate": "workday:InterviewFeedbackCreate",
+    "JobApplication": "workday:JobApplication",
+    "JobPosting": "workday:JobPosting",
+    "JobPostingSite": "workday:JobPostingSite",
+    "JobRequisition": "workday:JobRequisition",
+    "JobRequisitionCreate": "workday:JobRequisitionCreate",
+    "Offer": "workday:Offer",
+    "OfferCreate": "workday:OfferCreate",
+    "Position": "workday:Position",
+    "PositionCreate": "workday:PositionCreate",
+    "Questionnaire": "workday:Questionnaire",
+    "RecruitingAgency": "workday:RecruitingAgency",
+    "Reference": "workday:Reference",
+    "VeteranStatus": "workday:VeteranStatus",
+    "active": {
+      "@id": "workday:active",
+      "@type": "xsd:boolean"
+    },
+    "address": {
+      "@id": "workday:address",
+      "@type": "@id"
+    },
+    "addressLine1": {
+      "@id": "workday:address_line1",
+      "@type": "xsd:string"
+    },
+    "addressLine2": {
+      "@id": "workday:address_line2",
+      "@type": "xsd:string"
+    },
+    "appliedOn": {
+      "@id": "workday:applied_on",
+      "@type": "xsd:dateTime"
+    },
+    "assessedOn": {
+      "@id": "workday:assessed_on",
+      "@type": "xsd:dateTime"
+    },
+    "assessmentCategory": {
+      "@id": "workday:assessment_category",
+      "@type": "@id"
+    },
+    "availableDate": {
+      "@id": "workday:available_date",
+      "@type": "xsd:date"
+    },
+    "candidate": {
+      "@id": "workday:candidate",
+      "@type": "@id"
+    },
+    "category": {
+      "@id": "workday:category",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "workday:city",
+      "@type": "xsd:string"
+    },
+    "code": {
+      "@id": "workday:code",
+      "@type": "xsd:string"
+    },
+    "comments": {
+      "@id": "workday:comments",
+      "@type": "xsd:string"
+    },
+    "compensationAmount": {
+      "@id": "workday:compensation_amount",
+      "@type": "xsd:decimal"
+    },
+    "compensationFrequency": {
+      "@id": "workday:compensation_frequency",
+      "@type": "xsd:string"
+    },
+    "compensationRange": {
+      "@id": "workday:compensation_range",
+      "@type": "@id"
+    },
+    "competency": {
+      "@id": "workday:competency",
+      "@type": "@id"
+    },
+    "competencyRatings": {
+      "@id": "workday:competency_ratings",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "completedOn": {
+      "@id": "workday:completed_on",
+      "@type": "xsd:dateTime"
+    },
+    "contactEmail": {
+      "@id": "workday:contact_email",
+      "@type": "xsd:string"
+    },
+    "contactName": {
+      "@id": "workday:contact_name",
+      "@type": "xsd:string"
+    },
+    "contentType": {
+      "@id": "workday:content_type",
+      "@type": "xsd:string"
+    },
+    "country": {
+      "@id": "workday:country",
+      "@type": "@id"
+    },
+    "createdOn": {
+      "@id": "dcterms:created",
+      "@type": "xsd:dateTime"
+    },
+    "currency": {
+      "@id": "workday:currency",
+      "@type": "@id"
+    },
+    "currentStage": {
+      "@id": "workday:current_stage",
+      "@type": "xsd:string"
+    },
+    "description": "schema:description",
+    "descriptor": {
+      "@id": "workday:descriptor",
+      "@type": "xsd:string"
+    },
+    "dispositionReason": {
+      "@id": "workday:disposition_reason",
+      "@type": "@id"
+    },
+    "email": "schema:email",
+    "endDate": {
+      "@id": "workday:end_date",
+      "@type": "xsd:date"
+    },
+    "endTime": {
+      "@id": "workday:end_time",
+      "@type": "xsd:time"
+    },
+    "expirationDate": {
+      "@id": "workday:expiration_date",
+      "@type": "xsd:date"
+    },
+    "feePercentage": {
+      "@id": "workday:fee_percentage",
+      "@type": "xsd:decimal"
+    },
+    "fileName": {
+      "@id": "workday:file_name",
+      "@type": "xsd:string"
+    },
+    "fileSize": {
+      "@id": "workday:file_size",
+      "@type": "xsd:integer"
+    },
+    "firstName": {
+      "@id": "workday:first_name",
+      "@type": "xsd:string"
+    },
+    "frequency": {
+      "@id": "workday:frequency",
+      "@type": "xsd:string"
+    },
+    "fullName": {
+      "@id": "workday:full_name",
+      "@type": "xsd:string"
+    },
+    "hireDate": {
+      "@id": "workday:hire_date",
+      "@type": "xsd:date"
+    },
+    "hiringManager": {
+      "@id": "workday:hiring_manager",
+      "@type": "@id"
+    },
+    "id": {
+      "@id": "workday:id",
+      "@type": "xsd:string"
+    },
+    "interviewType": {
+      "@id": "workday:interview_type",
+      "@type": "xsd:string"
+    },
+    "interviewer": {
+      "@id": "workday:interviewer",
+      "@type": "@id"
+    },
+    "interviewers": {
+      "@id": "workday:interviewers",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "isActive": {
+      "@id": "workday:is_active",
+      "@type": "xsd:boolean"
+    },
+    "isDispositioned": {
+      "@id": "workday:is_dispositioned",
+      "@type": "xsd:boolean"
+    },
+    "isFilled": {
+      "@id": "workday:is_filled",
+      "@type": "xsd:boolean"
+    },
+    "isInternal": {
+      "@id": "workday:is_internal",
+      "@type": "xsd:boolean"
+    },
+    "isPrimary": {
+      "@id": "workday:is_primary",
+      "@type": "xsd:boolean"
+    },
+    "jobApplication": {
+      "@id": "workday:job_application",
+      "@type": "@id"
+    },
+    "jobApplications": {
+      "@id": "workday:job_applications",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "jobDescription": {
+      "@id": "workday:job_description",
+      "@type": "xsd:string"
+    },
+    "jobProfile": {
+      "@id": "workday:job_profile",
+      "@type": "@id"
+    },
+    "jobRequisition": {
+      "@id": "workday:job_requisition",
+      "@type": "@id"
+    },
+    "lastName": {
+      "@id": "workday:last_name",
+      "@type": "xsd:string"
+    },
+    "linkedJobRequisitions": {
+      "@id": "workday:linked_job_requisitions",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "location": {
+      "@id": "workday:location",
+      "@type": "xsd:string"
+    },
+    "maximum": {
+      "@id": "workday:maximum",
+      "@type": "xsd:decimal"
+    },
+    "minimum": {
+      "@id": "workday:minimum",
+      "@type": "xsd:decimal"
+    },
+    "name": "schema:name",
+    "numberOfOpenings": {
+      "@id": "workday:number_of_openings",
+      "@type": "xsd:integer"
+    },
+    "options": {
+      "@id": "workday:options",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "overallRating": {
+      "@id": "workday:overall_rating",
+      "@type": "xsd:string"
+    },
+    "package": {
+      "@id": "workday:package",
+      "@type": "@id"
+    },
+    "phone": {
+      "@id": "workday:phone",
+      "@type": "xsd:string"
+    },
+    "position": {
+      "@id": "workday:position",
+      "@type": "@id"
+    },
+    "positionId": {
+      "@id": "workday:position_id",
+      "@type": "xsd:string"
+    },
+    "postalCode": {
+      "@id": "workday:postal_code",
+      "@type": "xsd:string"
+    },
+    "postedOn": {
+      "@id": "workday:posted_on",
+      "@type": "xsd:dateTime"
+    },
+    "postingSite": {
+      "@id": "workday:posting_site",
+      "@type": "@id"
+    },
+    "proposedStartDate": {
+      "@id": "workday:proposed_start_date",
+      "@type": "xsd:date"
+    },
+    "provider": {
+      "@id": "workday:provider",
+      "@type": "@id"
+    },
+    "qualifications": {
+      "@id": "workday:qualifications",
+      "@type": "xsd:string"
+    },
+    "questionText": {
+      "@id": "workday:question_text",
+      "@type": "xsd:string"
+    },
+    "questionType": {
+      "@id": "workday:question_type",
+      "@type": "xsd:string"
+    },
+    "questions": {
+      "@id": "workday:questions",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "rating": {
+      "@id": "workday:rating",
+      "@type": "xsd:integer"
+    },
+    "recruiter": {
+      "@id": "workday:recruiter",
+      "@type": "@id"
+    },
+    "required": {
+      "@id": "workday:required",
+      "@type": "xsd:boolean"
+    },
+    "requisitionNumber": {
+      "@id": "workday:requisition_number",
+      "@type": "xsd:string"
+    },
+    "result": {
+      "@id": "workday:result",
+      "@type": "xsd:string"
+    },
+    "scheduledDate": {
+      "@id": "workday:scheduled_date",
+      "@type": "xsd:date"
+    },
+    "score": {
+      "@id": "workday:score",
+      "@type": "xsd:decimal"
+    },
+    "siteUrl": {
+      "@id": "workday:site_url",
+      "@type": "@id"
+    },
+    "source": {
+      "@id": "workday:source",
+      "@type": "@id"
+    },
+    "startDate": {
+      "@id": "workday:start_date",
+      "@type": "xsd:date"
+    },
+    "startTime": {
+      "@id": "workday:start_time",
+      "@type": "xsd:time"
+    },
+    "stateProvince": {
+      "@id": "workday:state_province",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "workday:status",
+      "@type": "xsd:string"
+    },
+    "submittedOn": {
+      "@id": "workday:submitted_on",
+      "@type": "xsd:dateTime"
+    },
+    "supervisoryOrganization": {
+      "@id": "workday:supervisory_organization",
+      "@type": "@id"
+    },
+    "tags": {
+      "@id": "workday:tags",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "targetEndDate": {
+      "@id": "workday:target_end_date",
+      "@type": "xsd:date"
+    },
+    "targetHireDate": {
+      "@id": "workday:target_hire_date",
+      "@type": "xsd:date"
+    },
+    "timeType": {
+      "@id": "workday:time_type",
+      "@type": "xsd:string"
+    },
+    "title": {
+      "@id": "workday:title",
+      "@type": "xsd:string"
+    },
+    "updatedOn": {
+      "@id": "dcterms:modified",
+      "@type": "xsd:dateTime"
+    },
+    "uploadedOn": {
+      "@id": "workday:uploaded_on",
+      "@type": "xsd:dateTime"
+    },
+    "webConferenceUrl": {
+      "@id": "workday:web_conference_url",
+      "@type": "@id"
+    },
+    "worker": {
+      "@id": "workday:worker",
+      "@type": "@id"
+    },
+    "workerType": {
+      "@id": "workday:worker_type",
+      "@type": "@id"
+    }
+  }
+}

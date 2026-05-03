@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-structure/recruiting-rest-api-job-posting-structure.json",
+  "name": "JobPosting",
+  "description": "A job posting is a public-facing representation of a job requisition published to internal or external career sites for candidate attraction.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Workday ID (WID) uniquely identifying the job posting",
+      "example": "11111111-2222-3333-4444-555555555555"
+    },
+    "title": {
+      "type": "string",
+      "description": "Job posting title",
+      "example": "Senior Software Engineer"
+    },
+    "jobRequisition": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "postingSite": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "description": {
+      "type": "string",
+      "description": "Full job posting description including responsibilities",
+      "example": "Strong technical background with 8+ years of experience in distributed systems."
+    },
+    "qualifications": {
+      "type": "string",
+      "description": "Required qualifications and skills",
+      "example": "Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development."
+    },
+    "location": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "compensationRange": {
+      "type": "object",
+      "properties": {
+        "minimum": {
+          "type": "double",
+          "description": "Minimum compensation amount",
+          "example": 95000.0
+        },
+        "maximum": {
+          "type": "double",
+          "description": "Maximum compensation amount",
+          "example": 145000.0
+        },
+        "currency": {
+          "type": "object",
+          "description": "A reference to a related Workday resource",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Workday ID (WID) of the referenced resource",
+              "example": "11111111-2222-3333-4444-555555555555"
+            },
+            "descriptor": {
+              "type": "string",
+              "description": "Display name of the referenced resource",
+              "example": "Senior Software Engineer"
+            }
+          }
+        },
+        "frequency": {
+          "type": "string",
+          "enum": [
+            "Annual",
+            "Hourly",
+            "Monthly"
+          ],
+          "example": "Annual"
+        }
+      },
+      "description": "Compensation range displayed on the posting"
+    },
+    "isActive": {
+      "type": "boolean",
+      "description": "Whether the posting is currently active",
+      "example": true
+    },
+    "isPrimary": {
+      "type": "boolean",
+      "description": "Whether this is the primary posting for the requisition",
+      "example": true
+    },
+    "startDate": {
+      "type": "date",
+      "description": "Date the posting becomes active",
+      "example": "2026-05-03"
+    },
+    "endDate": {
+      "type": "date",
+      "description": "Date the posting expires",
+      "example": "2026-05-03"
+    },
+    "postedOn": {
+      "type": "datetime",
+      "description": "Timestamp when the job was posted",
+      "example": "2026-05-03T14:30:00Z"
+    }
+  }
+}

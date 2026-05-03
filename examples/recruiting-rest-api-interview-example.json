@@ -1,0 +1,24 @@
+{
+  "id": "11111111-2222-3333-4444-555555555555",
+  "jobApplication": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "interviewType": "Phone Screen",
+  "scheduledDate": "2026-05-03",
+  "startTime": 52200,
+  "endTime": 52200,
+  "interviewers": [
+    {
+      "id": "11111111-2222-3333-4444-555555555555",
+      "descriptor": "Senior Software Engineer"
+    },
+    {
+      "id": "11111111-2222-3333-4444-555555555555",
+      "descriptor": "Senior Software Engineer"
+    }
+  ],
+  "location": "San Francisco, CA",
+  "webConferenceUrl": "https://example.com/resource",
+  "status": "Scheduled"
+}

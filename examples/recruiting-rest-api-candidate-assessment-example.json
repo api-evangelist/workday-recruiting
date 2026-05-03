@@ -1,0 +1,11 @@
+{
+  "id": "11111111-2222-3333-4444-555555555555",
+  "assessmentCategory": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "result": "Pass",
+  "score": 87.5,
+  "comments": "Strong technical background with 8+ years of experience in distributed systems.",
+  "assessedOn": "2026-05-03T14:30:00Z"
+}

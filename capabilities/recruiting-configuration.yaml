@@ -1,0 +1,102 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Workday Recruiting Configuration"
+  description: >-
+    Recruiting administrator workflow for retrieving recruiting configuration
+    and reference data — job posting sites, screening questionnaires, and
+    veteran status reference values used for EEO and OFCCP compliance
+    reporting.
+  tags:
+    - Workday
+    - Recruiting
+    - Configuration
+    - Compliance
+    - HCM
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      WORKDAY_RECRUITING_TOKEN: WORKDAY_RECRUITING_TOKEN
+      WORKDAY_TENANT: WORKDAY_TENANT
+
+capability:
+  consumes:
+    - import: recruiting
+      location: ./shared/recruiting.yaml
+
+  exposes:
+    - type: rest
+      port: 8083
+      namespace: recruiting-configuration-api
+      description: "Unified REST API for retrieving recruiting configuration and reference data."
+      resources:
+        - path: /v1/job-posting-sites
+          name: job-posting-sites
+          description: "Job posting sites"
+          operations:
+            - method: GET
+              name: list-job-posting-sites
+              description: "List job posting sites"
+              call: "recruiting.list-job-posting-sites"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/questionnaires
+          name: questionnaires
+          description: "Recruiting questionnaires"
+          operations:
+            - method: GET
+              name: list-questionnaires
+              description: "List questionnaires"
+              call: "recruiting.list-questionnaires"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/veteran-statuses
+          name: veteran-statuses
+          description: "Veteran status reference values"
+          operations:
+            - method: GET
+              name: list-veteran-statuses
+              description: "List veteran statuses"
+              call: "recruiting.list-veteran-statuses"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9093
+      namespace: recruiting-configuration-mcp
+      transport: http
+      description: "MCP server for AI-assisted retrieval of recruiting configuration and reference data."
+      tools:
+        - name: list-job-posting-sites
+          description: "List internal career pages and external job boards configured in Workday"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-job-posting-sites"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-questionnaires
+          description: "List recruiting questionnaires used for screening and assessment"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-questionnaires"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-veteran-statuses
+          description: "List veteran status reference values for EEO and OFCCP compliance reporting"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-veteran-statuses"
+          outputParameters:
+            - type: object
+              mapping: "$."

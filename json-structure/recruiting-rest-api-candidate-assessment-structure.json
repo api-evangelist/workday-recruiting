@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-structure/recruiting-rest-api-candidate-assessment-structure.json",
+  "name": "CandidateAssessment",
+  "description": "A candidate assessment captures evaluation results from screening tools or manual review processes during the recruiting workflow.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Workday ID (WID) of the assessment",
+      "example": "11111111-2222-3333-4444-555555555555"
+    },
+    "assessmentCategory": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "result": {
+      "type": "string",
+      "enum": [
+        "Pass",
+        "Fail",
+        "Pending"
+      ],
+      "description": "Assessment outcome",
+      "example": "Pass"
+    },
+    "score": {
+      "type": "double",
+      "description": "Numeric assessment score",
+      "example": 87.5
+    },
+    "comments": {
+      "type": "string",
+      "description": "Assessment comments or notes",
+      "example": "Strong technical background with 8+ years of experience in distributed systems."
+    },
+    "assessedOn": {
+      "type": "datetime",
+      "description": "Date and time the assessment was completed",
+      "example": "2026-05-03T14:30:00Z"
+    }
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-structure/recruiting-rest-api-candidate-structure.json",
+  "name": "Candidate",
+  "description": "A candidate represents an individual being considered for employment, including their personal information, contact details, source, and associated job applications.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Workday ID (WID) uniquely identifying the candidate",
+      "example": "11111111-2222-3333-4444-555555555555"
+    },
+    "firstName": {
+      "type": "string",
+      "description": "Candidate first name",
+      "example": "Jordan"
+    },
+    "lastName": {
+      "type": "string",
+      "description": "Candidate last name",
+      "example": "Reyes"
+    },
+    "fullName": {
+      "type": "string",
+      "description": "Candidate full display name",
+      "example": "Jordan Reyes"
+    },
+    "email": {
+      "type": "string",
+      "description": "Primary email address",
+      "example": "candidate@example.com"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Primary phone number",
+      "example": "+1-415-555-0123"
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "addressLine1": {
+          "type": "string",
+          "description": "Street address line 1",
+          "example": "123 Market Street"
+        },
+        "addressLine2": {
+          "type": "string",
+          "description": "Street address line 2",
+          "example": "123 Market Street"
+        },
+        "city": {
+          "type": "string",
+          "description": "City",
+          "example": "San Francisco"
+        },
+        "stateProvince": {
+          "type": "string",
+          "description": "State or province",
+          "example": "CA"
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "Postal or ZIP code",
+          "example": "94105"
+        },
+        "country": {
+          "type": "object",
+          "description": "A reference to a related Workday resource",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Workday ID (WID) of the referenced resource",
+              "example": "11111111-2222-3333-4444-555555555555"
+            },
+            "descriptor": {
+              "type": "string",
+              "description": "Display name of the referenced resource",
+              "example": "Senior Software Engineer"
+            }
+          }
+        }
+      },
+      "description": "Candidate mailing address"
+    },
+    "source": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Tags applied to the candidate record"
+    },
+    "jobApplications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "A reference to a related Workday resource",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Workday ID (WID) of the referenced resource",
+            "example": "11111111-2222-3333-4444-555555555555"
+          },
+          "descriptor": {
+            "type": "string",
+            "description": "Display name of the referenced resource",
+            "example": "Senior Software Engineer"
+          }
+        }
+      },
+      "description": "Job applications associated with this candidate"
+    },
+    "isInternal": {
+      "type": "boolean",
+      "description": "Whether the candidate is an existing Workday worker",
+      "example": false
+    },
+    "createdOn": {
+      "type": "datetime",
+      "description": "Timestamp when the candidate record was created",
+      "example": "2026-05-03T14:30:00Z"
+    },
+    "updatedOn": {
+      "type": "datetime",
+      "description": "Timestamp when the candidate was last updated",
+      "example": "2026-05-03T14:30:00Z"
+    }
+  }
+}

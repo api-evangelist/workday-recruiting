@@ -1,0 +1,235 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-structure/recruiting-rest-api-job-requisition-structure.json",
+  "name": "JobRequisition",
+  "description": "A job requisition represents a hiring need for a specific position within an organization, including the job profile, number of openings, compensation range, and recruiting status.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Workday ID (WID) uniquely identifying the job requisition",
+      "example": "11111111-2222-3333-4444-555555555555"
+    },
+    "requisitionNumber": {
+      "type": "string",
+      "description": "System-generated requisition reference number",
+      "example": "REQ-100245"
+    },
+    "title": {
+      "type": "string",
+      "description": "Job requisition title",
+      "example": "Senior Software Engineer"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Open",
+        "Filled",
+        "Frozen",
+        "Closed",
+        "Draft"
+      ],
+      "description": "Current status of the job requisition",
+      "example": "Open"
+    },
+    "jobProfile": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "position": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "supervisoryOrganization": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "hiringManager": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "recruiter": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "numberOfOpenings": {
+      "type": "int32",
+      "minimum": 1,
+      "description": "Number of positions to fill",
+      "example": 3
+    },
+    "location": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "workerType": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "timeType": {
+      "type": "string",
+      "enum": [
+        "Full time",
+        "Part time"
+      ],
+      "description": "Full-time or part-time designation",
+      "example": "Full time"
+    },
+    "targetHireDate": {
+      "type": "date",
+      "description": "Target date for filling the position",
+      "example": "2026-05-03"
+    },
+    "targetEndDate": {
+      "type": "date",
+      "description": "Target end date for temporary positions",
+      "example": "2026-05-03"
+    },
+    "compensationRange": {
+      "type": "object",
+      "properties": {
+        "minimum": {
+          "type": "double",
+          "description": "Minimum compensation amount",
+          "example": 95000.0
+        },
+        "maximum": {
+          "type": "double",
+          "description": "Maximum compensation amount",
+          "example": 145000.0
+        },
+        "currency": {
+          "type": "object",
+          "description": "A reference to a related Workday resource",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Workday ID (WID) of the referenced resource",
+              "example": "11111111-2222-3333-4444-555555555555"
+            },
+            "descriptor": {
+              "type": "string",
+              "description": "Display name of the referenced resource",
+              "example": "Senior Software Engineer"
+            }
+          }
+        },
+        "frequency": {
+          "type": "string",
+          "enum": [
+            "Annual",
+            "Hourly",
+            "Monthly"
+          ],
+          "description": "Compensation frequency",
+          "example": "Annual"
+        }
+      },
+      "description": "Compensation range for the position"
+    },
+    "jobDescription": {
+      "type": "string",
+      "description": "Detailed job description",
+      "example": "Strong technical background with 8+ years of experience in distributed systems."
+    },
+    "qualifications": {
+      "type": "string",
+      "description": "Required qualifications for the position",
+      "example": "Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development."
+    },
+    "createdOn": {
+      "type": "datetime",
+      "description": "Timestamp when the requisition was created",
+      "example": "2026-05-03T14:30:00Z"
+    },
+    "updatedOn": {
+      "type": "datetime",
+      "description": "Timestamp when the requisition was last updated",
+      "example": "2026-05-03T14:30:00Z"
+    }
+  }
+}

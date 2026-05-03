@@ -1,0 +1,1099 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Workday Recruiting"
+  description: >-
+    Unified vocabulary for the Workday Recruiting API surface — covering the
+    REST and SOAP APIs that drive the cloud recruiting and talent acquisition
+    solution, and the Naftiko capability workflows that compose those operations
+    into hiring manager, recruiter, sourcer, and recruiting administrator
+    journeys across the requisition, candidate, interview, and configuration
+    domains.
+  created: "2026-05-03"
+  modified: "2026-05-03"
+  tags:
+    - HCM
+    - Human Resources
+    - Recruiting
+    - Talent Acquisition
+    - SaaS
+
+# ============================================================================
+# OPERATIONAL DIMENSION (from OpenAPI + apis.yml)
+# ============================================================================
+operational:
+
+  apis:
+    - name: "Workday Recruiting REST API"
+      namespace: recruiting
+      version: v41.2
+      baseUrl: "https://{tenant}.workday.com/ccx/api/recruiting/v41.2"
+      protocol: REST
+      format: JSON
+      status: active
+      operationCount: 47
+      tags:
+        - Applications
+        - Candidates
+        - Job Requisitions
+        - Recruiting
+        - Talent Acquisition
+
+    - name: "Workday Recruiting SOAP Web Services API"
+      namespace: recruiting-soap
+      version: v45.2
+      baseUrl: "https://{tenant}.workday.com/ccx/service/"
+      protocol: SOAP
+      format: XML
+      status: active
+      operationCount: 120
+      tags:
+        - Candidates
+        - Job Requisitions
+        - Recruiting
+        - SOAP API
+        - Web Services
+
+  resources:
+    - name: jobRequisitions
+      api: recruiting
+      domain: Job Requisitions
+      description: >-
+        Hiring needs for specific positions, including job profile, openings,
+        compensation, and recruiting status.
+      actions: [list, create, get, edit, close, freeze]
+      paths:
+        - /jobRequisitions
+        - /jobRequisitions/{id}
+        - /jobRequisitions/{id}/close
+        - /jobRequisitions/{id}/freeze
+
+    - name: evergreenRequisitions
+      api: recruiting
+      domain: Job Requisitions
+      description: >-
+        Ongoing hiring needs without a specific number of openings or close
+        date for continuous candidate pipelines.
+      actions: [list, create, get, close]
+      paths:
+        - /evergreenRequisitions
+        - /evergreenRequisitions/{id}
+        - /evergreenRequisitions/{id}/close
+
+    - name: candidates
+      api: recruiting
+      domain: Candidates
+      description: >-
+        Individuals being considered for employment, including profile,
+        attachments, photo, assessments, and referrals.
+      actions: [list, create, get, update, assess, refer]
+      paths:
+        - /candidates
+        - /candidates/{id}
+        - /candidates/{id}/attachments
+        - /candidates/{id}/photo
+        - /candidates/{id}/assess
+        - /candidates/{id}/refer
+
+    - name: candidateAttachments
+      api: recruiting
+      domain: Candidates
+      description: "Resumes, cover letters, and other files attached to candidate records."
+      actions: [list, add]
+      paths:
+        - /candidates/{id}/attachments
+
+    - name: candidatePhoto
+      api: recruiting
+      domain: Candidates
+      description: "Candidate profile photo."
+      actions: [get, update]
+      paths:
+        - /candidates/{id}/photo
+
+    - name: jobApplications
+      api: recruiting
+      domain: Job Applications
+      description: >-
+        Links a candidate to a job requisition and tracks progress through
+        recruiting stages from application to hire or disposition.
+      actions: [list, get, move, offer]
+      paths:
+        - /jobApplications
+        - /jobApplications/{id}
+        - /jobApplications/{id}/move
+        - /jobApplications/{id}/offer
+
+    - name: jobPostings
+      api: recruiting
+      domain: Job Postings
+      description: >-
+        Public-facing publications of job requisitions to internal or external
+        career sites for candidate attraction.
+      actions: [list, get, update, post, unpost]
+      paths:
+        - /jobPostings
+        - /jobPostings/{id}
+        - /jobPostings/{id}/post
+        - /jobPostings/{id}/unpost
+
+    - name: jobPostingSites
+      api: recruiting
+      domain: Configuration
+      description: "Career sites and job boards where postings can be published."
+      actions: [list]
+      paths:
+        - /jobPostingSites
+
+    - name: interviews
+      api: recruiting
+      domain: Interviews
+      description: >-
+        Scheduled meetings between candidates and interviewers as part of
+        the recruiting evaluation process.
+      actions: [list, schedule, get]
+      paths:
+        - /interviews
+        - /interviews/{id}
+
+    - name: interviewFeedback
+      api: recruiting
+      domain: Interviews
+      description: >-
+        Interviewer ratings, competency scores, and hiring recommendations
+        submitted after a candidate interview.
+      actions: [list, submit]
+      paths:
+        - /interviews/{id}/feedback
+
+    - name: backgroundChecks
+      api: recruiting
+      domain: Background Checks
+      description: "Pre-hire screening results from external background check providers."
+      actions: [list, submit]
+      paths:
+        - /backgroundChecks
+
+    - name: backgroundCheckPackages
+      api: recruiting
+      domain: Background Checks
+      description: "Configured screening packages defining which checks to run."
+      actions: [list]
+      paths:
+        - /backgroundCheckPackages
+
+    - name: recruitingAgencies
+      api: recruiting
+      domain: Recruiting Agencies
+      description: >-
+        External staffing or recruitment firms that submit candidates for
+        open positions.
+      actions: [list, get, submit]
+      paths:
+        - /recruitingAgencies
+        - /recruitingAgencies/{id}
+        - /recruitingAgencies/{id}/candidates
+
+    - name: applicants
+      api: recruiting
+      domain: Applicants
+      description: >-
+        Pre-hire records representing individuals processed through the
+        recruiting pipeline toward hire, including bulk import for high-volume
+        hiring.
+      actions: [list, import]
+      paths:
+        - /applicants
+        - /applicants/import
+
+    - name: positions
+      api: recruiting
+      domain: Positions
+      description: >-
+        Allocated headcount within a supervisory organization in the position
+        management staffing model.
+      actions: [list, create]
+      paths:
+        - /positions
+
+    - name: questionnaires
+      api: recruiting
+      domain: Configuration
+      description: "Recruiting questionnaires for candidate screening or assessment."
+      actions: [list]
+      paths:
+        - /questionnaires
+
+    - name: veteranStatuses
+      api: recruiting
+      domain: Configuration
+      description: "Veteran status reference values for EEO compliance reporting."
+      actions: [list]
+      paths:
+        - /veteranStatuses
+
+  actions:
+    - verb: list
+      pattern: read
+      httpMethod: GET
+      description: "Retrieve a collection of resources with pagination and filters."
+      appliesTo:
+        - jobRequisitions
+        - evergreenRequisitions
+        - candidates
+        - candidateAttachments
+        - jobApplications
+        - jobPostings
+        - jobPostingSites
+        - interviews
+        - interviewFeedback
+        - backgroundChecks
+        - backgroundCheckPackages
+        - recruitingAgencies
+        - applicants
+        - positions
+        - questionnaires
+        - veteranStatuses
+
+    - verb: get
+      pattern: read
+      httpMethod: GET
+      description: "Retrieve a single resource by Workday ID."
+      appliesTo:
+        - jobRequisitions
+        - evergreenRequisitions
+        - candidates
+        - candidatePhoto
+        - jobApplications
+        - jobPostings
+        - interviews
+        - recruitingAgencies
+
+    - verb: create
+      pattern: write
+      httpMethod: POST
+      description: "Create a new resource."
+      appliesTo:
+        - jobRequisitions
+        - evergreenRequisitions
+        - candidates
+        - positions
+
+    - verb: edit
+      pattern: write
+      httpMethod: PATCH
+      description: "Apply partial updates to a job requisition."
+      appliesTo:
+        - jobRequisitions
+
+    - verb: update
+      pattern: write
+      httpMethod: PATCH
+      description: "Apply partial updates to a candidate or job posting."
+      appliesTo:
+        - candidates
+        - candidatePhoto
+        - jobPostings
+
+    - verb: add
+      pattern: write
+      httpMethod: POST
+      description: "Add an attachment to a candidate record."
+      appliesTo:
+        - candidateAttachments
+
+    - verb: close
+      pattern: destructive
+      httpMethod: POST
+      description: "Close a requisition that has no pending events."
+      appliesTo:
+        - jobRequisitions
+        - evergreenRequisitions
+
+    - verb: freeze
+      pattern: write
+      httpMethod: POST
+      description: "Freeze or unfreeze a job requisition to halt or resume hiring."
+      appliesTo:
+        - jobRequisitions
+
+    - verb: assess
+      pattern: write
+      httpMethod: POST
+      description: "Submit an assessment result for a candidate."
+      appliesTo:
+        - candidates
+
+    - verb: refer
+      pattern: write
+      httpMethod: POST
+      description: "Submit a referral for a candidate."
+      appliesTo:
+        - candidates
+
+    - verb: move
+      pattern: write
+      httpMethod: POST
+      description: "Move a candidate to a different recruiting or disposition stage."
+      appliesTo:
+        - jobApplications
+
+    - verb: offer
+      pattern: write
+      httpMethod: POST
+      description: "Initiate an employment offer on a job application."
+      appliesTo:
+        - jobApplications
+
+    - verb: post
+      pattern: write
+      httpMethod: POST
+      description: "Publish a job posting to career sites."
+      appliesTo:
+        - jobPostings
+
+    - verb: unpost
+      pattern: destructive
+      httpMethod: POST
+      description: "Remove a job posting from career sites."
+      appliesTo:
+        - jobPostings
+
+    - verb: schedule
+      pattern: write
+      httpMethod: POST
+      description: "Schedule an interview for a job application."
+      appliesTo:
+        - interviews
+
+    - verb: submit
+      pattern: write
+      httpMethod: POST
+      description: >-
+        Submit interview feedback, a background check result, or an agency
+        candidate.
+      appliesTo:
+        - interviewFeedback
+        - backgroundChecks
+        - recruitingAgencies
+
+    - verb: import
+      pattern: write
+      httpMethod: POST
+      description: "Bulk applicant import for high-volume hiring."
+      appliesTo:
+        - applicants
+
+  schemas:
+    core:
+      - name: Reference
+        description: "A reference to a related Workday resource (id + descriptor)."
+        keyProperties: [id, descriptor]
+
+      - name: Error
+        description: "Standard API error envelope with field-level detail."
+        keyProperties: [error, message, details]
+
+    requisitions:
+      - name: JobRequisition
+        description: "Hiring need with position, openings, compensation, and status."
+        keyProperties: [id, requisitionNumber, title, status, jobProfile, position, supervisoryOrganization, hiringManager, recruiter, numberOfOpenings, location, workerType, timeType, targetHireDate, compensationRange, jobDescription, qualifications]
+
+      - name: JobRequisitionCreate
+        description: "Request body for creating or updating a job requisition."
+        keyProperties: [title, jobProfile, position, supervisoryOrganization, hiringManager, recruiter, numberOfOpenings, location, workerType, timeType, jobDescription, qualifications]
+
+      - name: EvergreenRequisition
+        description: "Ongoing requisition for continuous hiring without a fixed close date."
+        keyProperties: [id, requisitionNumber, title, status, jobProfile, supervisoryOrganization, hiringManager, linkedJobRequisitions]
+
+      - name: EvergreenRequisitionCreate
+        description: "Request body for creating an evergreen requisition."
+        keyProperties: [title, jobProfile, supervisoryOrganization, hiringManager]
+
+      - name: Position
+        description: "Allocated headcount in the position management staffing model."
+        keyProperties: [id, positionId, title, jobProfile, supervisoryOrganization, location, workerType, timeType, availableDate, isFilled, worker]
+
+      - name: PositionCreate
+        description: "Request body for creating a position."
+        keyProperties: [title, jobProfile, supervisoryOrganization, location, workerType, timeType, availableDate]
+
+    candidates:
+      - name: Candidate
+        description: "Individual considered for employment, with contact info and source."
+        keyProperties: [id, firstName, lastName, fullName, email, phone, address, source, tags, jobApplications, isInternal]
+
+      - name: CandidateCreate
+        description: "Request body for creating or updating a candidate."
+        keyProperties: [firstName, lastName, email, phone, address, source]
+
+      - name: CandidateAssessment
+        description: "Evaluation result from screening or manual review."
+        keyProperties: [id, assessmentCategory, result, score, comments, assessedOn]
+
+      - name: Attachment
+        description: "File attached to a candidate or application (resume, cover letter, etc.)."
+        keyProperties: [id, fileName, category, contentType, fileSize, uploadedOn]
+
+      - name: Applicant
+        description: "Pre-hire record processed through the recruiting pipeline."
+        keyProperties: [id, candidate, firstName, lastName, email, hireDate, position, status]
+
+      - name: ApplicantImport
+        description: "Single applicant entry for bulk import."
+        keyProperties: [firstName, lastName, email, phone, source, jobRequisition]
+
+    applications:
+      - name: JobApplication
+        description: "Candidate-to-requisition link tracking recruiting stage progression."
+        keyProperties: [id, candidate, jobRequisition, currentStage, dispositionReason, isDispositioned, source, appliedOn]
+
+      - name: Offer
+        description: "Employment offer with compensation and start date."
+        keyProperties: [id, jobApplication, status, proposedStartDate, compensationAmount, compensationFrequency, currency, expirationDate]
+
+      - name: OfferCreate
+        description: "Request body for initiating an offer."
+        keyProperties: [proposedStartDate, compensationAmount, compensationFrequency, currency, expirationDate]
+
+    postings:
+      - name: JobPosting
+        description: "Public posting of a requisition to a career site."
+        keyProperties: [id, title, jobRequisition, postingSite, description, qualifications, location, compensationRange, isActive, isPrimary, startDate, endDate, postedOn]
+
+      - name: JobPostingSite
+        description: "Career site or job board for publishing postings."
+        keyProperties: [id, name, siteUrl, isInternal, active]
+
+    interviews:
+      - name: Interview
+        description: "Scheduled interview with type, time, interviewers, and location."
+        keyProperties: [id, jobApplication, interviewType, scheduledDate, startTime, endTime, interviewers, location, webConferenceUrl, status]
+
+      - name: InterviewCreate
+        description: "Request body for scheduling an interview."
+        keyProperties: [jobApplication, interviewType, scheduledDate, startTime, endTime, interviewers, location, webConferenceUrl]
+
+      - name: InterviewFeedback
+        description: "Interviewer evaluation with rating, competencies, and recommendation."
+        keyProperties: [id, interviewer, overallRating, competencyRatings, comments, submittedOn]
+
+      - name: InterviewFeedbackCreate
+        description: "Request body for submitting interview feedback."
+        keyProperties: [overallRating, competencyRatings, comments]
+
+    screening:
+      - name: BackgroundCheck
+        description: "Background check result for a candidate from a screening provider."
+        keyProperties: [id, candidate, jobApplication, package, status, result, completedOn]
+
+      - name: BackgroundCheckCreate
+        description: "Request body for submitting a background check result."
+        keyProperties: [candidate, jobApplication, package, status, result]
+
+      - name: BackgroundCheckPackage
+        description: "Configured set of screening checks to run on candidates."
+        keyProperties: [id, name, description, provider, active]
+
+    agencies:
+      - name: RecruitingAgency
+        description: "External staffing firm submitting candidates for open positions."
+        keyProperties: [id, name, contactName, contactEmail, phone, feePercentage, active]
+
+    configuration:
+      - name: Questionnaire
+        description: "Screening or assessment questionnaire used during applications."
+        keyProperties: [id, name, description, questions, active]
+
+      - name: VeteranStatus
+        description: "Veteran status reference value for EEO compliance reporting."
+        keyProperties: [id, name, code]
+
+  parameters:
+    pagination:
+      - name: limit
+        in: query
+        type: integer
+        default: 20
+        max: 100
+        description: "Maximum number of results to return per page."
+
+      - name: offset
+        in: query
+        type: integer
+        default: 0
+        description: "Number of results to skip for pagination."
+
+    identifiers:
+      - name: id
+        in: path
+        type: string
+        format: workday-id
+        example: "11111111-2222-3333-4444-555555555555"
+        description: "Workday ID (WID) of the resource."
+
+    filters:
+      - name: status
+        in: query
+        type: string
+        description: "Filter requisitions by status."
+        appliesTo: [jobRequisitions]
+
+      - name: supervisoryOrganization
+        in: query
+        type: string
+        description: "Filter by supervisory organization Workday ID."
+        appliesTo: [jobRequisitions]
+
+      - name: updatedFrom
+        in: query
+        type: string
+        format: date-time
+        description: "Return resources updated on or after this date-time."
+        appliesTo: [jobRequisitions, candidates, jobApplications]
+
+  enums:
+    requisitionStates:
+      - Open
+      - Filled
+      - Frozen
+      - Closed
+      - Draft
+
+    evergreenRequisitionStates:
+      - Open
+      - Closed
+
+    applicationStages:
+      - Review
+      - Screen
+      - Interview
+      - Assessment
+      - Offer
+      - Background Check
+      - Ready for Hire
+      - Hired
+
+    offerStates:
+      - Draft
+      - Pending Approval
+      - Approved
+      - Extended
+      - Accepted
+      - Declined
+      - Rescinded
+
+    interviewTypes:
+      - Phone Screen
+      - Video Interview
+      - In-Person Interview
+      - Panel Interview
+      - Technical Interview
+
+    interviewStates:
+      - Scheduled
+      - Completed
+      - Canceled
+      - No Show
+
+    interviewRatings:
+      - Strong Hire
+      - Hire
+      - No Decision
+      - Do Not Hire
+      - Strong Do Not Hire
+
+    backgroundCheckStates:
+      - Initiated
+      - In Progress
+      - Completed
+      - Canceled
+
+    backgroundCheckResults:
+      - Clear
+      - Consider
+      - Adverse Action
+
+    assessmentResults:
+      - Pass
+      - Fail
+      - Pending
+
+    attachmentCategories:
+      - Resume
+      - Cover Letter
+      - Portfolio
+      - Other
+
+    timeTypes:
+      - Full time
+      - Part time
+
+    compensationFrequencies:
+      - Annual
+      - Hourly
+      - Monthly
+
+    questionTypes:
+      - Single Select
+      - Multi Select
+      - Free Text
+      - Numeric
+
+  authentication:
+    schemes:
+      - name: oauth2
+        type: oauth2
+        flow: authorizationCode
+        authorizationUrl: "https://{tenant}.workday.com/authorize"
+        tokenUrl: "https://{tenant}.workday.com/ccx/oauth2/token"
+        appliesTo: [recruiting]
+        scopes:
+          - name: "recruiting:read"
+            description: "Read recruiting data"
+          - name: "recruiting:write"
+            description: "Modify recruiting data"
+
+# ============================================================================
+# CAPABILITY DIMENSION (from Naftiko)
+# ============================================================================
+capability:
+
+  workflows:
+    - name: requisition-management
+      label: "Workday Recruiting Requisition Management"
+      file: capabilities/requisition-management.yaml
+      description: >-
+        Hiring manager and recruiter workflow for opening, modifying, freezing,
+        and closing job requisitions and evergreen requisitions, creating
+        positions, and posting jobs to career sites.
+      apis: [recruiting]
+      domains: [Job Requisitions, Job Postings, Positions]
+      personas: [hiring-manager, recruiter]
+      restPort: 8080
+      mcpPort: 9090
+      restNamespace: requisition-management-api
+      mcpNamespace: requisition-management-mcp
+      toolCount: 17
+      tools:
+        - list-job-requisitions
+        - create-job-requisition
+        - get-job-requisition
+        - edit-job-requisition
+        - close-job-requisition
+        - manage-job-requisition-freeze
+        - list-evergreen-requisitions
+        - create-evergreen-requisition
+        - get-evergreen-requisition
+        - close-evergreen-requisition
+        - list-positions
+        - create-position
+        - list-job-postings
+        - get-job-posting
+        - update-job-posting
+        - post-job
+        - unpost-job
+
+    - name: candidate-pipeline
+      label: "Workday Recruiting Candidate Pipeline"
+      file: capabilities/candidate-pipeline.yaml
+      description: >-
+        Recruiter and sourcer workflow for managing candidates from sourcing
+        through application progression, including profile management,
+        assessments, referrals, stage moves, offers, bulk applicant import,
+        and agency candidate submissions.
+      apis: [recruiting]
+      domains: [Candidates, Job Applications, Applicants, Recruiting Agencies]
+      personas: [recruiter, sourcer, recruiting-agency]
+      restPort: 8081
+      mcpPort: 9091
+      restNamespace: candidate-pipeline-api
+      mcpNamespace: candidate-pipeline-mcp
+      toolCount: 19
+      tools:
+        - list-candidates
+        - create-candidate
+        - get-candidate
+        - update-candidate
+        - list-candidate-attachments
+        - add-candidate-attachment
+        - get-candidate-photo
+        - update-candidate-photo
+        - assess-candidate
+        - refer-candidate
+        - list-job-applications
+        - get-job-application
+        - move-candidate-stage
+        - initiate-offer
+        - list-applicants
+        - import-applicants
+        - list-recruiting-agencies
+        - get-recruiting-agency
+        - submit-agency-candidate
+
+    - name: interview-and-screening
+      label: "Workday Recruiting Interview and Screening"
+      file: capabilities/interview-and-screening.yaml
+      description: >-
+        Recruiter and hiring manager workflow for scheduling interviews,
+        collecting interviewer feedback, and running pre-hire background
+        screening.
+      apis: [recruiting]
+      domains: [Interviews, Background Checks]
+      personas: [recruiter, hiring-manager, interviewer]
+      restPort: 8082
+      mcpPort: 9092
+      restNamespace: interview-and-screening-api
+      mcpNamespace: interview-and-screening-mcp
+      toolCount: 8
+      tools:
+        - list-interviews
+        - schedule-interview
+        - get-interview
+        - list-interview-feedback
+        - submit-interview-feedback
+        - list-background-checks
+        - submit-background-check
+        - list-background-check-packages
+
+    - name: recruiting-configuration
+      label: "Workday Recruiting Configuration"
+      file: capabilities/recruiting-configuration.yaml
+      description: >-
+        Recruiting administrator workflow for retrieving recruiting
+        configuration and reference data — job posting sites, screening
+        questionnaires, and veteran status values for EEO and OFCCP
+        compliance.
+      apis: [recruiting]
+      domains: [Configuration, Compliance]
+      personas: [recruiting-admin, compliance-analyst]
+      restPort: 8083
+      mcpPort: 9093
+      restNamespace: recruiting-configuration-api
+      mcpNamespace: recruiting-configuration-mcp
+      toolCount: 3
+      tools:
+        - list-job-posting-sites
+        - list-questionnaires
+        - list-veteran-statuses
+
+  personas:
+    - id: hiring-manager
+      name: "Hiring Manager"
+      description: >-
+        Owns hiring decisions for a team — opens and edits requisitions,
+        reviews finalists, and approves offers.
+      workflows: [requisition-management, interview-and-screening]
+
+    - id: recruiter
+      name: "Recruiter"
+      description: >-
+        Drives the day-to-day hiring process — manages requisitions,
+        progresses candidates through stages, schedules interviews, and
+        coordinates screening.
+      workflows: [requisition-management, candidate-pipeline, interview-and-screening]
+
+    - id: sourcer
+      name: "Sourcer"
+      description: >-
+        Builds candidate pipelines from external sourcing tools and job
+        boards into Workday requisitions.
+      workflows: [candidate-pipeline]
+
+    - id: interviewer
+      name: "Interviewer"
+      description: >-
+        Worker assigned to evaluate candidates — submits interview feedback
+        with competency ratings and hiring recommendations.
+      workflows: [interview-and-screening]
+
+    - id: recruiting-agency
+      name: "Recruiting Agency"
+      description: >-
+        External staffing partner that submits candidates against open
+        requisitions through the agency portal.
+      workflows: [candidate-pipeline]
+
+    - id: recruiting-admin
+      name: "Recruiting Administrator"
+      description: >-
+        Configures recruiting reference data — career sites, questionnaires,
+        and reference values used across the recruiting workflows.
+      workflows: [recruiting-configuration]
+
+    - id: compliance-analyst
+      name: "Compliance Analyst"
+      description: >-
+        Pulls EEO, OFCCP, and veteran self-identification reference data for
+        regulatory reporting.
+      workflows: [recruiting-configuration]
+
+  domains:
+    - name: "Job Requisitions"
+      description: "Hiring needs, evergreen requisitions, and position management."
+      resources: [jobRequisitions, evergreenRequisitions, positions]
+      workflows: [requisition-management]
+
+    - name: "Job Postings"
+      description: "Public publication of requisitions to internal and external career sites."
+      resources: [jobPostings, jobPostingSites]
+      workflows: [requisition-management, recruiting-configuration]
+
+    - name: "Candidates"
+      description: "Candidate profiles, attachments, photos, assessments, and referrals."
+      resources: [candidates, candidateAttachments, candidatePhoto]
+      workflows: [candidate-pipeline]
+
+    - name: "Job Applications"
+      description: "Candidate-to-requisition links, stage progression, and offers."
+      resources: [jobApplications]
+      workflows: [candidate-pipeline]
+
+    - name: "Applicants"
+      description: "Pre-hire records and high-volume bulk applicant import."
+      resources: [applicants]
+      workflows: [candidate-pipeline]
+
+    - name: "Recruiting Agencies"
+      description: "External agency relationships and candidate submissions."
+      resources: [recruitingAgencies]
+      workflows: [candidate-pipeline]
+
+    - name: "Interviews"
+      description: "Interview scheduling and interviewer feedback collection."
+      resources: [interviews, interviewFeedback]
+      workflows: [interview-and-screening]
+
+    - name: "Background Checks"
+      description: "Pre-hire background screening and check packages."
+      resources: [backgroundChecks, backgroundCheckPackages]
+      workflows: [interview-and-screening]
+
+    - name: "Configuration"
+      description: "Recruiting configuration and reference data."
+      resources: [questionnaires, jobPostingSites]
+      workflows: [recruiting-configuration]
+
+    - name: "Compliance"
+      description: "EEO, OFCCP, and veteran self-identification reference values."
+      resources: [veteranStatuses]
+      workflows: [recruiting-configuration]
+
+  namespaces:
+    consumed:
+      - name: recruiting
+        type: http
+        baseUri: "https://{{WORKDAY_TENANT}}.workday.com/ccx/api/recruiting/v41.2"
+        authentication: bearer
+        sharedFile: capabilities/shared/recruiting.yaml
+        consumedBy:
+          - requisition-management
+          - candidate-pipeline
+          - interview-and-screening
+          - recruiting-configuration
+
+    rest:
+      - namespace: requisition-management-api
+        port: 8080
+        workflow: requisition-management
+      - namespace: candidate-pipeline-api
+        port: 8081
+        workflow: candidate-pipeline
+      - namespace: interview-and-screening-api
+        port: 8082
+        workflow: interview-and-screening
+      - namespace: recruiting-configuration-api
+        port: 8083
+        workflow: recruiting-configuration
+
+    mcp:
+      - namespace: requisition-management-mcp
+        port: 9090
+        transport: http
+        workflow: requisition-management
+      - namespace: candidate-pipeline-mcp
+        port: 9091
+        transport: http
+        workflow: candidate-pipeline
+      - namespace: interview-and-screening-mcp
+        port: 9092
+        transport: http
+        workflow: interview-and-screening
+      - namespace: recruiting-configuration-mcp
+        port: 9093
+        transport: http
+        workflow: recruiting-configuration
+
+  binds:
+    - name: WORKDAY_RECRUITING_TOKEN
+      namespace: env
+      description: "OAuth 2.0 bearer token for the Workday Recruiting REST API."
+      requiredBy:
+        - requisition-management
+        - candidate-pipeline
+        - interview-and-screening
+        - recruiting-configuration
+
+    - name: WORKDAY_TENANT
+      namespace: env
+      description: "Workday tenant identifier (e.g., wd2-impl-services1)."
+      requiredBy:
+        - requisition-management
+        - candidate-pipeline
+        - interview-and-screening
+        - recruiting-configuration
+
+# ============================================================================
+# CROSS-REFERENCE — operational resources -> operations -> workflows -> personas
+# ============================================================================
+crossReference:
+
+  - resource: jobRequisitions
+    domain: "Job Requisitions"
+    operations:
+      - listJobRequisitions
+      - createJobRequisition
+      - getJobRequisition
+      - editJobRequisition
+      - closeJobRequisition
+      - manageJobRequisitionFreeze
+    workflows: [requisition-management]
+    personas: [hiring-manager, recruiter]
+
+  - resource: evergreenRequisitions
+    domain: "Job Requisitions"
+    operations:
+      - listEvergreenRequisitions
+      - createEvergreenRequisition
+      - getEvergreenRequisition
+      - closeEvergreenRequisition
+    workflows: [requisition-management]
+    personas: [hiring-manager, recruiter]
+
+  - resource: positions
+    domain: "Job Requisitions"
+    operations:
+      - listPositions
+      - createPosition
+    workflows: [requisition-management]
+    personas: [hiring-manager, recruiter]
+
+  - resource: candidates
+    domain: "Candidates"
+    operations:
+      - listCandidates
+      - createCandidate
+      - getCandidate
+      - updateCandidate
+      - assessCandidate
+      - referCandidate
+    workflows: [candidate-pipeline]
+    personas: [recruiter, sourcer]
+
+  - resource: candidateAttachments
+    domain: "Candidates"
+    operations:
+      - listCandidateAttachments
+      - addCandidateAttachment
+    workflows: [candidate-pipeline]
+    personas: [recruiter, sourcer]
+
+  - resource: candidatePhoto
+    domain: "Candidates"
+    operations:
+      - getCandidatePhoto
+      - updateCandidatePhoto
+    workflows: [candidate-pipeline]
+    personas: [recruiter, sourcer]
+
+  - resource: jobApplications
+    domain: "Job Applications"
+    operations:
+      - listJobApplications
+      - getJobApplication
+      - moveCandidateStage
+      - initiateOffer
+    workflows: [candidate-pipeline]
+    personas: [recruiter, hiring-manager]
+
+  - resource: jobPostings
+    domain: "Job Postings"
+    operations:
+      - listJobPostings
+      - getJobPosting
+      - updateJobPosting
+      - postJob
+      - unpostJob
+    workflows: [requisition-management]
+    personas: [recruiter, hiring-manager]
+
+  - resource: jobPostingSites
+    domain: "Configuration"
+    operations:
+      - listJobPostingSites
+    workflows: [recruiting-configuration]
+    personas: [recruiting-admin]
+
+  - resource: interviews
+    domain: "Interviews"
+    operations:
+      - listInterviews
+      - scheduleInterview
+      - getInterview
+    workflows: [interview-and-screening]
+    personas: [recruiter, hiring-manager, interviewer]
+
+  - resource: interviewFeedback
+    domain: "Interviews"
+    operations:
+      - listInterviewFeedback
+      - submitInterviewFeedback
+    workflows: [interview-and-screening]
+    personas: [interviewer, hiring-manager]
+
+  - resource: backgroundChecks
+    domain: "Background Checks"
+    operations:
+      - listBackgroundChecks
+      - submitBackgroundCheck
+    workflows: [interview-and-screening]
+    personas: [recruiter]
+
+  - resource: backgroundCheckPackages
+    domain: "Background Checks"
+    operations:
+      - listBackgroundCheckPackages
+    workflows: [interview-and-screening]
+    personas: [recruiter, recruiting-admin]
+
+  - resource: recruitingAgencies
+    domain: "Recruiting Agencies"
+    operations:
+      - listRecruitingAgencies
+      - getRecruitingAgency
+      - submitAgencyCandidate
+    workflows: [candidate-pipeline]
+    personas: [recruiter, recruiting-agency]
+
+  - resource: applicants
+    domain: "Applicants"
+    operations:
+      - listApplicants
+      - importApplicants
+    workflows: [candidate-pipeline]
+    personas: [recruiter, sourcer]
+
+  - resource: questionnaires
+    domain: "Configuration"
+    operations:
+      - listQuestionnaires
+    workflows: [recruiting-configuration]
+    personas: [recruiting-admin]
+
+  - resource: veteranStatuses
+    domain: "Compliance"
+    operations:
+      - listVeteranStatuses
+    workflows: [recruiting-configuration]
+    personas: [compliance-analyst, recruiting-admin]

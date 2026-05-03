@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-structure/recruiting-rest-api-reference-structure.json",
+  "name": "Reference",
+  "description": "A reference to a related Workday resource",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Workday ID (WID) of the referenced resource",
+      "example": "11111111-2222-3333-4444-555555555555"
+    },
+    "descriptor": {
+      "type": "string",
+      "description": "Display name of the referenced resource",
+      "example": "Senior Software Engineer"
+    }
+  }
+}

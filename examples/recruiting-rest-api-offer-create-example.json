@@ -1,0 +1,10 @@
+{
+  "proposedStartDate": "2026-05-03",
+  "compensationAmount": 120000.0,
+  "compensationFrequency": "Annual",
+  "currency": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "expirationDate": "2026-05-03"
+}

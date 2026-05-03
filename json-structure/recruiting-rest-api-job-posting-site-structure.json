@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-structure/recruiting-rest-api-job-posting-site-structure.json",
+  "name": "JobPostingSite",
+  "description": "A career site or job board where job postings can be published for candidate attraction.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Workday ID (WID) of the posting site",
+      "example": "11111111-2222-3333-4444-555555555555"
+    },
+    "name": {
+      "type": "string",
+      "description": "Posting site name",
+      "example": "Senior Software Engineer"
+    },
+    "siteUrl": {
+      "type": "uri",
+      "description": "URL of the posting site",
+      "example": "https://example.com/resource"
+    },
+    "isInternal": {
+      "type": "boolean",
+      "description": "Whether this is an internal career site",
+      "example": false
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the posting site is currently active",
+      "example": true
+    }
+  }
+}

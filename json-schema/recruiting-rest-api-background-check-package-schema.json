@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BackgroundCheckPackage",
+  "description": "A background check package defines a set of screening checks to perform on candidates during the hiring process.",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-schema/recruiting-rest-api-background-check-package-schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Workday ID (WID) of the package",
+      "example": "11111111-2222-3333-4444-555555555555"
+    },
+    "name": {
+      "type": "string",
+      "description": "Package name",
+      "example": "Senior Software Engineer"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the checks included",
+      "example": "Strong technical background with 8+ years of experience in distributed systems."
+    },
+    "provider": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the package is currently active",
+      "example": true
+    }
+  }
+}

@@ -1,0 +1,406 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Workday Recruiting Requisition Management"
+  description: >-
+    Hiring manager and recruiter workflow for opening, modifying, freezing, and
+    closing job requisitions and evergreen requisitions, creating positions in
+    the position management staffing model, and posting jobs to internal and
+    external career sites.
+  tags:
+    - Workday
+    - Recruiting
+    - Job Requisitions
+    - Job Postings
+    - Positions
+    - HCM
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      WORKDAY_RECRUITING_TOKEN: WORKDAY_RECRUITING_TOKEN
+      WORKDAY_TENANT: WORKDAY_TENANT
+
+capability:
+  consumes:
+    - import: recruiting
+      location: ./shared/recruiting.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: requisition-management-api
+      description: "Unified REST API for opening, modifying, and posting job requisitions."
+      resources:
+        - path: /v1/job-requisitions
+          name: job-requisitions
+          description: "Job requisitions"
+          operations:
+            - method: GET
+              name: list-job-requisitions
+              description: "List job requisitions"
+              call: "recruiting.list-job-requisitions"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-job-requisition
+              description: "Create a job requisition"
+              call: "recruiting.create-job-requisition"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-requisitions/{jobRequisitionId}
+          name: job-requisition-by-id
+          description: "Individual job requisition"
+          operations:
+            - method: GET
+              name: get-job-requisition
+              description: "Get a job requisition"
+              call: "recruiting.get-job-requisition"
+              with:
+                jobRequisitionId: "rest.jobRequisitionId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: edit-job-requisition
+              description: "Edit a job requisition"
+              call: "recruiting.edit-job-requisition"
+              with:
+                jobRequisitionId: "rest.jobRequisitionId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-requisitions/{jobRequisitionId}/close
+          name: job-requisition-close
+          description: "Close a job requisition"
+          operations:
+            - method: POST
+              name: close-job-requisition
+              description: "Close a job requisition"
+              call: "recruiting.close-job-requisition"
+              with:
+                jobRequisitionId: "rest.jobRequisitionId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-requisitions/{jobRequisitionId}/freeze
+          name: job-requisition-freeze
+          description: "Freeze or unfreeze a job requisition"
+          operations:
+            - method: POST
+              name: manage-job-requisition-freeze
+              description: "Freeze or unfreeze a job requisition"
+              call: "recruiting.manage-job-requisition-freeze"
+              with:
+                jobRequisitionId: "rest.jobRequisitionId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/evergreen-requisitions
+          name: evergreen-requisitions
+          description: "Evergreen requisitions"
+          operations:
+            - method: GET
+              name: list-evergreen-requisitions
+              description: "List evergreen requisitions"
+              call: "recruiting.list-evergreen-requisitions"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-evergreen-requisition
+              description: "Create an evergreen requisition"
+              call: "recruiting.create-evergreen-requisition"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/evergreen-requisitions/{evergreenRequisitionId}
+          name: evergreen-requisition-by-id
+          description: "Individual evergreen requisition"
+          operations:
+            - method: GET
+              name: get-evergreen-requisition
+              description: "Get an evergreen requisition"
+              call: "recruiting.get-evergreen-requisition"
+              with:
+                evergreenRequisitionId: "rest.evergreenRequisitionId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/evergreen-requisitions/{evergreenRequisitionId}/close
+          name: evergreen-requisition-close
+          description: "Close an evergreen requisition"
+          operations:
+            - method: POST
+              name: close-evergreen-requisition
+              description: "Close an evergreen requisition"
+              call: "recruiting.close-evergreen-requisition"
+              with:
+                evergreenRequisitionId: "rest.evergreenRequisitionId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/positions
+          name: positions
+          description: "Positions"
+          operations:
+            - method: GET
+              name: list-positions
+              description: "List positions"
+              call: "recruiting.list-positions"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-position
+              description: "Create a position"
+              call: "recruiting.create-position"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-postings
+          name: job-postings
+          description: "Job postings"
+          operations:
+            - method: GET
+              name: list-job-postings
+              description: "List job postings"
+              call: "recruiting.list-job-postings"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-postings/{jobPostingId}
+          name: job-posting-by-id
+          description: "Individual job posting"
+          operations:
+            - method: GET
+              name: get-job-posting
+              description: "Get a job posting"
+              call: "recruiting.get-job-posting"
+              with:
+                jobPostingId: "rest.jobPostingId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: update-job-posting
+              description: "Update a job posting"
+              call: "recruiting.update-job-posting"
+              with:
+                jobPostingId: "rest.jobPostingId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-postings/{jobPostingId}/post
+          name: job-posting-post
+          description: "Post a job to career sites"
+          operations:
+            - method: POST
+              name: post-job
+              description: "Post a job to career sites"
+              call: "recruiting.post-job"
+              with:
+                jobPostingId: "rest.jobPostingId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-postings/{jobPostingId}/unpost
+          name: job-posting-unpost
+          description: "Unpost a job from career sites"
+          operations:
+            - method: POST
+              name: unpost-job
+              description: "Unpost a job from career sites"
+              call: "recruiting.unpost-job"
+              with:
+                jobPostingId: "rest.jobPostingId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: requisition-management-mcp
+      transport: http
+      description: "MCP server for AI-assisted job requisition opening, posting, and lifecycle management."
+      tools:
+        - name: list-job-requisitions
+          description: "List job requisitions with optional filters by status, organization, or update date"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-job-requisitions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-job-requisition
+          description: "Create a new job requisition for an open position"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.create-job-requisition"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-job-requisition
+          description: "Get details of a specific job requisition"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.get-job-requisition"
+          with:
+            jobRequisitionId: "tools.jobRequisitionId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: edit-job-requisition
+          description: "Edit an open job requisition"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "recruiting.edit-job-requisition"
+          with:
+            jobRequisitionId: "tools.jobRequisitionId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: close-job-requisition
+          description: "Close a job requisition that has no pending events"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "recruiting.close-job-requisition"
+          with:
+            jobRequisitionId: "tools.jobRequisitionId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: manage-job-requisition-freeze
+          description: "Freeze or unfreeze a job requisition to halt or resume hiring"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "recruiting.manage-job-requisition-freeze"
+          with:
+            jobRequisitionId: "tools.jobRequisitionId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-evergreen-requisitions
+          description: "List evergreen requisitions used for ongoing hiring needs"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-evergreen-requisitions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-evergreen-requisition
+          description: "Create a new evergreen requisition for ongoing hiring needs"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.create-evergreen-requisition"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-evergreen-requisition
+          description: "Get details of a specific evergreen requisition"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.get-evergreen-requisition"
+          with:
+            evergreenRequisitionId: "tools.evergreenRequisitionId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: close-evergreen-requisition
+          description: "Close an evergreen requisition with no pending events"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "recruiting.close-evergreen-requisition"
+          with:
+            evergreenRequisitionId: "tools.evergreenRequisitionId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-positions
+          description: "List position management positions and their fill status"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-positions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-position
+          description: "Create and open a new position in the position management staffing model"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.create-position"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-job-postings
+          description: "List job postings with optional filters by requisition or posting site"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-job-postings"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-job-posting
+          description: "Get details of a specific job posting"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.get-job-posting"
+          with:
+            jobPostingId: "tools.jobPostingId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-job-posting
+          description: "Update an existing job posting (start/end dates)"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "recruiting.update-job-posting"
+          with:
+            jobPostingId: "tools.jobPostingId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: post-job
+          description: "Post a job to internal and external career sites"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "recruiting.post-job"
+          with:
+            jobPostingId: "tools.jobPostingId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: unpost-job
+          description: "Remove a job posting from career sites"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "recruiting.unpost-job"
+          with:
+            jobPostingId: "tools.jobPostingId"
+          outputParameters:
+            - type: object
+              mapping: "$."

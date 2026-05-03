@@ -1,0 +1,23 @@
+{
+  "id": "11111111-2222-3333-4444-555555555555",
+  "candidate": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "jobRequisition": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "currentStage": "Review",
+  "dispositionReason": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "isDispositioned": false,
+  "source": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "appliedOn": "2026-05-03T14:30:00Z",
+  "updatedOn": "2026-05-03T14:30:00Z"
+}

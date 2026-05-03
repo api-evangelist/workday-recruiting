@@ -1,0 +1,51 @@
+{
+  "id": "11111111-2222-3333-4444-555555555555",
+  "requisitionNumber": "REQ-100245",
+  "title": "Senior Software Engineer",
+  "status": "Open",
+  "jobProfile": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "position": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "supervisoryOrganization": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "hiringManager": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "recruiter": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "numberOfOpenings": 3,
+  "location": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "workerType": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "timeType": "Full time",
+  "targetHireDate": "2026-05-03",
+  "targetEndDate": "2026-05-03",
+  "compensationRange": {
+    "minimum": 95000.0,
+    "maximum": 145000.0,
+    "currency": {
+      "id": "11111111-2222-3333-4444-555555555555",
+      "descriptor": "Senior Software Engineer"
+    },
+    "frequency": "Annual"
+  },
+  "jobDescription": "Strong technical background with 8+ years of experience in distributed systems.",
+  "qualifications": "Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.",
+  "createdOn": "2026-05-03T14:30:00Z",
+  "updatedOn": "2026-05-03T14:30:00Z"
+}

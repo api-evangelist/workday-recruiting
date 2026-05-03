@@ -1,0 +1,2141 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Workday Recruiting REST API"
+  description: >-
+    RESTful API for managing recruiting operations within Workday Human Capital
+    Management. Provides programmatic access to job requisitions, candidates,
+    job applications, job postings, interviews, background checks, recruiting
+    agencies, applicants, positions, and recruiting configuration.
+  tags:
+    - Workday
+    - Recruiting
+    - Talent Acquisition
+    - Human Resources
+    - HCM
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      WORKDAY_RECRUITING_TOKEN: WORKDAY_RECRUITING_TOKEN
+      WORKDAY_TENANT: WORKDAY_TENANT
+
+capability:
+  consumes:
+    - type: http
+      namespace: recruiting
+      baseUri: https://{{WORKDAY_TENANT}}.workday.com/ccx/api/recruiting/v41.2
+      description: "Workday Recruiting REST API for managing the full hiring lifecycle."
+      authentication:
+        type: bearer
+        token: "{{WORKDAY_RECRUITING_TOKEN}}"
+      resources:
+
+        - name: job-requisitions
+          path: /jobRequisitions
+          description: "Job requisition collection"
+          operations:
+            - name: list-job-requisitions
+              method: GET
+              description: "Retrieve a collection of job requisitions with optional filters"
+              inputParameters:
+                - name: limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of results"
+                - name: offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset"
+                - name: status
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by status (Open, Filled, Frozen, Closed, Draft)"
+                - name: supervisoryOrganization
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by supervisory organization Workday ID"
+                - name: updatedFrom
+                  in: query
+                  type: string
+                  required: false
+                  description: "Return requisitions updated on or after this date-time"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-job-requisition
+              method: POST
+              description: "Create a new job requisition for a position"
+              body:
+                type: json
+                data:
+                  title: "{{tools.title}}"
+                  jobProfile: "{{tools.jobProfile}}"
+                  position: "{{tools.position}}"
+                  supervisoryOrganization: "{{tools.supervisoryOrganization}}"
+                  hiringManager: "{{tools.hiringManager}}"
+                  recruiter: "{{tools.recruiter}}"
+                  numberOfOpenings: "{{tools.numberOfOpenings}}"
+                  location: "{{tools.location}}"
+                  workerType: "{{tools.workerType}}"
+                  timeType: "{{tools.timeType}}"
+                  targetHireDate: "{{tools.targetHireDate}}"
+                  jobDescription: "{{tools.jobDescription}}"
+                  qualifications: "{{tools.qualifications}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: job-requisition-by-id
+          path: /jobRequisitions/{jobRequisitionId}
+          description: "Individual job requisition"
+          operations:
+            - name: get-job-requisition
+              method: GET
+              description: "Retrieve details of a specific job requisition"
+              inputParameters:
+                - name: jobRequisitionId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Job requisition Workday ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: edit-job-requisition
+              method: PATCH
+              description: "Update an open job requisition"
+              inputParameters:
+                - name: jobRequisitionId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Job requisition Workday ID"
+              body:
+                type: json
+                data:
+                  title: "{{tools.title}}"
+                  jobProfile: "{{tools.jobProfile}}"
+                  numberOfOpenings: "{{tools.numberOfOpenings}}"
+                  location: "{{tools.location}}"
+                  workerType: "{{tools.workerType}}"
+                  timeType: "{{tools.timeType}}"
+                  targetHireDate: "{{tools.targetHireDate}}"
+                  jobDescription: "{{tools.jobDescription}}"
+                  qualifications: "{{tools.qualifications}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: job-requisition-close
+          path: /jobRequisitions/{jobRequisitionId}/close
+          description: "Close a job requisition"
+          operations:
+            - name: close-job-requisition
+              method: POST
+              description: "Close a job requisition that has no pending events"
+              inputParameters:
+                - name: jobRequisitionId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Job requisition Workday ID"
+              body:
+                type: json
+                data:
+                  closeReason: "{{tools.closeReason}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: job-requisition-freeze
+          path: /jobRequisitions/{jobRequisitionId}/freeze
+          description: "Freeze or unfreeze a job requisition"
+          operations:
+            - name: manage-job-requisition-freeze
+              method: POST
+              description: "Freeze or unfreeze a job requisition"
+              inputParameters:
+                - name: jobRequisitionId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Job requisition Workday ID"
+              body:
+                type: json
+                data:
+                  freeze: "{{tools.freeze}}"
+                  reason: "{{tools.reason}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: evergreen-requisitions
+          path: /evergreenRequisitions
+          description: "Evergreen requisition collection"
+          operations:
+            - name: list-evergreen-requisitions
+              method: GET
+              description: "Retrieve a collection of evergreen requisitions"
+              inputParameters:
+                - name: limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of results"
+                - name: offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-evergreen-requisition
+              method: POST
+              description: "Create a new evergreen requisition for ongoing hiring needs"
+              body:
+                type: json
+                data:
+                  title: "{{tools.title}}"
+                  jobProfile: "{{tools.jobProfile}}"
+                  supervisoryOrganization: "{{tools.supervisoryOrganization}}"
+                  hiringManager: "{{tools.hiringManager}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: evergreen-requisition-by-id
+          path: /evergreenRequisitions/{evergreenRequisitionId}
+          description: "Individual evergreen requisition"
+          operations:
+            - name: get-evergreen-requisition
+              method: GET
+              description: "Retrieve details of a specific evergreen requisition"
+              inputParameters:
+                - name: evergreenRequisitionId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Evergreen requisition Workday ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: evergreen-requisition-close
+          path: /evergreenRequisitions/{evergreenRequisitionId}/close
+          description: "Close an evergreen requisition"
+          operations:
+            - name: close-evergreen-requisition
+              method: POST
+              description: "Close an evergreen requisition with no pending events"
+              inputParameters:
+                - name: evergreenRequisitionId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Evergreen requisition Workday ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: candidates
+          path: /candidates
+          description: "Candidate collection"
+          operations:
+            - name: list-candidates
+              method: GET
+              description: "Retrieve a collection of candidates with optional filters"
+              inputParameters:
+                - name: limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of results"
+                - name: offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset"
+                - name: updatedFrom
+                  in: query
+                  type: string
+                  required: false
+                  description: "Return candidates updated on or after this date-time"
+                - name: name
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter candidates by name (partial match)"
+                - name: email
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter candidates by email address"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-candidate
+              method: POST
+              description: "Create a new candidate record"
+              body:
+                type: json
+                data:
+                  firstName: "{{tools.firstName}}"
+                  lastName: "{{tools.lastName}}"
+                  email: "{{tools.email}}"
+                  phone: "{{tools.phone}}"
+                  address: "{{tools.address}}"
+                  source: "{{tools.source}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: candidate-by-id
+          path: /candidates/{candidateId}
+          description: "Individual candidate"
+          operations:
+            - name: get-candidate
+              method: GET
+              description: "Retrieve details of a specific candidate"
+              inputParameters:
+                - name: candidateId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Candidate Workday ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-candidate
+              method: PATCH
+              description: "Update an existing candidate record"
+              inputParameters:
+                - name: candidateId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Candidate Workday ID"
+              body:
+                type: json
+                data:
+                  firstName: "{{tools.firstName}}"
+                  lastName: "{{tools.lastName}}"
+                  email: "{{tools.email}}"
+                  phone: "{{tools.phone}}"
+                  address: "{{tools.address}}"
+                  source: "{{tools.source}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: candidate-attachments
+          path: /candidates/{candidateId}/attachments
+          description: "Candidate attachments"
+          operations:
+            - name: list-candidate-attachments
+              method: GET
+              description: "Retrieve attachments for a candidate"
+              inputParameters:
+                - name: candidateId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Candidate Workday ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: add-candidate-attachment
+              method: POST
+              description: "Upload an attachment to a candidate record"
+              inputParameters:
+                - name: candidateId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Candidate Workday ID"
+              body:
+                type: multipart
+                data:
+                  file: "{{tools.file}}"
+                  category: "{{tools.category}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: candidate-photo
+          path: /candidates/{candidateId}/photo
+          description: "Candidate photo"
+          operations:
+            - name: get-candidate-photo
+              method: GET
+              description: "Retrieve the candidate photo"
+              inputParameters:
+                - name: candidateId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Candidate Workday ID"
+              outputRawFormat: binary
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-candidate-photo
+              method: PUT
+              description: "Upload or replace the candidate photo"
+              inputParameters:
+                - name: candidateId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Candidate Workday ID"
+              body:
+                type: binary
+                data:
+                  file: "{{tools.file}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: candidate-assess
+          path: /candidates/{candidateId}/assess
+          description: "Candidate assessment"
+          operations:
+            - name: assess-candidate
+              method: POST
+              description: "Create or modify a candidate assessment"
+              inputParameters:
+                - name: candidateId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Candidate Workday ID"
+              body:
+                type: json
+                data:
+                  assessmentCategory: "{{tools.assessmentCategory}}"
+                  result: "{{tools.result}}"
+                  score: "{{tools.score}}"
+                  comments: "{{tools.comments}}"
+                  assessedOn: "{{tools.assessedOn}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: candidate-refer
+          path: /candidates/{candidateId}/refer
+          description: "Candidate referral"
+          operations:
+            - name: refer-candidate
+              method: POST
+              description: "Submit a candidate referral from an existing worker"
+              inputParameters:
+                - name: candidateId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Candidate Workday ID"
+              body:
+                type: json
+                data:
+                  jobRequisition: "{{tools.jobRequisition}}"
+                  referrer: "{{tools.referrer}}"
+                  referralComments: "{{tools.referralComments}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: job-applications
+          path: /jobApplications
+          description: "Job application collection"
+          operations:
+            - name: list-job-applications
+              method: GET
+              description: "Retrieve a collection of job applications with optional filters"
+              inputParameters:
+                - name: limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of results"
+                - name: offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset"
+                - name: jobRequisition
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by job requisition Workday ID"
+                - name: candidate
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by candidate Workday ID"
+                - name: stage
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by recruiting stage"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: job-application-by-id
+          path: /jobApplications/{jobApplicationId}
+          description: "Individual job application"
+          operations:
+            - name: get-job-application
+              method: GET
+              description: "Retrieve details of a specific job application"
+              inputParameters:
+                - name: jobApplicationId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Job application Workday ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: job-application-move
+          path: /jobApplications/{jobApplicationId}/move
+          description: "Move candidate to a different stage"
+          operations:
+            - name: move-candidate-stage
+              method: POST
+              description: "Move a candidate to a different recruiting or disposition stage"
+              inputParameters:
+                - name: jobApplicationId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Job application Workday ID"
+              body:
+                type: json
+                data:
+                  stage: "{{tools.stage}}"
+                  reason: "{{tools.reason}}"
+                  comments: "{{tools.comments}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: job-application-offer
+          path: /jobApplications/{jobApplicationId}/offer
+          description: "Initiate an employment offer"
+          operations:
+            - name: initiate-offer
+              method: POST
+              description: "Initiate an employment offer for a job application"
+              inputParameters:
+                - name: jobApplicationId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Job application Workday ID"
+              body:
+                type: json
+                data:
+                  proposedStartDate: "{{tools.proposedStartDate}}"
+                  compensationAmount: "{{tools.compensationAmount}}"
+                  compensationFrequency: "{{tools.compensationFrequency}}"
+                  currency: "{{tools.currency}}"
+                  expirationDate: "{{tools.expirationDate}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: job-postings
+          path: /jobPostings
+          description: "Job posting collection"
+          operations:
+            - name: list-job-postings
+              method: GET
+              description: "Retrieve a collection of job postings with optional filters"
+              inputParameters:
+                - name: limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of results"
+                - name: offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset"
+                - name: jobRequisition
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by job requisition Workday ID"
+                - name: postingSite
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by posting site Workday ID"
+                - name: active
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Filter by active posting status"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: job-posting-by-id
+          path: /jobPostings/{jobPostingId}
+          description: "Individual job posting"
+          operations:
+            - name: get-job-posting
+              method: GET
+              description: "Retrieve details of a specific job posting"
+              inputParameters:
+                - name: jobPostingId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Job posting Workday ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-job-posting
+              method: PATCH
+              description: "Update an existing job posting"
+              inputParameters:
+                - name: jobPostingId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Job posting Workday ID"
+              body:
+                type: json
+                data:
+                  startDate: "{{tools.startDate}}"
+                  endDate: "{{tools.endDate}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: job-posting-post
+          path: /jobPostings/{jobPostingId}/post
+          description: "Post a job to career sites"
+          operations:
+            - name: post-job
+              method: POST
+              description: "Post a job to internal and external career sites"
+              inputParameters:
+                - name: jobPostingId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Job posting Workday ID"
+              body:
+                type: json
+                data:
+                  postingSites: "{{tools.postingSites}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: job-posting-unpost
+          path: /jobPostings/{jobPostingId}/unpost
+          description: "Unpost a job from career sites"
+          operations:
+            - name: unpost-job
+              method: POST
+              description: "Remove a job posting from career sites"
+              inputParameters:
+                - name: jobPostingId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Job posting Workday ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: interviews
+          path: /interviews
+          description: "Interview collection"
+          operations:
+            - name: list-interviews
+              method: GET
+              description: "Retrieve a collection of scheduled interviews with optional filters"
+              inputParameters:
+                - name: limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of results"
+                - name: offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset"
+                - name: jobApplication
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by job application Workday ID"
+                - name: dateFrom
+                  in: query
+                  type: string
+                  required: false
+                  description: "Return interviews scheduled on or after this date"
+                - name: dateTo
+                  in: query
+                  type: string
+                  required: false
+                  description: "Return interviews scheduled on or before this date"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: schedule-interview
+              method: POST
+              description: "Schedule a new interview for a job application"
+              body:
+                type: json
+                data:
+                  jobApplication: "{{tools.jobApplication}}"
+                  interviewType: "{{tools.interviewType}}"
+                  scheduledDate: "{{tools.scheduledDate}}"
+                  startTime: "{{tools.startTime}}"
+                  endTime: "{{tools.endTime}}"
+                  interviewers: "{{tools.interviewers}}"
+                  location: "{{tools.location}}"
+                  webConferenceUrl: "{{tools.webConferenceUrl}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: interview-by-id
+          path: /interviews/{interviewId}
+          description: "Individual interview"
+          operations:
+            - name: get-interview
+              method: GET
+              description: "Retrieve details of a specific interview"
+              inputParameters:
+                - name: interviewId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Interview Workday ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: interview-feedback
+          path: /interviews/{interviewId}/feedback
+          description: "Interview feedback"
+          operations:
+            - name: list-interview-feedback
+              method: GET
+              description: "Retrieve feedback submitted for an interview"
+              inputParameters:
+                - name: interviewId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Interview Workday ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: submit-interview-feedback
+              method: POST
+              description: "Submit feedback for a completed interview"
+              inputParameters:
+                - name: interviewId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Interview Workday ID"
+              body:
+                type: json
+                data:
+                  overallRating: "{{tools.overallRating}}"
+                  competencyRatings: "{{tools.competencyRatings}}"
+                  comments: "{{tools.comments}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: background-checks
+          path: /backgroundChecks
+          description: "Background check collection"
+          operations:
+            - name: list-background-checks
+              method: GET
+              description: "Retrieve a collection of background check results"
+              inputParameters:
+                - name: limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of results"
+                - name: offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset"
+                - name: candidate
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by candidate Workday ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: submit-background-check
+              method: POST
+              description: "Load background check results from an external provider"
+              body:
+                type: json
+                data:
+                  candidate: "{{tools.candidate}}"
+                  jobApplication: "{{tools.jobApplication}}"
+                  package: "{{tools.package}}"
+                  status: "{{tools.status}}"
+                  result: "{{tools.result}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: background-check-packages
+          path: /backgroundCheckPackages
+          description: "Background check package collection"
+          operations:
+            - name: list-background-check-packages
+              method: GET
+              description: "Retrieve available background check packages"
+              inputParameters:
+                - name: limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of results"
+                - name: offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: recruiting-agencies
+          path: /recruitingAgencies
+          description: "Recruiting agency collection"
+          operations:
+            - name: list-recruiting-agencies
+              method: GET
+              description: "Retrieve a collection of recruiting agencies"
+              inputParameters:
+                - name: limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of results"
+                - name: offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: recruiting-agency-by-id
+          path: /recruitingAgencies/{recruitingAgencyId}
+          description: "Individual recruiting agency"
+          operations:
+            - name: get-recruiting-agency
+              method: GET
+              description: "Retrieve details of a specific recruiting agency"
+              inputParameters:
+                - name: recruitingAgencyId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Recruiting agency Workday ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: recruiting-agency-candidates
+          path: /recruitingAgencies/{recruitingAgencyId}/candidates
+          description: "Submit candidates from a recruiting agency"
+          operations:
+            - name: submit-agency-candidate
+              method: POST
+              description: "Submit a candidate from a recruiting agency for a job requisition"
+              inputParameters:
+                - name: recruitingAgencyId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Recruiting agency Workday ID"
+              body:
+                type: json
+                data:
+                  candidate: "{{tools.candidate}}"
+                  jobRequisition: "{{tools.jobRequisition}}"
+                  agencyUser: "{{tools.agencyUser}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: applicants
+          path: /applicants
+          description: "Applicant collection"
+          operations:
+            - name: list-applicants
+              method: GET
+              description: "Retrieve pre-hire and applicant records"
+              inputParameters:
+                - name: limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of results"
+                - name: offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: applicants-import
+          path: /applicants/import
+          description: "Bulk applicant import"
+          operations:
+            - name: import-applicants
+              method: POST
+              description: "High-volume applicant import for asynchronous bulk loading"
+              body:
+                type: json
+                data:
+                  applicants: "{{tools.applicants}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: positions
+          path: /positions
+          description: "Position management"
+          operations:
+            - name: list-positions
+              method: GET
+              description: "Retrieve position management positions"
+              inputParameters:
+                - name: limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of results"
+                - name: offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-position
+              method: POST
+              description: "Create and open a new position"
+              body:
+                type: json
+                data:
+                  title: "{{tools.title}}"
+                  jobProfile: "{{tools.jobProfile}}"
+                  supervisoryOrganization: "{{tools.supervisoryOrganization}}"
+                  location: "{{tools.location}}"
+                  workerType: "{{tools.workerType}}"
+                  timeType: "{{tools.timeType}}"
+                  availableDate: "{{tools.availableDate}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: job-posting-sites
+          path: /jobPostingSites
+          description: "Job posting site configuration"
+          operations:
+            - name: list-job-posting-sites
+              method: GET
+              description: "Retrieve available job posting sites"
+              inputParameters:
+                - name: limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of results"
+                - name: offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: questionnaires
+          path: /questionnaires
+          description: "Recruiting questionnaires"
+          operations:
+            - name: list-questionnaires
+              method: GET
+              description: "Retrieve recruiting questionnaires for screening and assessment"
+              inputParameters:
+                - name: limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of results"
+                - name: offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: veteran-statuses
+          path: /veteranStatuses
+          description: "Veteran status reference values"
+          operations:
+            - name: list-veteran-statuses
+              method: GET
+              description: "Retrieve veteran status reference values for EEO reporting"
+              inputParameters:
+                - name: limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of results"
+                - name: offset
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination offset"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: recruiting-rest
+      description: "Standalone REST adapter exposing the full Workday Recruiting API."
+      resources:
+        - path: /v1/job-requisitions
+          name: job-requisitions
+          description: "Job requisitions"
+          operations:
+            - method: GET
+              name: list-job-requisitions
+              description: "List job requisitions"
+              call: "recruiting.list-job-requisitions"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-job-requisition
+              description: "Create a job requisition"
+              call: "recruiting.create-job-requisition"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-requisitions/{jobRequisitionId}
+          name: job-requisition-by-id
+          description: "Individual job requisition"
+          operations:
+            - method: GET
+              name: get-job-requisition
+              description: "Get a job requisition"
+              call: "recruiting.get-job-requisition"
+              with:
+                jobRequisitionId: "rest.jobRequisitionId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: edit-job-requisition
+              description: "Edit a job requisition"
+              call: "recruiting.edit-job-requisition"
+              with:
+                jobRequisitionId: "rest.jobRequisitionId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-requisitions/{jobRequisitionId}/close
+          name: job-requisition-close
+          description: "Close a job requisition"
+          operations:
+            - method: POST
+              name: close-job-requisition
+              description: "Close a job requisition"
+              call: "recruiting.close-job-requisition"
+              with:
+                jobRequisitionId: "rest.jobRequisitionId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-requisitions/{jobRequisitionId}/freeze
+          name: job-requisition-freeze
+          description: "Freeze or unfreeze a job requisition"
+          operations:
+            - method: POST
+              name: manage-job-requisition-freeze
+              description: "Freeze or unfreeze a job requisition"
+              call: "recruiting.manage-job-requisition-freeze"
+              with:
+                jobRequisitionId: "rest.jobRequisitionId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/evergreen-requisitions
+          name: evergreen-requisitions
+          description: "Evergreen requisitions"
+          operations:
+            - method: GET
+              name: list-evergreen-requisitions
+              description: "List evergreen requisitions"
+              call: "recruiting.list-evergreen-requisitions"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-evergreen-requisition
+              description: "Create an evergreen requisition"
+              call: "recruiting.create-evergreen-requisition"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/evergreen-requisitions/{evergreenRequisitionId}
+          name: evergreen-requisition-by-id
+          description: "Individual evergreen requisition"
+          operations:
+            - method: GET
+              name: get-evergreen-requisition
+              description: "Get an evergreen requisition"
+              call: "recruiting.get-evergreen-requisition"
+              with:
+                evergreenRequisitionId: "rest.evergreenRequisitionId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/evergreen-requisitions/{evergreenRequisitionId}/close
+          name: evergreen-requisition-close
+          description: "Close an evergreen requisition"
+          operations:
+            - method: POST
+              name: close-evergreen-requisition
+              description: "Close an evergreen requisition"
+              call: "recruiting.close-evergreen-requisition"
+              with:
+                evergreenRequisitionId: "rest.evergreenRequisitionId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/candidates
+          name: candidates
+          description: "Candidates"
+          operations:
+            - method: GET
+              name: list-candidates
+              description: "List candidates"
+              call: "recruiting.list-candidates"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-candidate
+              description: "Create a candidate"
+              call: "recruiting.create-candidate"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/candidates/{candidateId}
+          name: candidate-by-id
+          description: "Individual candidate"
+          operations:
+            - method: GET
+              name: get-candidate
+              description: "Get a candidate"
+              call: "recruiting.get-candidate"
+              with:
+                candidateId: "rest.candidateId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: update-candidate
+              description: "Update a candidate"
+              call: "recruiting.update-candidate"
+              with:
+                candidateId: "rest.candidateId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/candidates/{candidateId}/attachments
+          name: candidate-attachments
+          description: "Candidate attachments"
+          operations:
+            - method: GET
+              name: list-candidate-attachments
+              description: "List candidate attachments"
+              call: "recruiting.list-candidate-attachments"
+              with:
+                candidateId: "rest.candidateId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: add-candidate-attachment
+              description: "Add a candidate attachment"
+              call: "recruiting.add-candidate-attachment"
+              with:
+                candidateId: "rest.candidateId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/candidates/{candidateId}/photo
+          name: candidate-photo
+          description: "Candidate photo"
+          operations:
+            - method: GET
+              name: get-candidate-photo
+              description: "Get the candidate photo"
+              call: "recruiting.get-candidate-photo"
+              with:
+                candidateId: "rest.candidateId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PUT
+              name: update-candidate-photo
+              description: "Update the candidate photo"
+              call: "recruiting.update-candidate-photo"
+              with:
+                candidateId: "rest.candidateId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/candidates/{candidateId}/assess
+          name: candidate-assess
+          description: "Candidate assessment"
+          operations:
+            - method: POST
+              name: assess-candidate
+              description: "Assess a candidate"
+              call: "recruiting.assess-candidate"
+              with:
+                candidateId: "rest.candidateId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/candidates/{candidateId}/refer
+          name: candidate-refer
+          description: "Candidate referral"
+          operations:
+            - method: POST
+              name: refer-candidate
+              description: "Refer a candidate"
+              call: "recruiting.refer-candidate"
+              with:
+                candidateId: "rest.candidateId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-applications
+          name: job-applications
+          description: "Job applications"
+          operations:
+            - method: GET
+              name: list-job-applications
+              description: "List job applications"
+              call: "recruiting.list-job-applications"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-applications/{jobApplicationId}
+          name: job-application-by-id
+          description: "Individual job application"
+          operations:
+            - method: GET
+              name: get-job-application
+              description: "Get a job application"
+              call: "recruiting.get-job-application"
+              with:
+                jobApplicationId: "rest.jobApplicationId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-applications/{jobApplicationId}/move
+          name: job-application-move
+          description: "Move candidate stage"
+          operations:
+            - method: POST
+              name: move-candidate-stage
+              description: "Move candidate to a different stage"
+              call: "recruiting.move-candidate-stage"
+              with:
+                jobApplicationId: "rest.jobApplicationId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-applications/{jobApplicationId}/offer
+          name: job-application-offer
+          description: "Initiate offer"
+          operations:
+            - method: POST
+              name: initiate-offer
+              description: "Initiate an offer"
+              call: "recruiting.initiate-offer"
+              with:
+                jobApplicationId: "rest.jobApplicationId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-postings
+          name: job-postings
+          description: "Job postings"
+          operations:
+            - method: GET
+              name: list-job-postings
+              description: "List job postings"
+              call: "recruiting.list-job-postings"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-postings/{jobPostingId}
+          name: job-posting-by-id
+          description: "Individual job posting"
+          operations:
+            - method: GET
+              name: get-job-posting
+              description: "Get a job posting"
+              call: "recruiting.get-job-posting"
+              with:
+                jobPostingId: "rest.jobPostingId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: update-job-posting
+              description: "Update a job posting"
+              call: "recruiting.update-job-posting"
+              with:
+                jobPostingId: "rest.jobPostingId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-postings/{jobPostingId}/post
+          name: job-posting-post
+          description: "Post a job"
+          operations:
+            - method: POST
+              name: post-job
+              description: "Post a job to career sites"
+              call: "recruiting.post-job"
+              with:
+                jobPostingId: "rest.jobPostingId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-postings/{jobPostingId}/unpost
+          name: job-posting-unpost
+          description: "Unpost a job"
+          operations:
+            - method: POST
+              name: unpost-job
+              description: "Unpost a job from career sites"
+              call: "recruiting.unpost-job"
+              with:
+                jobPostingId: "rest.jobPostingId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/interviews
+          name: interviews
+          description: "Interviews"
+          operations:
+            - method: GET
+              name: list-interviews
+              description: "List interviews"
+              call: "recruiting.list-interviews"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: schedule-interview
+              description: "Schedule an interview"
+              call: "recruiting.schedule-interview"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/interviews/{interviewId}
+          name: interview-by-id
+          description: "Individual interview"
+          operations:
+            - method: GET
+              name: get-interview
+              description: "Get an interview"
+              call: "recruiting.get-interview"
+              with:
+                interviewId: "rest.interviewId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/interviews/{interviewId}/feedback
+          name: interview-feedback
+          description: "Interview feedback"
+          operations:
+            - method: GET
+              name: list-interview-feedback
+              description: "List interview feedback"
+              call: "recruiting.list-interview-feedback"
+              with:
+                interviewId: "rest.interviewId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: submit-interview-feedback
+              description: "Submit interview feedback"
+              call: "recruiting.submit-interview-feedback"
+              with:
+                interviewId: "rest.interviewId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/background-checks
+          name: background-checks
+          description: "Background checks"
+          operations:
+            - method: GET
+              name: list-background-checks
+              description: "List background checks"
+              call: "recruiting.list-background-checks"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: submit-background-check
+              description: "Submit a background check"
+              call: "recruiting.submit-background-check"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/background-check-packages
+          name: background-check-packages
+          description: "Background check packages"
+          operations:
+            - method: GET
+              name: list-background-check-packages
+              description: "List background check packages"
+              call: "recruiting.list-background-check-packages"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/recruiting-agencies
+          name: recruiting-agencies
+          description: "Recruiting agencies"
+          operations:
+            - method: GET
+              name: list-recruiting-agencies
+              description: "List recruiting agencies"
+              call: "recruiting.list-recruiting-agencies"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/recruiting-agencies/{recruitingAgencyId}
+          name: recruiting-agency-by-id
+          description: "Individual recruiting agency"
+          operations:
+            - method: GET
+              name: get-recruiting-agency
+              description: "Get a recruiting agency"
+              call: "recruiting.get-recruiting-agency"
+              with:
+                recruitingAgencyId: "rest.recruitingAgencyId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/recruiting-agencies/{recruitingAgencyId}/candidates
+          name: recruiting-agency-candidates
+          description: "Submit agency candidates"
+          operations:
+            - method: POST
+              name: submit-agency-candidate
+              description: "Submit an agency candidate"
+              call: "recruiting.submit-agency-candidate"
+              with:
+                recruitingAgencyId: "rest.recruitingAgencyId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/applicants
+          name: applicants
+          description: "Applicants"
+          operations:
+            - method: GET
+              name: list-applicants
+              description: "List applicants"
+              call: "recruiting.list-applicants"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/applicants/import
+          name: applicants-import
+          description: "Import applicants in bulk"
+          operations:
+            - method: POST
+              name: import-applicants
+              description: "Import applicants in bulk"
+              call: "recruiting.import-applicants"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/positions
+          name: positions
+          description: "Positions"
+          operations:
+            - method: GET
+              name: list-positions
+              description: "List positions"
+              call: "recruiting.list-positions"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-position
+              description: "Create a position"
+              call: "recruiting.create-position"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-posting-sites
+          name: job-posting-sites
+          description: "Job posting sites"
+          operations:
+            - method: GET
+              name: list-job-posting-sites
+              description: "List job posting sites"
+              call: "recruiting.list-job-posting-sites"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/questionnaires
+          name: questionnaires
+          description: "Recruiting questionnaires"
+          operations:
+            - method: GET
+              name: list-questionnaires
+              description: "List questionnaires"
+              call: "recruiting.list-questionnaires"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/veteran-statuses
+          name: veteran-statuses
+          description: "Veteran status reference values"
+          operations:
+            - method: GET
+              name: list-veteran-statuses
+              description: "List veteran statuses"
+              call: "recruiting.list-veteran-statuses"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: recruiting-mcp
+      transport: http
+      description: "Standalone MCP adapter exposing the full Workday Recruiting API as tools."
+      tools:
+        - name: list-job-requisitions
+          description: "List job requisitions with optional filters by status or organization"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-job-requisitions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-job-requisition
+          description: "Create a new job requisition for a position"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.create-job-requisition"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-job-requisition
+          description: "Get details of a specific job requisition"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.get-job-requisition"
+          with:
+            jobRequisitionId: "tools.jobRequisitionId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: edit-job-requisition
+          description: "Edit an open job requisition"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "recruiting.edit-job-requisition"
+          with:
+            jobRequisitionId: "tools.jobRequisitionId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: close-job-requisition
+          description: "Close a job requisition"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "recruiting.close-job-requisition"
+          with:
+            jobRequisitionId: "tools.jobRequisitionId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: manage-job-requisition-freeze
+          description: "Freeze or unfreeze a job requisition"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "recruiting.manage-job-requisition-freeze"
+          with:
+            jobRequisitionId: "tools.jobRequisitionId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-evergreen-requisitions
+          description: "List evergreen requisitions"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-evergreen-requisitions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-evergreen-requisition
+          description: "Create a new evergreen requisition"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.create-evergreen-requisition"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-evergreen-requisition
+          description: "Get details of a specific evergreen requisition"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.get-evergreen-requisition"
+          with:
+            evergreenRequisitionId: "tools.evergreenRequisitionId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: close-evergreen-requisition
+          description: "Close an evergreen requisition"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "recruiting.close-evergreen-requisition"
+          with:
+            evergreenRequisitionId: "tools.evergreenRequisitionId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-candidates
+          description: "List candidate profiles with optional filters"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-candidates"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-candidate
+          description: "Create a new candidate record"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.create-candidate"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-candidate
+          description: "Get a candidate's full profile"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.get-candidate"
+          with:
+            candidateId: "tools.candidateId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-candidate
+          description: "Update an existing candidate record"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "recruiting.update-candidate"
+          with:
+            candidateId: "tools.candidateId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-candidate-attachments
+          description: "List attachments for a candidate"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-candidate-attachments"
+          with:
+            candidateId: "tools.candidateId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: add-candidate-attachment
+          description: "Upload an attachment to a candidate record"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.add-candidate-attachment"
+          with:
+            candidateId: "tools.candidateId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-candidate-photo
+          description: "Get a candidate's photo"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.get-candidate-photo"
+          with:
+            candidateId: "tools.candidateId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-candidate-photo
+          description: "Upload or replace a candidate's photo"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "recruiting.update-candidate-photo"
+          with:
+            candidateId: "tools.candidateId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: assess-candidate
+          description: "Submit a candidate assessment"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.assess-candidate"
+          with:
+            candidateId: "tools.candidateId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: refer-candidate
+          description: "Submit a candidate referral from an existing worker"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.refer-candidate"
+          with:
+            candidateId: "tools.candidateId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-job-applications
+          description: "List job applications with optional filters"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-job-applications"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-job-application
+          description: "Get details of a specific job application"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.get-job-application"
+          with:
+            jobApplicationId: "tools.jobApplicationId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: move-candidate-stage
+          description: "Move a candidate to a different recruiting or disposition stage"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.move-candidate-stage"
+          with:
+            jobApplicationId: "tools.jobApplicationId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: initiate-offer
+          description: "Initiate an employment offer for a job application"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.initiate-offer"
+          with:
+            jobApplicationId: "tools.jobApplicationId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-job-postings
+          description: "List job postings with optional filters"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-job-postings"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-job-posting
+          description: "Get details of a specific job posting"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.get-job-posting"
+          with:
+            jobPostingId: "tools.jobPostingId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-job-posting
+          description: "Update an existing job posting"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "recruiting.update-job-posting"
+          with:
+            jobPostingId: "tools.jobPostingId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: post-job
+          description: "Post a job to internal and external career sites"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "recruiting.post-job"
+          with:
+            jobPostingId: "tools.jobPostingId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: unpost-job
+          description: "Unpost a job from career sites"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "recruiting.unpost-job"
+          with:
+            jobPostingId: "tools.jobPostingId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-interviews
+          description: "List scheduled interviews with optional filters"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-interviews"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: schedule-interview
+          description: "Schedule a new interview for a job application"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.schedule-interview"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-interview
+          description: "Get details of a specific interview"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.get-interview"
+          with:
+            interviewId: "tools.interviewId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-interview-feedback
+          description: "List feedback submitted for an interview"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-interview-feedback"
+          with:
+            interviewId: "tools.interviewId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: submit-interview-feedback
+          description: "Submit feedback for a completed interview"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.submit-interview-feedback"
+          with:
+            interviewId: "tools.interviewId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-background-checks
+          description: "List background check results"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-background-checks"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: submit-background-check
+          description: "Submit a background check result"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.submit-background-check"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-background-check-packages
+          description: "List available background check packages"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-background-check-packages"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-recruiting-agencies
+          description: "List recruiting agencies"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-recruiting-agencies"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-recruiting-agency
+          description: "Get details of a specific recruiting agency"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.get-recruiting-agency"
+          with:
+            recruitingAgencyId: "tools.recruitingAgencyId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: submit-agency-candidate
+          description: "Submit a candidate from a recruiting agency for a job requisition"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.submit-agency-candidate"
+          with:
+            recruitingAgencyId: "tools.recruitingAgencyId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-applicants
+          description: "List pre-hire and applicant records"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-applicants"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: import-applicants
+          description: "High-volume bulk applicant import"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.import-applicants"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-positions
+          description: "List position management positions"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-positions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-position
+          description: "Create and open a new position"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.create-position"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-job-posting-sites
+          description: "List available job posting sites"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-job-posting-sites"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-questionnaires
+          description: "List recruiting questionnaires for screening and assessment"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-questionnaires"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-veteran-statuses
+          description: "List veteran status reference values for EEO reporting"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-veteran-statuses"
+          outputParameters:
+            - type: object
+              mapping: "$."

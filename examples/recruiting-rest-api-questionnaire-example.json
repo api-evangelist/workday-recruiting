@@ -1,0 +1,25 @@
+{
+  "id": "11111111-2222-3333-4444-555555555555",
+  "name": "Senior Software Engineer",
+  "description": "Strong technical background with 8+ years of experience in distributed systems.",
+  "questions": [
+    {
+      "questionText": "Describe a challenging project you've delivered.",
+      "questionType": "Single Select",
+      "required": true,
+      "options": [
+        "value-9dcbc4"
+      ]
+    },
+    {
+      "questionText": "Describe a challenging project you've delivered.",
+      "questionType": "Single Select",
+      "required": true,
+      "options": [
+        "value-b8642c",
+        "value-cee421"
+      ]
+    }
+  ],
+  "active": true
+}

@@ -1,0 +1,461 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Workday Recruiting Candidate Pipeline"
+  description: >-
+    Recruiter and sourcer workflow for managing the candidate pipeline from
+    sourcing through application progression. Covers candidate profile and
+    attachment management, candidate assessments and referrals, job application
+    stage moves and offer initiation, high-volume applicant import, and
+    recruiting agency candidate submissions.
+  tags:
+    - Workday
+    - Recruiting
+    - Candidates
+    - Job Applications
+    - Applicants
+    - Recruiting Agencies
+    - HCM
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      WORKDAY_RECRUITING_TOKEN: WORKDAY_RECRUITING_TOKEN
+      WORKDAY_TENANT: WORKDAY_TENANT
+
+capability:
+  consumes:
+    - import: recruiting
+      location: ./shared/recruiting.yaml
+
+  exposes:
+    - type: rest
+      port: 8081
+      namespace: candidate-pipeline-api
+      description: "Unified REST API for candidate sourcing, application tracking, and offers."
+      resources:
+        - path: /v1/candidates
+          name: candidates
+          description: "Candidates"
+          operations:
+            - method: GET
+              name: list-candidates
+              description: "List candidates"
+              call: "recruiting.list-candidates"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-candidate
+              description: "Create a candidate"
+              call: "recruiting.create-candidate"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/candidates/{candidateId}
+          name: candidate-by-id
+          description: "Individual candidate"
+          operations:
+            - method: GET
+              name: get-candidate
+              description: "Get a candidate"
+              call: "recruiting.get-candidate"
+              with:
+                candidateId: "rest.candidateId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: update-candidate
+              description: "Update a candidate"
+              call: "recruiting.update-candidate"
+              with:
+                candidateId: "rest.candidateId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/candidates/{candidateId}/attachments
+          name: candidate-attachments
+          description: "Candidate attachments"
+          operations:
+            - method: GET
+              name: list-candidate-attachments
+              description: "List candidate attachments"
+              call: "recruiting.list-candidate-attachments"
+              with:
+                candidateId: "rest.candidateId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: add-candidate-attachment
+              description: "Add a candidate attachment"
+              call: "recruiting.add-candidate-attachment"
+              with:
+                candidateId: "rest.candidateId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/candidates/{candidateId}/photo
+          name: candidate-photo
+          description: "Candidate photo"
+          operations:
+            - method: GET
+              name: get-candidate-photo
+              description: "Get the candidate photo"
+              call: "recruiting.get-candidate-photo"
+              with:
+                candidateId: "rest.candidateId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PUT
+              name: update-candidate-photo
+              description: "Update the candidate photo"
+              call: "recruiting.update-candidate-photo"
+              with:
+                candidateId: "rest.candidateId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/candidates/{candidateId}/assess
+          name: candidate-assess
+          description: "Candidate assessment"
+          operations:
+            - method: POST
+              name: assess-candidate
+              description: "Assess a candidate"
+              call: "recruiting.assess-candidate"
+              with:
+                candidateId: "rest.candidateId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/candidates/{candidateId}/refer
+          name: candidate-refer
+          description: "Candidate referral"
+          operations:
+            - method: POST
+              name: refer-candidate
+              description: "Refer a candidate"
+              call: "recruiting.refer-candidate"
+              with:
+                candidateId: "rest.candidateId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-applications
+          name: job-applications
+          description: "Job applications"
+          operations:
+            - method: GET
+              name: list-job-applications
+              description: "List job applications"
+              call: "recruiting.list-job-applications"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-applications/{jobApplicationId}
+          name: job-application-by-id
+          description: "Individual job application"
+          operations:
+            - method: GET
+              name: get-job-application
+              description: "Get a job application"
+              call: "recruiting.get-job-application"
+              with:
+                jobApplicationId: "rest.jobApplicationId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-applications/{jobApplicationId}/move
+          name: job-application-move
+          description: "Move candidate stage"
+          operations:
+            - method: POST
+              name: move-candidate-stage
+              description: "Move candidate to a different stage"
+              call: "recruiting.move-candidate-stage"
+              with:
+                jobApplicationId: "rest.jobApplicationId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/job-applications/{jobApplicationId}/offer
+          name: job-application-offer
+          description: "Initiate offer"
+          operations:
+            - method: POST
+              name: initiate-offer
+              description: "Initiate an offer"
+              call: "recruiting.initiate-offer"
+              with:
+                jobApplicationId: "rest.jobApplicationId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/applicants
+          name: applicants
+          description: "Applicants"
+          operations:
+            - method: GET
+              name: list-applicants
+              description: "List applicants"
+              call: "recruiting.list-applicants"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/applicants/import
+          name: applicants-import
+          description: "Bulk applicant import"
+          operations:
+            - method: POST
+              name: import-applicants
+              description: "Import applicants in bulk"
+              call: "recruiting.import-applicants"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/recruiting-agencies
+          name: recruiting-agencies
+          description: "Recruiting agencies"
+          operations:
+            - method: GET
+              name: list-recruiting-agencies
+              description: "List recruiting agencies"
+              call: "recruiting.list-recruiting-agencies"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/recruiting-agencies/{recruitingAgencyId}
+          name: recruiting-agency-by-id
+          description: "Individual recruiting agency"
+          operations:
+            - method: GET
+              name: get-recruiting-agency
+              description: "Get a recruiting agency"
+              call: "recruiting.get-recruiting-agency"
+              with:
+                recruitingAgencyId: "rest.recruitingAgencyId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/recruiting-agencies/{recruitingAgencyId}/candidates
+          name: recruiting-agency-candidates
+          description: "Submit agency candidates"
+          operations:
+            - method: POST
+              name: submit-agency-candidate
+              description: "Submit an agency candidate"
+              call: "recruiting.submit-agency-candidate"
+              with:
+                recruitingAgencyId: "rest.recruitingAgencyId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9091
+      namespace: candidate-pipeline-mcp
+      transport: http
+      description: "MCP server for AI-assisted candidate sourcing, screening, and application progression."
+      tools:
+        - name: list-candidates
+          description: "List candidate profiles with filters by name, email, or update date"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-candidates"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-candidate
+          description: "Create a new candidate record"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.create-candidate"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-candidate
+          description: "Get a candidate's full profile and application history"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.get-candidate"
+          with:
+            candidateId: "tools.candidateId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-candidate
+          description: "Update an existing candidate record"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "recruiting.update-candidate"
+          with:
+            candidateId: "tools.candidateId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-candidate-attachments
+          description: "List resumes, cover letters, and other attachments for a candidate"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-candidate-attachments"
+          with:
+            candidateId: "tools.candidateId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: add-candidate-attachment
+          description: "Upload a resume, cover letter, or other attachment to a candidate"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.add-candidate-attachment"
+          with:
+            candidateId: "tools.candidateId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-candidate-photo
+          description: "Get a candidate's photo"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.get-candidate-photo"
+          with:
+            candidateId: "tools.candidateId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-candidate-photo
+          description: "Upload or replace a candidate's photo"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "recruiting.update-candidate-photo"
+          with:
+            candidateId: "tools.candidateId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: assess-candidate
+          description: "Submit a candidate assessment and optionally advance the application"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.assess-candidate"
+          with:
+            candidateId: "tools.candidateId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: refer-candidate
+          description: "Submit a candidate referral from an existing worker"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.refer-candidate"
+          with:
+            candidateId: "tools.candidateId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-job-applications
+          description: "List job applications with filters by requisition, candidate, or stage"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-job-applications"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-job-application
+          description: "Get details of a specific job application and its current stage"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.get-job-application"
+          with:
+            jobApplicationId: "tools.jobApplicationId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: move-candidate-stage
+          description: "Move a candidate to a different recruiting or disposition stage"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.move-candidate-stage"
+          with:
+            jobApplicationId: "tools.jobApplicationId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: initiate-offer
+          description: "Initiate an employment offer for a job application"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.initiate-offer"
+          with:
+            jobApplicationId: "tools.jobApplicationId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-applicants
+          description: "List pre-hire and applicant records"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-applicants"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: import-applicants
+          description: "High-volume bulk applicant import for retail, hospitality, or seasonal hiring"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.import-applicants"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-recruiting-agencies
+          description: "List recruiting agencies configured for external sourcing"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-recruiting-agencies"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-recruiting-agency
+          description: "Get details of a specific recruiting agency"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.get-recruiting-agency"
+          with:
+            recruitingAgencyId: "tools.recruitingAgencyId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: submit-agency-candidate
+          description: "Submit a candidate from a recruiting agency for a job requisition"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.submit-agency-candidate"
+          with:
+            recruitingAgencyId: "tools.recruitingAgencyId"
+          outputParameters:
+            - type: object
+              mapping: "$."

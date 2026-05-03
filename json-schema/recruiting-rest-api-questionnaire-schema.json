@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Questionnaire",
+  "description": "A recruiting questionnaire used for candidate screening or assessment during the application process.",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-schema/recruiting-rest-api-questionnaire-schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Workday ID (WID) of the questionnaire",
+      "example": "11111111-2222-3333-4444-555555555555"
+    },
+    "name": {
+      "type": "string",
+      "description": "Questionnaire name",
+      "example": "Senior Software Engineer"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the questionnaire purpose",
+      "example": "Strong technical background with 8+ years of experience in distributed systems."
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "questionText": {
+            "type": "string",
+            "description": "The question text",
+            "example": "Describe a challenging project you've delivered."
+          },
+          "questionType": {
+            "type": "string",
+            "enum": [
+              "Single Select",
+              "Multi Select",
+              "Free Text",
+              "Numeric"
+            ],
+            "description": "Type of response expected",
+            "example": "Single Select"
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether the question requires a response",
+            "example": true
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Available answer options for select questions"
+          }
+        }
+      },
+      "description": "Questions in the questionnaire"
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the questionnaire is currently active",
+      "example": true
+    }
+  }
+}

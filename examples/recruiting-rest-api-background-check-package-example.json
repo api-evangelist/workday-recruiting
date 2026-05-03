@@ -1,0 +1,10 @@
+{
+  "id": "11111111-2222-3333-4444-555555555555",
+  "name": "Senior Software Engineer",
+  "description": "Strong technical background with 8+ years of experience in distributed systems.",
+  "provider": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "active": true
+}

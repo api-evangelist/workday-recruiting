@@ -1,0 +1,22 @@
+{
+  "id": "11111111-2222-3333-4444-555555555555",
+  "interviewer": {
+    "id": "11111111-2222-3333-4444-555555555555",
+    "descriptor": "Senior Software Engineer"
+  },
+  "overallRating": "Strong Hire",
+  "competencyRatings": [
+    {
+      "competency": {},
+      "rating": 4,
+      "comments": "Strong technical background with 8+ years of experience in distributed systems."
+    },
+    {
+      "competency": {},
+      "rating": 4,
+      "comments": "Strong technical background with 8+ years of experience in distributed systems."
+    }
+  ],
+  "comments": "Strong technical background with 8+ years of experience in distributed systems.",
+  "submittedOn": "2026-05-03T14:30:00Z"
+}

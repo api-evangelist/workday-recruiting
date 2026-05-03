@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-structure/recruiting-rest-api-candidate-create-structure.json",
+  "name": "CandidateCreate",
+  "description": "Request body for creating or updating a candidate",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "description": "Candidate first name",
+      "example": "Jordan"
+    },
+    "lastName": {
+      "type": "string",
+      "description": "Candidate last name",
+      "example": "Reyes"
+    },
+    "email": {
+      "type": "string",
+      "description": "Primary email address",
+      "example": "candidate@example.com"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Primary phone number",
+      "example": "+1-415-555-0123"
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "addressLine1": {
+          "type": "string",
+          "example": "123 Market Street"
+        },
+        "addressLine2": {
+          "type": "string",
+          "example": "123 Market Street"
+        },
+        "city": {
+          "type": "string",
+          "example": "San Francisco"
+        },
+        "stateProvince": {
+          "type": "string",
+          "example": "CA"
+        },
+        "postalCode": {
+          "type": "string",
+          "example": "94105"
+        },
+        "country": {
+          "type": "object",
+          "description": "A reference to a related Workday resource",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Workday ID (WID) of the referenced resource",
+              "example": "11111111-2222-3333-4444-555555555555"
+            },
+            "descriptor": {
+              "type": "string",
+              "description": "Display name of the referenced resource",
+              "example": "Senior Software Engineer"
+            }
+          }
+        }
+      },
+      "description": "Candidate mailing address"
+    },
+    "source": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    }
+  },
+  "required": [
+    "firstName",
+    "lastName",
+    "email"
+  ]
+}

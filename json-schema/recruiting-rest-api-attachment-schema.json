@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Attachment",
+  "description": "A file attachment associated with a candidate or job application",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-schema/recruiting-rest-api-attachment-schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Workday ID (WID) of the attachment",
+      "example": "11111111-2222-3333-4444-555555555555"
+    },
+    "fileName": {
+      "type": "string",
+      "description": "Original file name",
+      "example": "resume.pdf"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Resume",
+        "Cover Letter",
+        "Portfolio",
+        "Other"
+      ],
+      "description": "Attachment category",
+      "example": "Resume"
+    },
+    "contentType": {
+      "type": "string",
+      "description": "MIME type of the attachment",
+      "example": "Full time"
+    },
+    "fileSize": {
+      "type": "integer",
+      "description": "File size in bytes",
+      "example": 245678
+    },
+    "uploadedOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the attachment was uploaded",
+      "example": "2026-05-03T14:30:00Z"
+    }
+  }
+}

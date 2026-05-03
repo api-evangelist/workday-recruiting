@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RecruitingAgency",
+  "description": "A recruiting agency represents an external staffing or recruitment firm that submits candidates for open positions.",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-schema/recruiting-rest-api-recruiting-agency-schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Workday ID (WID) of the recruiting agency",
+      "example": "11111111-2222-3333-4444-555555555555"
+    },
+    "name": {
+      "type": "string",
+      "description": "Agency name",
+      "example": "Senior Software Engineer"
+    },
+    "contactName": {
+      "type": "string",
+      "description": "Primary contact name",
+      "example": "Senior Software Engineer"
+    },
+    "contactEmail": {
+      "type": "string",
+      "format": "email",
+      "description": "Primary contact email",
+      "example": "candidate@example.com"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Agency phone number",
+      "example": "+1-415-555-0123"
+    },
+    "feePercentage": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Agency fee as a percentage of first-year compensation",
+      "example": 22.5
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the agency relationship is currently active",
+      "example": true
+    }
+  }
+}

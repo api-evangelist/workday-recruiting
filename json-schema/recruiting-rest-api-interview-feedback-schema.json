@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "InterviewFeedback",
+  "description": "Feedback submitted by an interviewer after completing a candidate interview, including ratings and hiring recommendation.",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-schema/recruiting-rest-api-interview-feedback-schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Workday ID (WID) of the feedback record",
+      "example": "11111111-2222-3333-4444-555555555555"
+    },
+    "interviewer": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "overallRating": {
+      "type": "string",
+      "enum": [
+        "Strong Hire",
+        "Hire",
+        "No Decision",
+        "Do Not Hire",
+        "Strong Do Not Hire"
+      ],
+      "description": "Overall hiring recommendation",
+      "example": "Strong Hire"
+    },
+    "competencyRatings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "competency": {
+            "type": "object",
+            "description": "A reference to a related Workday resource",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Workday ID (WID) of the referenced resource",
+                "example": "11111111-2222-3333-4444-555555555555"
+              },
+              "descriptor": {
+                "type": "string",
+                "description": "Display name of the referenced resource",
+                "example": "Senior Software Engineer"
+              }
+            }
+          },
+          "rating": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "description": "Rating value (1-5 scale)",
+            "example": 4
+          },
+          "comments": {
+            "type": "string",
+            "description": "Competency-level comments",
+            "example": "Strong technical background with 8+ years of experience in distributed systems."
+          }
+        }
+      },
+      "description": "Individual competency ratings"
+    },
+    "comments": {
+      "type": "string",
+      "description": "General interview feedback comments",
+      "example": "Strong technical background with 8+ years of experience in distributed systems."
+    },
+    "submittedOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the feedback was submitted",
+      "example": "2026-05-03T14:30:00Z"
+    }
+  }
+}

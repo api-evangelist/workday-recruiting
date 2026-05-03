@@ -1,0 +1,202 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Workday Recruiting Interview and Screening"
+  description: >-
+    Recruiter and hiring manager workflow for scheduling interviews, collecting
+    and reviewing interviewer feedback, and running pre-hire background
+    screening. Combines the Workday Recruiting interview and background check
+    operations into a single hiring evaluation surface.
+  tags:
+    - Workday
+    - Recruiting
+    - Interviews
+    - Background Checks
+    - HCM
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      WORKDAY_RECRUITING_TOKEN: WORKDAY_RECRUITING_TOKEN
+      WORKDAY_TENANT: WORKDAY_TENANT
+
+capability:
+  consumes:
+    - import: recruiting
+      location: ./shared/recruiting.yaml
+
+  exposes:
+    - type: rest
+      port: 8082
+      namespace: interview-and-screening-api
+      description: "Unified REST API for interview scheduling, feedback collection, and background screening."
+      resources:
+        - path: /v1/interviews
+          name: interviews
+          description: "Interviews"
+          operations:
+            - method: GET
+              name: list-interviews
+              description: "List interviews"
+              call: "recruiting.list-interviews"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: schedule-interview
+              description: "Schedule an interview"
+              call: "recruiting.schedule-interview"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/interviews/{interviewId}
+          name: interview-by-id
+          description: "Individual interview"
+          operations:
+            - method: GET
+              name: get-interview
+              description: "Get an interview"
+              call: "recruiting.get-interview"
+              with:
+                interviewId: "rest.interviewId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/interviews/{interviewId}/feedback
+          name: interview-feedback
+          description: "Interview feedback"
+          operations:
+            - method: GET
+              name: list-interview-feedback
+              description: "List interview feedback"
+              call: "recruiting.list-interview-feedback"
+              with:
+                interviewId: "rest.interviewId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: submit-interview-feedback
+              description: "Submit interview feedback"
+              call: "recruiting.submit-interview-feedback"
+              with:
+                interviewId: "rest.interviewId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/background-checks
+          name: background-checks
+          description: "Background checks"
+          operations:
+            - method: GET
+              name: list-background-checks
+              description: "List background checks"
+              call: "recruiting.list-background-checks"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: submit-background-check
+              description: "Submit a background check"
+              call: "recruiting.submit-background-check"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/background-check-packages
+          name: background-check-packages
+          description: "Background check packages"
+          operations:
+            - method: GET
+              name: list-background-check-packages
+              description: "List background check packages"
+              call: "recruiting.list-background-check-packages"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9092
+      namespace: interview-and-screening-mcp
+      transport: http
+      description: "MCP server for AI-assisted interview scheduling, feedback, and background screening."
+      tools:
+        - name: list-interviews
+          description: "List scheduled interviews with filters by application or date range"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-interviews"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: schedule-interview
+          description: "Schedule a new interview for a job application"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.schedule-interview"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-interview
+          description: "Get details of a specific interview"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.get-interview"
+          with:
+            interviewId: "tools.interviewId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-interview-feedback
+          description: "List feedback submitted by interviewers for a specific interview"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-interview-feedback"
+          with:
+            interviewId: "tools.interviewId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: submit-interview-feedback
+          description: "Submit overall rating, competency ratings, and hiring recommendation for an interview"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.submit-interview-feedback"
+          with:
+            interviewId: "tools.interviewId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-background-checks
+          description: "List background check results for candidates"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-background-checks"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: submit-background-check
+          description: "Load background check results from an external screening provider"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "recruiting.submit-background-check"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-background-check-packages
+          description: "List available background check packages for screening"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "recruiting.list-background-check-packages"
+          outputParameters:
+            - type: object
+              mapping: "$."

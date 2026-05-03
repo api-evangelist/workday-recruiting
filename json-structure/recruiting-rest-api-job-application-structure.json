@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/json-structure/recruiting-rest-api-job-application-structure.json",
+  "name": "JobApplication",
+  "description": "A job application links a candidate to a job requisition and tracks their progress through the recruiting stages from application through hire or disposition.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Workday ID (WID) uniquely identifying the job application",
+      "example": "11111111-2222-3333-4444-555555555555"
+    },
+    "candidate": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "jobRequisition": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "currentStage": {
+      "type": "string",
+      "enum": [
+        "Review",
+        "Screen",
+        "Interview",
+        "Assessment",
+        "Offer",
+        "Background Check",
+        "Ready for Hire",
+        "Hired"
+      ],
+      "description": "Current recruiting stage",
+      "example": "Review"
+    },
+    "dispositionReason": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "isDispositioned": {
+      "type": "boolean",
+      "description": "Whether the candidate has been dispositioned",
+      "example": false
+    },
+    "source": {
+      "type": "object",
+      "description": "A reference to a related Workday resource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Workday ID (WID) of the referenced resource",
+          "example": "11111111-2222-3333-4444-555555555555"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Display name of the referenced resource",
+          "example": "Senior Software Engineer"
+        }
+      }
+    },
+    "appliedOn": {
+      "type": "datetime",
+      "description": "Date and time the application was submitted",
+      "example": "2026-05-03T14:30:00Z"
+    },
+    "updatedOn": {
+      "type": "datetime",
+      "description": "Timestamp when the application was last updated",
+      "example": "2026-05-03T14:30:00Z"
+    }
+  }
+}
