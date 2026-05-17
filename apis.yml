@@ -43,7 +43,7 @@ apis:
         url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
       - type: RateLimits
         url: https://community.workday.com/articles/16827
-      - type: JSON-LD
+      - type: JSONLD
         url: json-ld/workday-recruiting-rest-api-context.jsonld
       - type: JSONSchema
         url: json-schema/recruiting-rest-api-applicant-schema.json
