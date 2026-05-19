@@ -1,0 +1,232 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Workday Recruiting REST API — Job Postings
+  description: 'Workday Recruiting REST API — Job Postings. 5 operations. Lead operation: Workday Recruiting List Job Postings.
+    Self-contained Naftiko capability covering one Workday Recruiting business surface.'
+  tags:
+  - Workday Recruiting
+  - Job Postings
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WORKDAY_RECRUITING_API_KEY: WORKDAY_RECRUITING_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-job-postings
+    baseUri: https://{tenant}.workday.com/ccx/api/recruiting/v41.2
+    description: Workday Recruiting REST API — Job Postings business capability. Self-contained, no shared references.
+    resources:
+    - name: jobPostings
+      path: /jobPostings
+      operations:
+      - name: listjobpostings
+        method: GET
+        description: Workday Recruiting List Job Postings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: jobRequisition
+          in: query
+          type: string
+          description: Filter by job requisition Workday ID
+        - name: postingSite
+          in: query
+          type: string
+          description: Filter by posting site Workday ID
+        - name: active
+          in: query
+          type: boolean
+          description: Filter by active posting status
+    - name: jobPostings-id
+      path: /jobPostings/{id}
+      operations:
+      - name: getjobposting
+        method: GET
+        description: Workday Recruiting Get a Job Posting
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatejobposting
+        method: PATCH
+        description: Workday Recruiting Update a Job Posting
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: jobPostings-id-post
+      path: /jobPostings/{id}/post
+      operations:
+      - name: postjob
+        method: POST
+        description: Workday Recruiting Post a Job to Career Sites
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: jobPostings-id-unpost
+      path: /jobPostings/{id}/unpost
+      operations:
+      - name: unpostjob
+        method: POST
+        description: Workday Recruiting Unpost a Job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.WORKDAY_RECRUITING_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-job-postings-rest
+    port: 8080
+    description: REST adapter for Workday Recruiting REST API — Job Postings. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/jobpostings
+      name: jobpostings
+      description: REST surface for jobPostings.
+      operations:
+      - method: GET
+        name: listjobpostings
+        description: Workday Recruiting List Job Postings
+        call: rest-job-postings.listjobpostings
+        with:
+          jobRequisition: rest.jobRequisition
+          postingSite: rest.postingSite
+          active: rest.active
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/jobpostings/{id}
+      name: jobpostings-id
+      description: REST surface for jobPostings-id.
+      operations:
+      - method: GET
+        name: getjobposting
+        description: Workday Recruiting Get a Job Posting
+        call: rest-job-postings.getjobposting
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatejobposting
+        description: Workday Recruiting Update a Job Posting
+        call: rest-job-postings.updatejobposting
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/jobpostings/{id}/post
+      name: jobpostings-id-post
+      description: REST surface for jobPostings-id-post.
+      operations:
+      - method: POST
+        name: postjob
+        description: Workday Recruiting Post a Job to Career Sites
+        call: rest-job-postings.postjob
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/jobpostings/{id}/unpost
+      name: jobpostings-id-unpost
+      description: REST surface for jobPostings-id-unpost.
+      operations:
+      - method: POST
+        name: unpostjob
+        description: Workday Recruiting Unpost a Job
+        call: rest-job-postings.unpostjob
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-job-postings-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Workday Recruiting REST API — Job Postings. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: workday-recruiting-list-job-postings
+      description: Workday Recruiting List Job Postings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-job-postings.listjobpostings
+      with:
+        jobRequisition: tools.jobRequisition
+        postingSite: tools.postingSite
+        active: tools.active
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: workday-recruiting-get-job-posting
+      description: Workday Recruiting Get a Job Posting
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-job-postings.getjobposting
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: workday-recruiting-update-job-posting
+      description: Workday Recruiting Update a Job Posting
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-job-postings.updatejobposting
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: workday-recruiting-post-job-career
+      description: Workday Recruiting Post a Job to Career Sites
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-job-postings.postjob
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: workday-recruiting-unpost-job
+      description: Workday Recruiting Unpost a Job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-job-postings.unpostjob
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,169 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Workday Recruiting REST API — Evergreen Requisitions
+  description: 'Workday Recruiting REST API — Evergreen Requisitions. 4 operations. Lead operation: Workday Recruiting List
+    Evergreen Requisitions. Self-contained Naftiko capability covering one Workday Recruiting business surface.'
+  tags:
+  - Workday Recruiting
+  - Evergreen Requisitions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WORKDAY_RECRUITING_API_KEY: WORKDAY_RECRUITING_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-evergreen-requisitions
+    baseUri: https://{tenant}.workday.com/ccx/api/recruiting/v41.2
+    description: Workday Recruiting REST API — Evergreen Requisitions business capability. Self-contained, no shared references.
+    resources:
+    - name: evergreenRequisitions
+      path: /evergreenRequisitions
+      operations:
+      - name: listevergreenrequisitions
+        method: GET
+        description: Workday Recruiting List Evergreen Requisitions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createevergreenrequisition
+        method: POST
+        description: Workday Recruiting Create an Evergreen Requisition
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: evergreenRequisitions-id
+      path: /evergreenRequisitions/{id}
+      operations:
+      - name: getevergreenrequisition
+        method: GET
+        description: Workday Recruiting Get an Evergreen Requisition
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: evergreenRequisitions-id-close
+      path: /evergreenRequisitions/{id}/close
+      operations:
+      - name: closeevergreenrequisition
+        method: POST
+        description: Workday Recruiting Close an Evergreen Requisition
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.WORKDAY_RECRUITING_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-evergreen-requisitions-rest
+    port: 8080
+    description: REST adapter for Workday Recruiting REST API — Evergreen Requisitions. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/evergreenrequisitions
+      name: evergreenrequisitions
+      description: REST surface for evergreenRequisitions.
+      operations:
+      - method: GET
+        name: listevergreenrequisitions
+        description: Workday Recruiting List Evergreen Requisitions
+        call: rest-evergreen-requisitions.listevergreenrequisitions
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createevergreenrequisition
+        description: Workday Recruiting Create an Evergreen Requisition
+        call: rest-evergreen-requisitions.createevergreenrequisition
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/evergreenrequisitions/{id}
+      name: evergreenrequisitions-id
+      description: REST surface for evergreenRequisitions-id.
+      operations:
+      - method: GET
+        name: getevergreenrequisition
+        description: Workday Recruiting Get an Evergreen Requisition
+        call: rest-evergreen-requisitions.getevergreenrequisition
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/evergreenrequisitions/{id}/close
+      name: evergreenrequisitions-id-close
+      description: REST surface for evergreenRequisitions-id-close.
+      operations:
+      - method: POST
+        name: closeevergreenrequisition
+        description: Workday Recruiting Close an Evergreen Requisition
+        call: rest-evergreen-requisitions.closeevergreenrequisition
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-evergreen-requisitions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Workday Recruiting REST API — Evergreen Requisitions. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: workday-recruiting-list-evergreen-requisitions
+      description: Workday Recruiting List Evergreen Requisitions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-evergreen-requisitions.listevergreenrequisitions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: workday-recruiting-create-evergreen-requisition
+      description: Workday Recruiting Create an Evergreen Requisition
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-evergreen-requisitions.createevergreenrequisition
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: workday-recruiting-get-evergreen-requisition
+      description: Workday Recruiting Get an Evergreen Requisition
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-evergreen-requisitions.getevergreenrequisition
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: workday-recruiting-close-evergreen-requisition
+      description: Workday Recruiting Close an Evergreen Requisition
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-evergreen-requisitions.closeevergreenrequisition
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,225 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Workday Recruiting REST API — Interviews
+  description: 'Workday Recruiting REST API — Interviews. 5 operations. Lead operation: Workday Recruiting List Interviews.
+    Self-contained Naftiko capability covering one Workday Recruiting business surface.'
+  tags:
+  - Workday Recruiting
+  - Interviews
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WORKDAY_RECRUITING_API_KEY: WORKDAY_RECRUITING_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-interviews
+    baseUri: https://{tenant}.workday.com/ccx/api/recruiting/v41.2
+    description: Workday Recruiting REST API — Interviews business capability. Self-contained, no shared references.
+    resources:
+    - name: interviews
+      path: /interviews
+      operations:
+      - name: listinterviews
+        method: GET
+        description: Workday Recruiting List Interviews
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: jobApplication
+          in: query
+          type: string
+          description: Filter by job application Workday ID
+        - name: dateFrom
+          in: query
+          type: string
+          description: Return interviews scheduled on or after this date
+        - name: dateTo
+          in: query
+          type: string
+          description: Return interviews scheduled on or before this date
+      - name: scheduleinterview
+        method: POST
+        description: Workday Recruiting Schedule an Interview
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: interviews-id
+      path: /interviews/{id}
+      operations:
+      - name: getinterview
+        method: GET
+        description: Workday Recruiting Get an Interview
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: interviews-id-feedback
+      path: /interviews/{id}/feedback
+      operations:
+      - name: listinterviewfeedback
+        method: GET
+        description: Workday Recruiting List Interview Feedback
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: submitinterviewfeedback
+        method: POST
+        description: Workday Recruiting Submit Interview Feedback
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.WORKDAY_RECRUITING_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-interviews-rest
+    port: 8080
+    description: REST adapter for Workday Recruiting REST API — Interviews. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/interviews
+      name: interviews
+      description: REST surface for interviews.
+      operations:
+      - method: GET
+        name: listinterviews
+        description: Workday Recruiting List Interviews
+        call: rest-interviews.listinterviews
+        with:
+          jobApplication: rest.jobApplication
+          dateFrom: rest.dateFrom
+          dateTo: rest.dateTo
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: scheduleinterview
+        description: Workday Recruiting Schedule an Interview
+        call: rest-interviews.scheduleinterview
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/interviews/{id}
+      name: interviews-id
+      description: REST surface for interviews-id.
+      operations:
+      - method: GET
+        name: getinterview
+        description: Workday Recruiting Get an Interview
+        call: rest-interviews.getinterview
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/interviews/{id}/feedback
+      name: interviews-id-feedback
+      description: REST surface for interviews-id-feedback.
+      operations:
+      - method: GET
+        name: listinterviewfeedback
+        description: Workday Recruiting List Interview Feedback
+        call: rest-interviews.listinterviewfeedback
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: submitinterviewfeedback
+        description: Workday Recruiting Submit Interview Feedback
+        call: rest-interviews.submitinterviewfeedback
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-interviews-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Workday Recruiting REST API — Interviews. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: workday-recruiting-list-interviews
+      description: Workday Recruiting List Interviews
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-interviews.listinterviews
+      with:
+        jobApplication: tools.jobApplication
+        dateFrom: tools.dateFrom
+        dateTo: tools.dateTo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: workday-recruiting-schedule-interview
+      description: Workday Recruiting Schedule an Interview
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-interviews.scheduleinterview
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: workday-recruiting-get-interview
+      description: Workday Recruiting Get an Interview
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-interviews.getinterview
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: workday-recruiting-list-interview-feedback
+      description: Workday Recruiting List Interview Feedback
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-interviews.listinterviewfeedback
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: workday-recruiting-submit-interview-feedback
+      description: Workday Recruiting Submit Interview Feedback
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-interviews.submitinterviewfeedback
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

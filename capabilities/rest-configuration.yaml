@@ -1,0 +1,134 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Workday Recruiting REST API — Configuration
+  description: 'Workday Recruiting REST API — Configuration. 3 operations. Lead operation: Workday Recruiting List Job Posting
+    Sites. Self-contained Naftiko capability covering one Workday Recruiting business surface.'
+  tags:
+  - Workday Recruiting
+  - Configuration
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WORKDAY_RECRUITING_API_KEY: WORKDAY_RECRUITING_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-configuration
+    baseUri: https://{tenant}.workday.com/ccx/api/recruiting/v41.2
+    description: Workday Recruiting REST API — Configuration business capability. Self-contained, no shared references.
+    resources:
+    - name: jobPostingSites
+      path: /jobPostingSites
+      operations:
+      - name: listjobpostingsites
+        method: GET
+        description: Workday Recruiting List Job Posting Sites
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: questionnaires
+      path: /questionnaires
+      operations:
+      - name: listquestionnaires
+        method: GET
+        description: Workday Recruiting List Questionnaires
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: veteranStatuses
+      path: /veteranStatuses
+      operations:
+      - name: listveteranstatuses
+        method: GET
+        description: Workday Recruiting List Veteran Statuses
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.WORKDAY_RECRUITING_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-configuration-rest
+    port: 8080
+    description: REST adapter for Workday Recruiting REST API — Configuration. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/jobpostingsites
+      name: jobpostingsites
+      description: REST surface for jobPostingSites.
+      operations:
+      - method: GET
+        name: listjobpostingsites
+        description: Workday Recruiting List Job Posting Sites
+        call: rest-configuration.listjobpostingsites
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/questionnaires
+      name: questionnaires
+      description: REST surface for questionnaires.
+      operations:
+      - method: GET
+        name: listquestionnaires
+        description: Workday Recruiting List Questionnaires
+        call: rest-configuration.listquestionnaires
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/veteranstatuses
+      name: veteranstatuses
+      description: REST surface for veteranStatuses.
+      operations:
+      - method: GET
+        name: listveteranstatuses
+        description: Workday Recruiting List Veteran Statuses
+        call: rest-configuration.listveteranstatuses
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-configuration-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Workday Recruiting REST API — Configuration. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: workday-recruiting-list-job-posting
+      description: Workday Recruiting List Job Posting Sites
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-configuration.listjobpostingsites
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: workday-recruiting-list-questionnaires
+      description: Workday Recruiting List Questionnaires
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-configuration.listquestionnaires
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: workday-recruiting-list-veteran-statuses
+      description: Workday Recruiting List Veteran Statuses
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-configuration.listveteranstatuses
+      outputParameters:
+      - type: object
+        mapping: $.

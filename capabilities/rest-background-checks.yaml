@@ -1,0 +1,146 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Workday Recruiting REST API — Background Checks
+  description: 'Workday Recruiting REST API — Background Checks. 3 operations. Lead operation: Workday Recruiting List Background
+    Check Packages. Self-contained Naftiko capability covering one Workday Recruiting business surface.'
+  tags:
+  - Workday Recruiting
+  - Background Checks
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WORKDAY_RECRUITING_API_KEY: WORKDAY_RECRUITING_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-background-checks
+    baseUri: https://{tenant}.workday.com/ccx/api/recruiting/v41.2
+    description: Workday Recruiting REST API — Background Checks business capability. Self-contained, no shared references.
+    resources:
+    - name: backgroundCheckPackages
+      path: /backgroundCheckPackages
+      operations:
+      - name: listbackgroundcheckpackages
+        method: GET
+        description: Workday Recruiting List Background Check Packages
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: backgroundChecks
+      path: /backgroundChecks
+      operations:
+      - name: listbackgroundchecks
+        method: GET
+        description: Workday Recruiting List Background Checks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: candidate
+          in: query
+          type: string
+          description: Filter by candidate Workday ID
+      - name: submitbackgroundcheck
+        method: POST
+        description: Workday Recruiting Submit a Background Check Result
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.WORKDAY_RECRUITING_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-background-checks-rest
+    port: 8080
+    description: REST adapter for Workday Recruiting REST API — Background Checks. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/backgroundcheckpackages
+      name: backgroundcheckpackages
+      description: REST surface for backgroundCheckPackages.
+      operations:
+      - method: GET
+        name: listbackgroundcheckpackages
+        description: Workday Recruiting List Background Check Packages
+        call: rest-background-checks.listbackgroundcheckpackages
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/backgroundchecks
+      name: backgroundchecks
+      description: REST surface for backgroundChecks.
+      operations:
+      - method: GET
+        name: listbackgroundchecks
+        description: Workday Recruiting List Background Checks
+        call: rest-background-checks.listbackgroundchecks
+        with:
+          candidate: rest.candidate
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: submitbackgroundcheck
+        description: Workday Recruiting Submit a Background Check Result
+        call: rest-background-checks.submitbackgroundcheck
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-background-checks-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Workday Recruiting REST API — Background Checks. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: workday-recruiting-list-background-check
+      description: Workday Recruiting List Background Check Packages
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-background-checks.listbackgroundcheckpackages
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: workday-recruiting-list-background-checks
+      description: Workday Recruiting List Background Checks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-background-checks.listbackgroundchecks
+      with:
+        candidate: tools.candidate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: workday-recruiting-submit-background-check
+      description: Workday Recruiting Submit a Background Check Result
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: rest-background-checks.submitbackgroundcheck
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
