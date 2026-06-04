@@ -1,0 +1,115 @@
+arazzo: 1.0.1
+info:
+  title: Workday Recruiting Screen and Advance a Job Application
+  summary: Find an application in review for a requisition, inspect it, and move it forward.
+  description: >-
+    A core recruiter triage loop. The workflow lists the job applications sitting
+    in a given recruiting stage for a requisition, branches on whether any were
+    found, reads the first matching application for its full detail, and then
+    advances that candidate to the next recruiting stage with a documented
+    reason. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: workdayRecruitingApi
+  url: ../openapi/workday-recruiting-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: screen-and-advance-application
+  summary: Triage applications for a requisition and advance one to the next stage.
+  description: >-
+    Lists applications in a stage for a requisition, retrieves the first match,
+    and moves that candidate to a target stage.
+  inputs:
+    type: object
+    required:
+    - jobRequisition
+    - stage
+    - targetStage
+    properties:
+      jobRequisition:
+        type: string
+        description: Workday ID of the job requisition to triage applications for.
+      stage:
+        type: string
+        description: >-
+          Current recruiting stage to filter applications by (one of Review,
+          Screen, Interview, Assessment, Offer, Background Check, Ready for
+          Hire, Hired).
+      targetStage:
+        type: object
+        description: Reference to the target recruiting stage to move the candidate to (id + descriptor).
+      reason:
+        type: object
+        description: Reference to the reason for the stage transition (id + descriptor).
+      comments:
+        type: string
+        description: Comments about the stage transition.
+  steps:
+  - stepId: listApplications
+    description: >-
+      List the job applications for the requisition that are currently in the
+      supplied recruiting stage, returning at most one to advance.
+    operationId: listJobApplications
+    parameters:
+    - name: jobRequisition
+      in: query
+      value: $inputs.jobRequisition
+    - name: stage
+      in: query
+      value: $inputs.stage
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      applicationId: $response.body#/data/0/id
+    onSuccess:
+    - name: applicationFound
+      type: goto
+      stepId: getApplication
+      criteria:
+      - context: $response.body
+        condition: $.data.length > 0
+        type: jsonpath
+    - name: noApplications
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.length == 0
+        type: jsonpath
+  - stepId: getApplication
+    description: >-
+      Retrieve the matched job application to confirm its candidate, requisition,
+      and current stage before moving it.
+    operationId: getJobApplication
+    parameters:
+    - name: id
+      in: path
+      value: $steps.listApplications.outputs.applicationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      candidate: $response.body#/candidate/id
+      currentStage: $response.body#/currentStage
+  - stepId: advanceStage
+    description: >-
+      Move the candidate to the target recruiting stage with a documented reason
+      and comments.
+    operationId: moveCandidateStage
+    parameters:
+    - name: id
+      in: path
+      value: $steps.listApplications.outputs.applicationId
+    requestBody:
+      contentType: application/json
+      payload:
+        stage: $inputs.targetStage
+        reason: $inputs.reason
+        comments: $inputs.comments
+    successCriteria:
+    - condition: $statusCode == 200
+  outputs:
+    applicationId: $steps.listApplications.outputs.applicationId
+    candidate: $steps.getApplication.outputs.candidate

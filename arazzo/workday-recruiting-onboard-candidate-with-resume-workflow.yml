@@ -1,0 +1,138 @@
+arazzo: 1.0.1
+info:
+  title: Workday Recruiting Onboard a Candidate with Resume and Assessment
+  summary: Create a candidate, attach a resume, record an assessment, and read the profile back.
+  description: >-
+    Captures a new candidate into the recruiting system with supporting
+    documentation. The workflow creates the candidate record, uploads a resume
+    attachment to that candidate, records an initial assessment result against
+    the candidate, and then reads the candidate profile back to confirm the
+    fully assembled record. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: workdayRecruitingApi
+  url: ../openapi/workday-recruiting-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: onboard-candidate-with-resume
+  summary: Create a candidate, attach a resume, assess, and confirm the profile.
+  description: >-
+    Creates a candidate, uploads a resume attachment, submits an assessment, and
+    retrieves the candidate to confirm.
+  inputs:
+    type: object
+    required:
+    - firstName
+    - lastName
+    - email
+    - resumeFile
+    - assessmentResult
+    properties:
+      firstName:
+        type: string
+        description: Candidate first name.
+      lastName:
+        type: string
+        description: Candidate last name.
+      email:
+        type: string
+        description: Candidate email address.
+      phone:
+        type: string
+        description: Candidate phone number.
+      address:
+        type: object
+        description: Candidate address object.
+      source:
+        type: object
+        description: Reference to the candidate source (id + descriptor).
+      resumeFile:
+        type: string
+        description: The resume file contents to upload as an attachment.
+      assessmentCategory:
+        type: object
+        description: Reference to the assessment category (id + descriptor).
+      assessmentResult:
+        type: string
+        description: The assessment result (e.g. "Pass").
+      assessmentScore:
+        type: number
+        description: Numeric assessment score.
+      assessmentComments:
+        type: string
+        description: Comments captured with the assessment.
+  steps:
+  - stepId: createCandidate
+    description: >-
+      Add the new candidate record with personal and contact information.
+    operationId: createCandidate
+    requestBody:
+      contentType: application/json
+      payload:
+        firstName: $inputs.firstName
+        lastName: $inputs.lastName
+        email: $inputs.email
+        phone: $inputs.phone
+        address: $inputs.address
+        source: $inputs.source
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      candidateId: $response.body#/id
+      fullName: $response.body#/fullName
+  - stepId: attachResume
+    description: >-
+      Upload the resume as a Resume-category attachment on the candidate record.
+    operationId: addCandidateAttachment
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createCandidate.outputs.candidateId
+    requestBody:
+      contentType: multipart/form-data
+      payload:
+        file: $inputs.resumeFile
+        category: Resume
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      attachmentId: $response.body#/id
+      fileName: $response.body#/fileName
+  - stepId: assessCandidate
+    description: >-
+      Record an initial assessment result for the candidate.
+    operationId: assessCandidate
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createCandidate.outputs.candidateId
+    requestBody:
+      contentType: application/json
+      payload:
+        assessmentCategory: $inputs.assessmentCategory
+        result: $inputs.assessmentResult
+        score: $inputs.assessmentScore
+        comments: $inputs.assessmentComments
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      assessmentResult: $response.body#/result
+  - stepId: confirmCandidate
+    description: >-
+      Read the candidate profile back to confirm the record, attachment, and
+      assessment are all in place.
+    operationId: getCandidate
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createCandidate.outputs.candidateId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      candidateId: $response.body#/id
+      email: $response.body#/email
+  outputs:
+    candidateId: $steps.createCandidate.outputs.candidateId
+    attachmentId: $steps.attachResume.outputs.attachmentId
+    assessmentResult: $steps.assessCandidate.outputs.assessmentResult

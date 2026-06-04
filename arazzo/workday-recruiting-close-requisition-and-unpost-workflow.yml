@@ -1,0 +1,111 @@
+arazzo: 1.0.1
+info:
+  title: Workday Recruiting Close a Requisition and Unpost Its Jobs
+  summary: Confirm a requisition, unpost its active posting, then close the requisition.
+  description: >-
+    Cleanly retires a filled or cancelled hiring need. The workflow reads the
+    job requisition to confirm it exists, finds the active job posting tied to
+    that requisition, removes that posting from career sites so no new
+    applications can arrive, and then closes the requisition with a documented
+    reason. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: workdayRecruitingApi
+  url: ../openapi/workday-recruiting-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: close-requisition-and-unpost
+  summary: Unpost a requisition's active posting and close the requisition.
+  description: >-
+    Confirms a requisition, finds and unposts its active job posting, then
+    closes the requisition.
+  inputs:
+    type: object
+    required:
+    - jobRequisitionId
+    properties:
+      jobRequisitionId:
+        type: string
+        description: Workday ID of the requisition to unpost and close.
+      closeReason:
+        type: object
+        description: Reference to the reason for closing the requisition (id + descriptor).
+  steps:
+  - stepId: confirmRequisition
+    description: >-
+      Read the job requisition to confirm it exists before unposting and
+      closing it.
+    operationId: getJobRequisition
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.jobRequisitionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      requisitionId: $response.body#/id
+      status: $response.body#/status
+  - stepId: findActivePosting
+    description: >-
+      Find the active job posting associated with the requisition so it can be
+      removed from career sites.
+    operationId: listJobPostings
+    parameters:
+    - name: jobRequisition
+      in: query
+      value: $inputs.jobRequisitionId
+    - name: active
+      in: query
+      value: true
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      postingId: $response.body#/data/0/id
+    onSuccess:
+    - name: postingFound
+      type: goto
+      stepId: unpostJob
+      criteria:
+      - context: $response.body
+        condition: $.data.length > 0
+        type: jsonpath
+    - name: noActivePosting
+      type: goto
+      stepId: closeRequisition
+      criteria:
+      - context: $response.body
+        condition: $.data.length == 0
+        type: jsonpath
+  - stepId: unpostJob
+    description: >-
+      Remove the active posting from career sites so it is no longer visible to
+      external candidates.
+    operationId: unpostJob
+    parameters:
+    - name: id
+      in: path
+      value: $steps.findActivePosting.outputs.postingId
+    successCriteria:
+    - condition: $statusCode == 200
+  - stepId: closeRequisition
+    description: >-
+      Close the requisition with a documented close reason, preventing new
+      applications.
+    operationId: closeJobRequisition
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.jobRequisitionId
+    requestBody:
+      contentType: application/json
+      payload:
+        closeReason: $inputs.closeReason
+    successCriteria:
+    - condition: $statusCode == 200
+  outputs:
+    requisitionId: $steps.confirmRequisition.outputs.requisitionId
+    postingId: $steps.findActivePosting.outputs.postingId

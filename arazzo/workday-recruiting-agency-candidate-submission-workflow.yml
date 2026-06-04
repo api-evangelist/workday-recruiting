@@ -1,0 +1,108 @@
+arazzo: 1.0.1
+info:
+  title: Workday Recruiting Agency Candidate Submission
+  summary: Resolve a recruiting agency, submit one of its candidates to a requisition, and confirm the application.
+  description: >-
+    Models the inbound agency-sourced candidate flow. The workflow lists the
+    configured recruiting agencies to resolve the submitting agency, reads that
+    agency back for confirmation, submits the agency's candidate against a job
+    requisition (which creates the candidate and an application in one call), and
+    then lists the applications for that requisition to confirm the submission
+    landed. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: workdayRecruitingApi
+  url: ../openapi/workday-recruiting-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: agency-candidate-submission
+  summary: Submit an agency candidate to a requisition and confirm the resulting application.
+  description: >-
+    Resolves a recruiting agency, submits a candidate for a requisition, and
+    lists the requisition's applications to confirm.
+  inputs:
+    type: object
+    required:
+    - agencyName
+    - candidate
+    - jobRequisition
+    properties:
+      agencyName:
+        type: string
+        description: Name fragment used to resolve the recruiting agency from the list.
+      candidate:
+        type: object
+        description: >-
+          Candidate payload to submit (firstName, lastName, email, phone,
+          address, source).
+      jobRequisition:
+        type: object
+        description: Reference to the job requisition to apply the candidate to (id + descriptor).
+      agencyUser:
+        type: object
+        description: Reference to the agency user submitting the candidate (id + descriptor).
+  steps:
+  - stepId: listAgencies
+    description: >-
+      List the configured recruiting agencies so the submitting agency can be
+      resolved to its Workday ID.
+    operationId: listRecruitingAgencies
+    parameters:
+    - name: limit
+      in: query
+      value: 100
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      agencyId: $response.body#/data/0/id
+  - stepId: getAgency
+    description: >-
+      Read the resolved recruiting agency back to confirm it exists before
+      submitting a candidate through it.
+    operationId: getRecruitingAgency
+    parameters:
+    - name: id
+      in: path
+      value: $steps.listAgencies.outputs.agencyId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      agencyId: $response.body#/id
+  - stepId: submitCandidate
+    description: >-
+      Submit the agency's candidate for the job requisition, creating the
+      candidate record and associating it with the agency source.
+    operationId: submitAgencyCandidate
+    parameters:
+    - name: id
+      in: path
+      value: $steps.getAgency.outputs.agencyId
+    requestBody:
+      contentType: application/json
+      payload:
+        candidate: $inputs.candidate
+        jobRequisition: $inputs.jobRequisition
+        agencyUser: $inputs.agencyUser
+    successCriteria:
+    - condition: $statusCode == 201
+  - stepId: confirmApplication
+    description: >-
+      List the applications for the requisition to confirm the agency
+      submission produced a job application.
+    operationId: listJobApplications
+    parameters:
+    - name: jobRequisition
+      in: query
+      value: $inputs.jobRequisition.id
+    - name: limit
+      in: query
+      value: 20
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      total: $response.body#/total
+      latestApplicationId: $response.body#/data/0/id
+  outputs:
+    agencyId: $steps.getAgency.outputs.agencyId
+    latestApplicationId: $steps.confirmApplication.outputs.latestApplicationId

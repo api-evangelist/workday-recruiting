@@ -1,0 +1,84 @@
+arazzo: 1.0.1
+info:
+  title: Workday Recruiting Bulk Applicant Import
+  summary: Confirm a target requisition, submit a bulk applicant import, and verify the loaded applicants.
+  description: >-
+    Loads applicant data from an external system into Workday in bulk. The
+    workflow first reads the target job requisition to confirm it exists,
+    submits a high-volume applicant import which is accepted for asynchronous
+    processing, and then lists applicants to verify records have begun landing.
+    Because the import is asynchronous the import job is identified by its
+    returned import id for downstream tracking. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: workdayRecruitingApi
+  url: ../openapi/workday-recruiting-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: bulk-applicant-import
+  summary: Confirm a requisition then bulk-import applicants and verify the result.
+  description: >-
+    Reads the target requisition, submits a bulk applicant import, and lists
+    applicants to confirm records are loading.
+  inputs:
+    type: object
+    required:
+    - jobRequisitionId
+    - applicants
+    properties:
+      jobRequisitionId:
+        type: string
+        description: Workday ID of the requisition the imported applicants apply to.
+      applicants:
+        type: array
+        description: >-
+          Array of applicant records to import (firstName, lastName, email,
+          phone, source, jobRequisition).
+  steps:
+  - stepId: confirmRequisition
+    description: >-
+      Read the target job requisition to confirm it exists before importing
+      applicants against it.
+    operationId: getJobRequisition
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.jobRequisitionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      requisitionId: $response.body#/id
+      status: $response.body#/status
+  - stepId: importApplicants
+    description: >-
+      Submit the bulk applicant import. The request is accepted for
+      asynchronous processing and returns an import job identifier.
+    operationId: importApplicants
+    requestBody:
+      contentType: application/json
+      payload:
+        applicants: $inputs.applicants
+    successCriteria:
+    - condition: $statusCode == 202
+    outputs:
+      importId: $response.body#/importId
+      importStatus: $response.body#/status
+  - stepId: verifyApplicants
+    description: >-
+      List applicants to verify that imported records are landing in the
+      recruiting pipeline.
+    operationId: listApplicants
+    parameters:
+    - name: limit
+      in: query
+      value: 100
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      total: $response.body#/total
+  outputs:
+    requisitionId: $steps.confirmRequisition.outputs.requisitionId
+    importId: $steps.importApplicants.outputs.importId
+    applicantTotal: $steps.verifyApplicants.outputs.total

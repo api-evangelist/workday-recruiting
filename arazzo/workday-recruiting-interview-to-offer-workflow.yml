@@ -1,0 +1,167 @@
+arazzo: 1.0.1
+info:
+  title: Workday Recruiting Interview to Offer
+  summary: Schedule an interview, capture feedback, and initiate an offer on a positive result.
+  description: >-
+    Drives the late-stage hiring funnel for a single job application. The
+    workflow schedules an interview for the application, submits interviewer
+    feedback against that interview, and then branches on the overall rating:
+    when the recommendation is a Strong Hire or Hire it initiates an employment
+    offer, otherwise it ends without making an offer. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: workdayRecruitingApi
+  url: ../openapi/workday-recruiting-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: interview-to-offer
+  summary: Schedule an interview, record feedback, and conditionally initiate an offer.
+  description: >-
+    Schedules an interview for an application, submits feedback, and initiates an
+    offer when the feedback recommendation is positive.
+  inputs:
+    type: object
+    required:
+    - jobApplication
+    - interviewType
+    - scheduledDate
+    - startTime
+    - endTime
+    - interviewers
+    - overallRating
+    - proposedStartDate
+    - compensationAmount
+    - currency
+    properties:
+      jobApplication:
+        type: object
+        description: Reference to the job application being interviewed (id + descriptor).
+      interviewType:
+        type: string
+        description: The interview type (e.g. "Phone Screen").
+      scheduledDate:
+        type: string
+        description: Interview date (YYYY-MM-DD).
+      startTime:
+        type: string
+        description: Interview start time (HH:MM:SS).
+      endTime:
+        type: string
+        description: Interview end time (HH:MM:SS).
+      interviewers:
+        type: array
+        description: List of interviewer references (id + descriptor).
+      location:
+        type: string
+        description: Interview location.
+      webConferenceUrl:
+        type: string
+        description: Web conference URL for the interview.
+      overallRating:
+        type: string
+        description: Overall hiring recommendation (e.g. "Strong Hire").
+      competencyRatings:
+        type: array
+        description: Per-competency ratings for the interview feedback.
+      comments:
+        type: string
+        description: Free-text interview feedback comments.
+      proposedStartDate:
+        type: string
+        description: Proposed offer start date (YYYY-MM-DD) used when an offer is initiated.
+      compensationAmount:
+        type: number
+        description: Proposed compensation amount used when an offer is initiated.
+      compensationFrequency:
+        type: string
+        description: Compensation frequency (e.g. "Annual").
+      currency:
+        type: object
+        description: Reference to the compensation currency (id + descriptor).
+      expirationDate:
+        type: string
+        description: Offer expiration date (YYYY-MM-DD).
+  steps:
+  - stepId: scheduleInterview
+    description: >-
+      Schedule an interview for the job application, assigning interviewers and
+      the date and time.
+    operationId: scheduleInterview
+    requestBody:
+      contentType: application/json
+      payload:
+        jobApplication: $inputs.jobApplication
+        interviewType: $inputs.interviewType
+        scheduledDate: $inputs.scheduledDate
+        startTime: $inputs.startTime
+        endTime: $inputs.endTime
+        interviewers: $inputs.interviewers
+        location: $inputs.location
+        webConferenceUrl: $inputs.webConferenceUrl
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      interviewId: $response.body#/id
+      status: $response.body#/status
+  - stepId: submitFeedback
+    description: >-
+      Submit interviewer feedback for the scheduled interview including the
+      overall rating and competency assessments.
+    operationId: submitInterviewFeedback
+    parameters:
+    - name: id
+      in: path
+      value: $steps.scheduleInterview.outputs.interviewId
+    requestBody:
+      contentType: application/json
+      payload:
+        overallRating: $inputs.overallRating
+        competencyRatings: $inputs.competencyRatings
+        comments: $inputs.comments
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      feedbackId: $response.body#/id
+      overallRating: $response.body#/overallRating
+    onSuccess:
+    - name: positiveFeedback
+      type: goto
+      stepId: initiateOffer
+      criteria:
+      - context: $response.body
+        condition: $.overallRating == 'Strong Hire' || $.overallRating == 'Hire'
+        type: jsonpath
+    - name: notRecommended
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.overallRating != 'Strong Hire' && $.overallRating != 'Hire'
+        type: jsonpath
+  - stepId: initiateOffer
+    description: >-
+      Initiate an employment offer for the job application, triggering the offer
+      approval workflow.
+    operationId: initiateOffer
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.jobApplication.id
+    requestBody:
+      contentType: application/json
+      payload:
+        proposedStartDate: $inputs.proposedStartDate
+        compensationAmount: $inputs.compensationAmount
+        compensationFrequency: $inputs.compensationFrequency
+        currency: $inputs.currency
+        expirationDate: $inputs.expirationDate
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      offerId: $response.body#/id
+      offerStatus: $response.body#/status
+  outputs:
+    interviewId: $steps.scheduleInterview.outputs.interviewId
+    feedbackId: $steps.submitFeedback.outputs.feedbackId
+    offerId: $steps.initiateOffer.outputs.offerId

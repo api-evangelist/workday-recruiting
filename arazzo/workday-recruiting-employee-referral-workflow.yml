@@ -1,0 +1,129 @@
+arazzo: 1.0.1
+info:
+  title: Workday Recruiting Employee Referral
+  summary: Find an open requisition, create the referred candidate, and submit the referral.
+  description: >-
+    Captures an employee referral against an open hiring need. The workflow lists
+    open job requisitions to resolve the requisition the referral targets,
+    branches on whether any open requisition exists, creates the referred
+    candidate record, and then submits the referral linking the candidate, the
+    requisition, and the referring worker. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: workdayRecruitingApi
+  url: ../openapi/workday-recruiting-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: employee-referral
+  summary: Create a referred candidate and submit the referral against an open requisition.
+  description: >-
+    Resolves an open requisition, creates the referred candidate, and submits a
+    referral from an existing worker.
+  inputs:
+    type: object
+    required:
+    - firstName
+    - lastName
+    - email
+    - referrer
+    properties:
+      supervisoryOrganization:
+        type: string
+        description: Optional supervisory organization Workday ID to scope the requisition search.
+      firstName:
+        type: string
+        description: Referred candidate first name.
+      lastName:
+        type: string
+        description: Referred candidate last name.
+      email:
+        type: string
+        description: Referred candidate email address.
+      phone:
+        type: string
+        description: Referred candidate phone number.
+      source:
+        type: object
+        description: Reference to the candidate source (id + descriptor).
+      referrer:
+        type: object
+        description: Reference to the worker making the referral (id + descriptor).
+      referralComments:
+        type: string
+        description: Comments from the referrer about the candidate.
+  steps:
+  - stepId: findOpenRequisition
+    description: >-
+      List open job requisitions to resolve the requisition the referral will be
+      submitted against.
+    operationId: listJobRequisitions
+    parameters:
+    - name: status
+      in: query
+      value: Open
+    - name: supervisoryOrganization
+      in: query
+      value: $inputs.supervisoryOrganization
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      requisitionId: $response.body#/data/0/id
+      requisitionDescriptor: $response.body#/data/0/title
+    onSuccess:
+    - name: requisitionFound
+      type: goto
+      stepId: createCandidate
+      criteria:
+      - context: $response.body
+        condition: $.data.length > 0
+        type: jsonpath
+    - name: noOpenRequisition
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.data.length == 0
+        type: jsonpath
+  - stepId: createCandidate
+    description: >-
+      Create the referred candidate record with personal and contact
+      information.
+    operationId: createCandidate
+    requestBody:
+      contentType: application/json
+      payload:
+        firstName: $inputs.firstName
+        lastName: $inputs.lastName
+        email: $inputs.email
+        phone: $inputs.phone
+        source: $inputs.source
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      candidateId: $response.body#/id
+  - stepId: submitReferral
+    description: >-
+      Submit the referral associating the candidate with the open requisition
+      and recording the referring worker.
+    operationId: referCandidate
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createCandidate.outputs.candidateId
+    requestBody:
+      contentType: application/json
+      payload:
+        jobRequisition:
+          id: $steps.findOpenRequisition.outputs.requisitionId
+          descriptor: $steps.findOpenRequisition.outputs.requisitionDescriptor
+        referrer: $inputs.referrer
+        referralComments: $inputs.referralComments
+    successCriteria:
+    - condition: $statusCode == 201
+  outputs:
+    requisitionId: $steps.findOpenRequisition.outputs.requisitionId
+    candidateId: $steps.createCandidate.outputs.candidateId
