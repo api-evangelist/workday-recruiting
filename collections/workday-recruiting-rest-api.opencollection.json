@@ -1,0 +1,1218 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Recruiting REST API",
+    "version": "v41.2"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://{tenant}.workday.com/authorize",
+      "accessTokenUrl": "https://{tenant}.workday.com/ccx/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Job Requisitions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Workday Recruiting List Job Requisitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobRequisitions",
+            "params": [
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of results to return per page"
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "Number of results to skip for pagination"
+              },
+              {
+                "name": "status",
+                "value": "Open",
+                "type": "query",
+                "description": "Filter job requisitions by recruiting status"
+              },
+              {
+                "name": "supervisoryOrganization",
+                "value": "string",
+                "type": "query",
+                "description": "Filter by supervisory organization Workday ID"
+              },
+              {
+                "name": "updatedFrom",
+                "value": "2026-05-03T14:30:00Z",
+                "type": "query",
+                "description": "Return requisitions updated on or after this date-time"
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of job requisitions with optional filtering by status, supervisory organization, job profile, or date range. Returns requisition details including position references, hiring manager, recruiting status, and associated job postings."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Create a Job Requisition",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobRequisitions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new job requisition for a position within a supervisory organization. The requisition defines the hiring need including job profile, number of openings, compensation details, and required qualifications."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Get a Job Requisition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobRequisitions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific job requisition including position reference, hiring manager, job profile, compensation range, recruiting status, and associated job postings."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Edit a Job Requisition",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobRequisitions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an open job requisition. Allows modification of job profile, number of openings, compensation details, qualifications, and other requisition attributes."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Close a Job Requisition",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobRequisitions/:id/close",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Close a job requisition that has no pending events or filled status. Closing a requisition prevents new applications from being submitted and removes associated job postings."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Freeze or Unfreeze a Job Requisition",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobRequisitions/:id/freeze",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Freeze or unfreeze a job requisition to temporarily halt or resume recruiting activity. Freezing a requisition pauses the hiring process without closing the requisition."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Evergreen Requisitions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Workday Recruiting List Evergreen Requisitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/evergreenRequisitions",
+            "params": [
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of results to return per page"
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "Number of results to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of evergreen requisitions. Evergreen requisitions represent ongoing hiring needs without a specific number of openings or anticipated close date."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Create an Evergreen Requisition",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/evergreenRequisitions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new evergreen requisition for ongoing hiring needs. Evergreen requisitions remain open indefinitely and can be linked to standard job requisitions for candidate pipeline management."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Get an Evergreen Requisition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/evergreenRequisitions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific evergreen requisition including position reference, linked job requisitions, and candidate pipeline status."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Close an Evergreen Requisition",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/evergreenRequisitions/:id/close",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ]
+          },
+          "docs": "Close an evergreen requisition that has no pending events. Closing removes the requisition from active recruiting workflows."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Candidates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Workday Recruiting List Candidates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/candidates",
+            "params": [
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of results to return per page"
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "Number of results to skip for pagination"
+              },
+              {
+                "name": "updatedFrom",
+                "value": "2026-05-03T14:30:00Z",
+                "type": "query",
+                "description": "Return candidates updated on or after this date-time"
+              },
+              {
+                "name": "name",
+                "value": "Senior Software Engineer",
+                "type": "query",
+                "description": "Filter candidates by name (partial match supported)"
+              },
+              {
+                "name": "email",
+                "value": "candidate@example.com",
+                "type": "query",
+                "description": "Filter candidates by email address"
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of candidates with optional filtering. Returns candidate profile information including name, contact details, source, and associated job applications."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Create a Candidate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/candidates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new candidate record to the Workday recruiting system. Includes personal information, contact details, and optionally associates the candidate with a job application."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Get a Candidate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/candidates/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific candidate including personal information, contact details, source, tags, and associated job applications."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Update a Candidate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/candidates/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing candidate record with new personal information, contact details, or other profile attributes."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting List Candidate Attachments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/candidates/:id/attachments",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieve attachments associated with a candidate, including resumes, cover letters, and other supporting documents."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Add a Candidate Attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/candidates/:id/attachments",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "category",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload an attachment such as a resume, cover letter, or portfolio document to a candidate record."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Get a Candidate Photo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/candidates/:id/photo",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieve the photo associated with a candidate record."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Update a Candidate Photo",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/candidates/:id/photo",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ]
+          },
+          "docs": "Upload or replace the photo for a candidate record."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Assess a Candidate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/candidates/:id/assess",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or modify a candidate assessment and optionally advance the candidate through job application stages based on the assessment outcome."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Refer a Candidate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/candidates/:id/refer",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a candidate referral from an existing worker. Associates the referred candidate with a job requisition and records the referral source."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Job Applications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Workday Recruiting List Job Applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobApplications",
+            "params": [
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of results to return per page"
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "Number of results to skip for pagination"
+              },
+              {
+                "name": "jobRequisition",
+                "value": "string",
+                "type": "query",
+                "description": "Filter by job requisition Workday ID"
+              },
+              {
+                "name": "candidate",
+                "value": "string",
+                "type": "query",
+                "description": "Filter by candidate Workday ID"
+              },
+              {
+                "name": "stage",
+                "value": "Review",
+                "type": "query",
+                "description": "Filter by current recruiting stage"
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of job applications with optional filtering by requisition, candidate, or status. Returns application details including current stage, disposition, and candidate reference."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Get a Job Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobApplications/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific job application including candidate reference, job requisition, current recruiting stage, disposition status, and application history."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Move Candidate to a Different Stage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobApplications/:id/move",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Move a candidate to a different recruiting stage or disposition stage within a job application. Used to advance candidates through the hiring pipeline or to disposition candidates who are no longer being considered."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Initiate an Offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobApplications/:id/offer",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate an employment offer for a job application. Triggers the offer approval workflow and generates the offer letter based on the configured template."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Job Postings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Workday Recruiting List Job Postings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobPostings",
+            "params": [
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of results to return per page"
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "Number of results to skip for pagination"
+              },
+              {
+                "name": "jobRequisition",
+                "value": "string",
+                "type": "query",
+                "description": "Filter by job requisition Workday ID"
+              },
+              {
+                "name": "postingSite",
+                "value": "Corporate Careers",
+                "type": "query",
+                "description": "Filter by posting site Workday ID"
+              },
+              {
+                "name": "active",
+                "value": "true",
+                "type": "query",
+                "description": "Filter by active posting status"
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of job postings with optional filtering by requisition, posting site, or status. Returns posting details including title, description, location, and posting dates."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Get a Job Posting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobPostings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific job posting including title, description, qualifications, location, compensation, posting dates, and associated job requisition."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Update a Job Posting",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobPostings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing job posting with new content, dates, or configuration. Can be used to modify the posting start and end dates."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Post a Job to Career Sites",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobPostings/:id/post",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Post a job to internal and external career sites. Requires an associated job requisition in an open status."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Unpost a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobPostings/:id/unpost",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ]
+          },
+          "docs": "Remove a job posting from career sites. The job posting record is retained but is no longer visible to external candidates."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Interviews",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Workday Recruiting List Interviews",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/interviews",
+            "params": [
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of results to return per page"
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "Number of results to skip for pagination"
+              },
+              {
+                "name": "jobApplication",
+                "value": "string",
+                "type": "query",
+                "description": "Filter by job application Workday ID"
+              },
+              {
+                "name": "dateFrom",
+                "value": "2026-05-03",
+                "type": "query",
+                "description": "Return interviews scheduled on or after this date"
+              },
+              {
+                "name": "dateTo",
+                "value": "2026-05-03",
+                "type": "query",
+                "description": "Return interviews scheduled on or before this date"
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of scheduled interviews with optional filtering by job application, interviewer, or date range. Returns interview details including schedule, interviewer assignments, and status."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Schedule an Interview",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/interviews",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new interview schedule for a job application. Assigns interviewers, sets the date and time, and optionally configures web conferencing details."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Get an Interview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/interviews/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific interview including schedule, interviewers, job application reference, and any submitted feedback."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting List Interview Feedback",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/interviews/:id/feedback",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieve feedback submitted by interviewers for a specific interview including ratings, comments, and hiring recommendations."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Submit Interview Feedback",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/interviews/:id/feedback",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit feedback for a completed interview. Includes overall rating, competency assessments, comments, and a hiring recommendation. Submitting feedback may optionally advance the candidate to the next stage."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Background Checks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Workday Recruiting List Background Checks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/backgroundChecks",
+            "params": [
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of results to return per page"
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "Number of results to skip for pagination"
+              },
+              {
+                "name": "candidate",
+                "value": "string",
+                "type": "query",
+                "description": "Filter by candidate Workday ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of background check results for candidates including status, provider, and check details."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Submit a Background Check Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/backgroundChecks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Load background check results from an external provider into Workday. Associates the results with a candidate and job application."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting List Background Check Packages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/backgroundCheckPackages",
+            "params": [
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of results to return per page"
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "Number of results to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieve available background check packages that can be assigned to job requisitions for candidate screening."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Recruiting Agencies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Workday Recruiting List Recruiting Agencies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/recruitingAgencies",
+            "params": [
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of results to return per page"
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "Number of results to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of recruiting agencies configured in Workday for external candidate sourcing."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Get a Recruiting Agency",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/recruitingAgencies/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific recruiting agency including contact details, agency users, and fee structure."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Submit an Agency Candidate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/recruitingAgencies/:id/candidates",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a candidate from a recruiting agency for a specific job requisition. Creates the candidate record and associates it with the agency source."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Applicants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Workday Recruiting List Applicants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/applicants",
+            "params": [
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of results to return per page"
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "Number of results to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieve pre-hire and applicant information. Returns applicant records that have been processed through the recruiting pipeline."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Import Applicants in Bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/applicants/import",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "High-volume applicant import service for processing multiple applicant records asynchronously. Designed for bulk loading of applicant data from external systems."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Positions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Workday Recruiting List Positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/positions",
+            "params": [
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of results to return per page"
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "Number of results to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieve position management positions including position details, restrictions, and associated job requisitions."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Create a Position",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/positions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create and open a new position using the position management staffing model. The position can subsequently be associated with a job requisition for recruiting."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Workday Recruiting List Job Posting Sites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobPostingSites",
+            "params": [
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of results to return per page"
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "Number of results to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieve available job posting sites including internal career pages and external job boards configured in Workday."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting List Questionnaires",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/questionnaires",
+            "params": [
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of results to return per page"
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "Number of results to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieve recruiting questionnaires used for screening and assessment during the application process."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting List Veteran Statuses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/veteranStatuses",
+            "params": [
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of results to return per page"
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "Number of results to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieve veteran status reference values used for EEO compliance reporting and candidate tracking."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
