@@ -155,61 +155,61 @@ apis:
         url: json-structure/recruiting-rest-api-reference-structure.json
       - type: JSONStructure
         url: json-structure/recruiting-rest-api-veteran-status-structure.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-applicant-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-applicant-import-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-attachment-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-background-check-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-background-check-create-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-background-check-package-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-candidate-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-candidate-create-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-candidate-assessment-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-evergreen-requisition-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-evergreen-requisition-create-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-interview-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-interview-create-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-interview-feedback-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-interview-feedback-create-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-job-application-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-job-posting-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-job-posting-site-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-job-requisition-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-job-requisition-create-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-offer-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-offer-create-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-position-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-position-create-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-questionnaire-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-recruiting-agency-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-reference-example.json
-      - type: Example
+      - type: Examples
         url: examples/recruiting-rest-api-veteran-status-example.json
   - name: Workday Recruiting SOAP Web Services API
     description: >-
@@ -244,33 +244,30 @@ apis:
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/workday-recruiting/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/workday-recruiting-agency-candidate-submission-workflow.yml
-        name: Workday Recruiting Agency Candidate Submission
-        summary: Resolve a recruiting agency, submit one of its candidates to a requisition, and confirm the application.
-      - url: arazzo/workday-recruiting-bulk-applicant-import-workflow.yml
-        name: Workday Recruiting Bulk Applicant Import
-        summary: Confirm a target requisition, submit a bulk applicant import, and verify the loaded applicants.
-      - url: arazzo/workday-recruiting-close-requisition-and-unpost-workflow.yml
-        name: Workday Recruiting Close a Requisition and Unpost Its Jobs
-        summary: Confirm a requisition, unpost its active posting, then close the requisition.
-      - url: arazzo/workday-recruiting-employee-referral-workflow.yml
-        name: Workday Recruiting Employee Referral
-        summary: Find an open requisition, create the referred candidate, and submit the referral.
-      - url: arazzo/workday-recruiting-interview-to-offer-workflow.yml
-        name: Workday Recruiting Interview to Offer
-        summary: Schedule an interview, capture feedback, and initiate an offer on a positive result.
-      - url: arazzo/workday-recruiting-onboard-candidate-with-resume-workflow.yml
-        name: Workday Recruiting Onboard a Candidate with Resume and Assessment
-        summary: Create a candidate, attach a resume, record an assessment, and read the profile back.
-      - url: arazzo/workday-recruiting-post-and-source-requisition-workflow.yml
-        name: Workday Recruiting Create and Source a Job Requisition
-        summary: Create a job requisition, confirm it, then post its job to career sites.
-      - url: arazzo/workday-recruiting-screen-and-advance-application-workflow.yml
-        name: Workday Recruiting Screen and Advance a Job Application
-        summary: Find an application in review for a requisition, inspect it, and move it forward.
+  - type: Arazzo
+    url: arazzo/workday-recruiting-agency-candidate-submission-workflow.yml
+    name: Workday Recruiting Agency Candidate Submission
+  - type: Arazzo
+    url: arazzo/workday-recruiting-bulk-applicant-import-workflow.yml
+    name: Workday Recruiting Bulk Applicant Import
+  - type: Arazzo
+    url: arazzo/workday-recruiting-close-requisition-and-unpost-workflow.yml
+    name: Workday Recruiting Close a Requisition and Unpost Its Jobs
+  - type: Arazzo
+    url: arazzo/workday-recruiting-employee-referral-workflow.yml
+    name: Workday Recruiting Employee Referral
+  - type: Arazzo
+    url: arazzo/workday-recruiting-interview-to-offer-workflow.yml
+    name: Workday Recruiting Interview to Offer
+  - type: Arazzo
+    url: arazzo/workday-recruiting-onboard-candidate-with-resume-workflow.yml
+    name: Workday Recruiting Onboard a Candidate with Resume and Assessment
+  - type: Arazzo
+    url: arazzo/workday-recruiting-post-and-source-requisition-workflow.yml
+    name: Workday Recruiting Create and Source a Job Requisition
+  - type: Arazzo
+    url: arazzo/workday-recruiting-screen-and-advance-application-workflow.yml
+    name: Workday Recruiting Screen and Advance a Job Application
   - type: Portal
     url: https://community.workday.com
   - type: GettingStarted
@@ -287,7 +284,7 @@ common:
     url: https://community.workday.com/trust/status
   - type: Support
     url: https://www.workday.com/en-us/services/support.html
-  - type: SignUp
+  - type: Signup
     url: https://resourcecenter.workday.com/
   - type: TermsOfService
     url: https://www.workday.com/en-us/legal.html
