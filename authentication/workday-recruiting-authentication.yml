@@ -1,0 +1,20 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/workday-recruiting-rest-api-openapi.yml
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://{tenant}.workday.com/authorize
+    tokenUrl: https://{tenant}.workday.com/ccx/oauth2/token
+    scopes: 2
+  description: OAuth 2.0 authentication. Register an API client in Workday, grant recruiting
+    scopes, and obtain access tokens.
+  sources:
+  - openapi/workday-recruiting-rest-api-openapi.yml

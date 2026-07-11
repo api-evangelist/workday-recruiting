@@ -242,6 +242,10 @@ apis:
       - type: ChangeLog
         url: https://community.workday.com/api-versions
 common:
+  - type: TrustCenter
+    url: security/workday-recruiting-trust-center.yml
+  - type: DomainSecurity
+    url: security/workday-recruiting-domain-security.yml
   - type: Authentication
     url: authentication/workday-recruiting-authentication.yml
   - type: OAuthScopes
