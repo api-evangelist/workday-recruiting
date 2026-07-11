@@ -242,6 +242,10 @@ apis:
       - type: ChangeLog
         url: https://community.workday.com/api-versions
 common:
+  - type: Authentication
+    url: authentication/workday-recruiting-authentication.yml
+  - type: OAuthScopes
+    url: scopes/workday-recruiting-scopes.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/workday-recruiting/overview
   - type: Arazzo
