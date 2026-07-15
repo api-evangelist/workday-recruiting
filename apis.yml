@@ -242,6 +242,8 @@ apis:
       - type: ChangeLog
         url: https://community.workday.com/api-versions
 common:
+  - type: AgenticAccess
+    url: agentic-access/workday-recruiting-agentic-access.yml
   - type: TrustCenter
     url: security/workday-recruiting-trust-center.yml
   - type: DomainSecurity
