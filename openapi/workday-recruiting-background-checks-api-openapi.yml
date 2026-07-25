@@ -1,0 +1,365 @@
+openapi: 3.1.0
+info:
+  title: Workday Recruiting REST Applicants Background Checks API
+  description: RESTful API for managing recruiting operations within Workday Human Capital Management. Provides programmatic access to job requisitions, candidates, job applications, job postings, interviews, and hiring workflows. Supports integration with external talent management and applicant tracking systems using OAuth 2.0 authentication and JSON data format.
+  version: v41.2
+  contact:
+    name: Workday Support
+    url: https://www.workday.com/en-us/services/support.html
+  termsOfService: https://www.workday.com/en-us/legal.html
+  x-generated-from: documentation
+  x-source-url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  x-last-validated: '2026-05-03'
+servers:
+- url: https://{tenant}.workday.com/ccx/api/recruiting/v41.2
+  description: Workday Recruiting Production
+  variables:
+    tenant:
+      description: Workday tenant identifier (e.g., wd2-impl-services1)
+      default: your-tenant
+security:
+- oauth2: []
+tags:
+- name: Background Checks
+  description: Submit and retrieve background check results and manage background check packages for candidate screening.
+paths:
+  /backgroundChecks:
+    get:
+      operationId: listBackgroundChecks
+      summary: Workday Recruiting List Background Checks
+      description: Retrieve a collection of background check results for candidates including status, provider, and check details.
+      tags:
+      - Background Checks
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - name: candidate
+        in: query
+        description: Filter by candidate Workday ID
+        schema:
+          type: string
+        example: string
+      responses:
+        '200':
+          description: Background checks retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BackgroundCheck'
+              examples:
+                ListBackgroundChecks200Example:
+                  summary: Default listBackgroundChecks 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      candidate:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      jobApplication:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      package:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      status: Initiated
+                      result: Clear
+                      completedOn: '2026-05-03T14:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: submitBackgroundCheck
+      summary: Workday Recruiting Submit a Background Check Result
+      description: Load background check results from an external provider into Workday. Associates the results with a candidate and job application.
+      tags:
+      - Background Checks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BackgroundCheckCreate'
+            examples:
+              SubmitBackgroundCheckRequestExample:
+                summary: Default submitBackgroundCheck request
+                x-microcks-default: true
+                value:
+                  candidate:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  jobApplication:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  package:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  status: Initiated
+                  result: Clear
+      responses:
+        '201':
+          description: Background check result submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BackgroundCheck'
+              examples:
+                SubmitBackgroundCheck201Example:
+                  summary: Default submitBackgroundCheck 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    candidate:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    jobApplication:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    package:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    status: Initiated
+                    result: Clear
+                    completedOn: '2026-05-03T14:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /backgroundCheckPackages:
+    get:
+      operationId: listBackgroundCheckPackages
+      summary: Workday Recruiting List Background Check Packages
+      description: Retrieve available background check packages that can be assigned to job requisitions for candidate screening.
+      tags:
+      - Background Checks
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Background check packages retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BackgroundCheckPackage'
+              examples:
+                ListBackgroundCheckPackages200Example:
+                  summary: Default listBackgroundCheckPackages 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      name: Senior Software Engineer
+                      description: Strong technical background with 8+ years of experience in distributed systems.
+                      provider:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      active: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of results to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      example: 20
+  schemas:
+    Error:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: string
+        message:
+          type: string
+          description: Human-readable error message
+          example: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+                example: string
+              message:
+                type: string
+                description: Description of the field-level error
+                example: string
+    BackgroundCheck:
+      type: object
+      description: Background check results for a candidate, provided by an external screening provider.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the background check
+          example: 11111111-2222-3333-4444-555555555555
+        candidate:
+          $ref: '#/components/schemas/Reference'
+          description: Candidate being screened
+        jobApplication:
+          $ref: '#/components/schemas/Reference'
+          description: Associated job application
+        package:
+          $ref: '#/components/schemas/Reference'
+          description: Background check package used
+        status:
+          type: string
+          enum:
+          - Initiated
+          - In Progress
+          - Completed
+          - Canceled
+          description: Current status of the background check
+          example: Initiated
+        result:
+          type: string
+          enum:
+          - Clear
+          - Consider
+          - Adverse Action
+          description: Background check result
+          example: Clear
+        completedOn:
+          type: string
+          format: date-time
+          description: Timestamp when the check was completed
+          example: '2026-05-03T14:30:00Z'
+    BackgroundCheckPackage:
+      type: object
+      description: A background check package defines a set of screening checks to perform on candidates during the hiring process.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the package
+          example: 11111111-2222-3333-4444-555555555555
+        name:
+          type: string
+          description: Package name
+          example: Senior Software Engineer
+        description:
+          type: string
+          description: Description of the checks included
+          example: Strong technical background with 8+ years of experience in distributed systems.
+        provider:
+          $ref: '#/components/schemas/Reference'
+          description: Background check provider
+        active:
+          type: boolean
+          description: Whether the package is currently active
+          example: true
+    Reference:
+      type: object
+      description: A reference to a related Workday resource
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the referenced resource
+          example: 11111111-2222-3333-4444-555555555555
+        descriptor:
+          type: string
+          description: Display name of the referenced resource
+          example: Senior Software Engineer
+    BackgroundCheckCreate:
+      type: object
+      description: Request body for submitting background check results
+      required:
+      - candidate
+      - jobApplication
+      - status
+      properties:
+        candidate:
+          $ref: '#/components/schemas/Reference'
+          description: Candidate being screened
+        jobApplication:
+          $ref: '#/components/schemas/Reference'
+          description: Associated job application
+        package:
+          $ref: '#/components/schemas/Reference'
+          description: Background check package
+        status:
+          type: string
+          enum:
+          - Initiated
+          - In Progress
+          - Completed
+          - Canceled
+          description: Background check status
+          example: Initiated
+        result:
+          type: string
+          enum:
+          - Clear
+          - Consider
+          - Adverse Action
+          description: Background check result
+          example: Clear
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Register an API client in Workday, grant recruiting scopes, and obtain access tokens.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://{tenant}.workday.com/authorize
+          tokenUrl: https://{tenant}.workday.com/ccx/oauth2/token
+          scopes:
+            recruiting:read: Read recruiting data
+            recruiting:write: Modify recruiting data
+externalDocs:
+  description: Workday Recruiting REST API Documentation
+  url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html

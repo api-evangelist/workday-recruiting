@@ -1,0 +1,467 @@
+openapi: 3.1.0
+info:
+  title: Workday Recruiting REST Applicants Job Postings API
+  description: RESTful API for managing recruiting operations within Workday Human Capital Management. Provides programmatic access to job requisitions, candidates, job applications, job postings, interviews, and hiring workflows. Supports integration with external talent management and applicant tracking systems using OAuth 2.0 authentication and JSON data format.
+  version: v41.2
+  contact:
+    name: Workday Support
+    url: https://www.workday.com/en-us/services/support.html
+  termsOfService: https://www.workday.com/en-us/legal.html
+  x-generated-from: documentation
+  x-source-url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  x-last-validated: '2026-05-03'
+servers:
+- url: https://{tenant}.workday.com/ccx/api/recruiting/v41.2
+  description: Workday Recruiting Production
+  variables:
+    tenant:
+      description: Workday tenant identifier (e.g., wd2-impl-services1)
+      default: your-tenant
+security:
+- oauth2: []
+tags:
+- name: Job Postings
+  description: Post, update, and unpost jobs to internal and external career sites, and manage job posting site configurations.
+paths:
+  /jobPostings:
+    get:
+      operationId: listJobPostings
+      summary: Workday Recruiting List Job Postings
+      description: Retrieve a collection of job postings with optional filtering by requisition, posting site, or status. Returns posting details including title, description, location, and posting dates.
+      tags:
+      - Job Postings
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - name: jobRequisition
+        in: query
+        description: Filter by job requisition Workday ID
+        schema:
+          type: string
+        example: string
+      - name: postingSite
+        in: query
+        description: Filter by posting site Workday ID
+        schema:
+          type: string
+        example: Corporate Careers
+      - name: active
+        in: query
+        description: Filter by active posting status
+        schema:
+          type: boolean
+        example: true
+      responses:
+        '200':
+          description: Job postings retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total number of matching job postings
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/JobPosting'
+              examples:
+                ListJobPostings200Example:
+                  summary: Default listJobPostings 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      title: Senior Software Engineer
+                      jobRequisition:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      postingSite:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      description: Strong technical background with 8+ years of experience in distributed systems.
+                      qualifications: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+                      location:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      compensationRange:
+                        minimum: 95000.0
+                        maximum: 145000.0
+                        currency:
+                          id: 11111111-2222-3333-4444-555555555555
+                          descriptor: Senior Software Engineer
+                        frequency: Annual
+                      isActive: true
+                      isPrimary: true
+                      startDate: '2026-05-03'
+                      endDate: '2026-05-03'
+                      postedOn: '2026-05-03T14:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /jobPostings/{id}:
+    get:
+      operationId: getJobPosting
+      summary: Workday Recruiting Get a Job Posting
+      description: Retrieve detailed information for a specific job posting including title, description, qualifications, location, compensation, posting dates, and associated job requisition.
+      tags:
+      - Job Postings
+      parameters:
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Job posting retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobPosting'
+              examples:
+                GetJobPosting200Example:
+                  summary: Default getJobPosting 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    title: Senior Software Engineer
+                    jobRequisition:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    postingSite:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    description: Strong technical background with 8+ years of experience in distributed systems.
+                    qualifications: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+                    location:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    compensationRange:
+                      minimum: 95000.0
+                      maximum: 145000.0
+                      currency:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      frequency: Annual
+                    isActive: true
+                    isPrimary: true
+                    startDate: '2026-05-03'
+                    endDate: '2026-05-03'
+                    postedOn: '2026-05-03T14:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateJobPosting
+      summary: Workday Recruiting Update a Job Posting
+      description: Update an existing job posting with new content, dates, or configuration. Can be used to modify the posting start and end dates.
+      tags:
+      - Job Postings
+      parameters:
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                startDate:
+                  type: string
+                  format: date
+                  description: Updated posting start date
+                endDate:
+                  type: string
+                  format: date
+                  description: Updated posting end date
+            examples:
+              UpdateJobPostingRequestExample:
+                summary: Default updateJobPosting request
+                x-microcks-default: true
+                value:
+                  startDate: '2026-05-03'
+                  endDate: '2026-05-03'
+      responses:
+        '200':
+          description: Job posting updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobPosting'
+              examples:
+                UpdateJobPosting200Example:
+                  summary: Default updateJobPosting 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    title: Senior Software Engineer
+                    jobRequisition:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    postingSite:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    description: Strong technical background with 8+ years of experience in distributed systems.
+                    qualifications: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+                    location:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    compensationRange:
+                      minimum: 95000.0
+                      maximum: 145000.0
+                      currency:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      frequency: Annual
+                    isActive: true
+                    isPrimary: true
+                    startDate: '2026-05-03'
+                    endDate: '2026-05-03'
+                    postedOn: '2026-05-03T14:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /jobPostings/{id}/post:
+    post:
+      operationId: postJob
+      summary: Workday Recruiting Post a Job to Career Sites
+      description: Post a job to internal and external career sites. Requires an associated job requisition in an open status.
+      tags:
+      - Job Postings
+      parameters:
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                postingSites:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Reference'
+                  description: Career sites to post the job to
+            examples:
+              PostJobRequestExample:
+                summary: Default postJob request
+                x-microcks-default: true
+                value:
+                  postingSites:
+                  - id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+      responses:
+        '200':
+          description: Job posted successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /jobPostings/{id}/unpost:
+    post:
+      operationId: unpostJob
+      summary: Workday Recruiting Unpost a Job
+      description: Remove a job posting from career sites. The job posting record is retained but is no longer visible to external candidates.
+      tags:
+      - Job Postings
+      parameters:
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Job unposted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of results to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      example: 20
+    id:
+      name: id
+      in: path
+      required: true
+      description: Workday ID (WID) of the resource
+      schema:
+        type: string
+      example: 11111111-2222-3333-4444-555555555555
+  schemas:
+    Error:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: string
+        message:
+          type: string
+          description: Human-readable error message
+          example: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+                example: string
+              message:
+                type: string
+                description: Description of the field-level error
+                example: string
+    Reference:
+      type: object
+      description: A reference to a related Workday resource
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the referenced resource
+          example: 11111111-2222-3333-4444-555555555555
+        descriptor:
+          type: string
+          description: Display name of the referenced resource
+          example: Senior Software Engineer
+    JobPosting:
+      type: object
+      description: A job posting is a public-facing representation of a job requisition published to internal or external career sites for candidate attraction.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) uniquely identifying the job posting
+          example: 11111111-2222-3333-4444-555555555555
+        title:
+          type: string
+          description: Job posting title
+          example: Senior Software Engineer
+        jobRequisition:
+          $ref: '#/components/schemas/Reference'
+          description: Job requisition associated with the posting
+        postingSite:
+          $ref: '#/components/schemas/Reference'
+          description: Career site where the job is posted
+        description:
+          type: string
+          description: Full job posting description including responsibilities
+          example: Strong technical background with 8+ years of experience in distributed systems.
+        qualifications:
+          type: string
+          description: Required qualifications and skills
+          example: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+        location:
+          $ref: '#/components/schemas/Reference'
+          description: Primary work location
+        compensationRange:
+          type: object
+          properties:
+            minimum:
+              type: number
+              description: Minimum compensation amount
+              example: 95000.0
+            maximum:
+              type: number
+              description: Maximum compensation amount
+              example: 145000.0
+            currency:
+              $ref: '#/components/schemas/Reference'
+            frequency:
+              type: string
+              enum:
+              - Annual
+              - Hourly
+              - Monthly
+              example: Annual
+          description: Compensation range displayed on the posting
+        isActive:
+          type: boolean
+          description: Whether the posting is currently active
+          example: true
+        isPrimary:
+          type: boolean
+          description: Whether this is the primary posting for the requisition
+          example: true
+        startDate:
+          type: string
+          format: date
+          description: Date the posting becomes active
+          example: '2026-05-03'
+        endDate:
+          type: string
+          format: date
+          description: Date the posting expires
+          example: '2026-05-03'
+        postedOn:
+          type: string
+          format: date-time
+          description: Timestamp when the job was posted
+          example: '2026-05-03T14:30:00Z'
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Register an API client in Workday, grant recruiting scopes, and obtain access tokens.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://{tenant}.workday.com/authorize
+          tokenUrl: https://{tenant}.workday.com/ccx/oauth2/token
+          scopes:
+            recruiting:read: Read recruiting data
+            recruiting:write: Modify recruiting data
+externalDocs:
+  description: Workday Recruiting REST API Documentation
+  url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html

@@ -1,0 +1,322 @@
+openapi: 3.1.0
+info:
+  title: Workday Recruiting REST Applicants Positions API
+  description: RESTful API for managing recruiting operations within Workday Human Capital Management. Provides programmatic access to job requisitions, candidates, job applications, job postings, interviews, and hiring workflows. Supports integration with external talent management and applicant tracking systems using OAuth 2.0 authentication and JSON data format.
+  version: v41.2
+  contact:
+    name: Workday Support
+    url: https://www.workday.com/en-us/services/support.html
+  termsOfService: https://www.workday.com/en-us/legal.html
+  x-generated-from: documentation
+  x-source-url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  x-last-validated: '2026-05-03'
+servers:
+- url: https://{tenant}.workday.com/ccx/api/recruiting/v41.2
+  description: Workday Recruiting Production
+  variables:
+    tenant:
+      description: Workday tenant identifier (e.g., wd2-impl-services1)
+      default: your-tenant
+security:
+- oauth2: []
+tags:
+- name: Positions
+  description: Create and manage positions and position restrictions within the position management staffing model.
+paths:
+  /positions:
+    get:
+      operationId: listPositions
+      summary: Workday Recruiting List Positions
+      description: Retrieve position management positions including position details, restrictions, and associated job requisitions.
+      tags:
+      - Positions
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Positions retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Position'
+              examples:
+                ListPositions200Example:
+                  summary: Default listPositions 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      positionId: 11111111-2222-3333-4444-555555555555
+                      title: Senior Software Engineer
+                      jobProfile:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      supervisoryOrganization:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      location:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      workerType:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      timeType: Full time
+                      availableDate: '2026-05-03'
+                      isFilled: false
+                      worker:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createPosition
+      summary: Workday Recruiting Create a Position
+      description: Create and open a new position using the position management staffing model. The position can subsequently be associated with a job requisition for recruiting.
+      tags:
+      - Positions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PositionCreate'
+            examples:
+              CreatePositionRequestExample:
+                summary: Default createPosition request
+                x-microcks-default: true
+                value:
+                  title: Senior Software Engineer
+                  jobProfile:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  supervisoryOrganization:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  location:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  workerType:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  timeType: Full time
+                  availableDate: '2026-05-03'
+      responses:
+        '201':
+          description: Position created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Position'
+              examples:
+                CreatePosition201Example:
+                  summary: Default createPosition 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    positionId: 11111111-2222-3333-4444-555555555555
+                    title: Senior Software Engineer
+                    jobProfile:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    supervisoryOrganization:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    location:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    workerType:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    timeType: Full time
+                    availableDate: '2026-05-03'
+                    isFilled: false
+                    worker:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of results to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      example: 20
+  schemas:
+    Error:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: string
+        message:
+          type: string
+          description: Human-readable error message
+          example: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+                example: string
+              message:
+                type: string
+                description: Description of the field-level error
+                example: string
+    PositionCreate:
+      type: object
+      description: Request body for creating a position
+      required:
+      - jobProfile
+      - supervisoryOrganization
+      properties:
+        title:
+          type: string
+          description: Position title
+          example: Senior Software Engineer
+        jobProfile:
+          $ref: '#/components/schemas/Reference'
+          description: Job profile
+        supervisoryOrganization:
+          $ref: '#/components/schemas/Reference'
+          description: Supervisory organization
+        location:
+          $ref: '#/components/schemas/Reference'
+          description: Primary work location
+        workerType:
+          $ref: '#/components/schemas/Reference'
+          description: Worker type
+        timeType:
+          type: string
+          enum:
+          - Full time
+          - Part time
+          description: Full-time or part-time
+          example: Full time
+        availableDate:
+          type: string
+          format: date
+          description: Date the position becomes available
+          example: '2026-05-03'
+    Reference:
+      type: object
+      description: A reference to a related Workday resource
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the referenced resource
+          example: 11111111-2222-3333-4444-555555555555
+        descriptor:
+          type: string
+          description: Display name of the referenced resource
+          example: Senior Software Engineer
+    Position:
+      type: object
+      description: A position in the position management staffing model representing an allocated headcount within a supervisory organization.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the position
+          example: 11111111-2222-3333-4444-555555555555
+        positionId:
+          type: string
+          description: System-generated position identifier
+          example: 11111111-2222-3333-4444-555555555555
+        title:
+          type: string
+          description: Position title
+          example: Senior Software Engineer
+        jobProfile:
+          $ref: '#/components/schemas/Reference'
+          description: Job profile for the position
+        supervisoryOrganization:
+          $ref: '#/components/schemas/Reference'
+          description: Supervisory organization
+        location:
+          $ref: '#/components/schemas/Reference'
+          description: Primary work location
+        workerType:
+          $ref: '#/components/schemas/Reference'
+          description: Worker type
+        timeType:
+          type: string
+          enum:
+          - Full time
+          - Part time
+          description: Full-time or part-time designation
+          example: Full time
+        availableDate:
+          type: string
+          format: date
+          description: Date the position becomes available
+          example: '2026-05-03'
+        isFilled:
+          type: boolean
+          description: Whether the position is currently filled
+          example: false
+        worker:
+          $ref: '#/components/schemas/Reference'
+          description: Worker currently occupying the position (if filled)
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Register an API client in Workday, grant recruiting scopes, and obtain access tokens.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://{tenant}.workday.com/authorize
+          tokenUrl: https://{tenant}.workday.com/ccx/oauth2/token
+          scopes:
+            recruiting:read: Read recruiting data
+            recruiting:write: Modify recruiting data
+externalDocs:
+  description: Workday Recruiting REST API Documentation
+  url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html

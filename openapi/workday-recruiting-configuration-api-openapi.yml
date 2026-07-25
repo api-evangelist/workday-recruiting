@@ -1,0 +1,308 @@
+openapi: 3.1.0
+info:
+  title: Workday Recruiting REST Applicants Configuration API
+  description: RESTful API for managing recruiting operations within Workday Human Capital Management. Provides programmatic access to job requisitions, candidates, job applications, job postings, interviews, and hiring workflows. Supports integration with external talent management and applicant tracking systems using OAuth 2.0 authentication and JSON data format.
+  version: v41.2
+  contact:
+    name: Workday Support
+    url: https://www.workday.com/en-us/services/support.html
+  termsOfService: https://www.workday.com/en-us/legal.html
+  x-generated-from: documentation
+  x-source-url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  x-last-validated: '2026-05-03'
+servers:
+- url: https://{tenant}.workday.com/ccx/api/recruiting/v41.2
+  description: Workday Recruiting Production
+  variables:
+    tenant:
+      description: Workday tenant identifier (e.g., wd2-impl-services1)
+      default: your-tenant
+security:
+- oauth2: []
+tags:
+- name: Configuration
+  description: Manage recruiting configuration settings including questionnaires, assessment categories, veteran statuses, site brands, and regions.
+paths:
+  /jobPostingSites:
+    get:
+      operationId: listJobPostingSites
+      summary: Workday Recruiting List Job Posting Sites
+      description: Retrieve available job posting sites including internal career pages and external job boards configured in Workday.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Job posting sites retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/JobPostingSite'
+              examples:
+                ListJobPostingSites200Example:
+                  summary: Default listJobPostingSites 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      name: Senior Software Engineer
+                      siteUrl: https://example.com/resource
+                      isInternal: false
+                      active: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /questionnaires:
+    get:
+      operationId: listQuestionnaires
+      summary: Workday Recruiting List Questionnaires
+      description: Retrieve recruiting questionnaires used for screening and assessment during the application process.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Questionnaires retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Questionnaire'
+              examples:
+                ListQuestionnaires200Example:
+                  summary: Default listQuestionnaires 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      name: Senior Software Engineer
+                      description: Strong technical background with 8+ years of experience in distributed systems.
+                      questions:
+                      - questionText: Describe a challenging project you've delivered.
+                        questionType: Single Select
+                        required: true
+                        options:
+                        - string
+                      active: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /veteranStatuses:
+    get:
+      operationId: listVeteranStatuses
+      summary: Workday Recruiting List Veteran Statuses
+      description: Retrieve veteran status reference values used for EEO compliance reporting and candidate tracking.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Veteran statuses retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VeteranStatus'
+              examples:
+                ListVeteranStatuses200Example:
+                  summary: Default listVeteranStatuses 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      name: Senior Software Engineer
+                      code: VET-01
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of results to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      example: 20
+  schemas:
+    Error:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: string
+        message:
+          type: string
+          description: Human-readable error message
+          example: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+                example: string
+              message:
+                type: string
+                description: Description of the field-level error
+                example: string
+    VeteranStatus:
+      type: object
+      description: A veteran status reference value for EEO compliance reporting and candidate self-identification.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the veteran status
+          example: 11111111-2222-3333-4444-555555555555
+        name:
+          type: string
+          description: Veteran status display name
+          example: Senior Software Engineer
+        code:
+          type: string
+          description: Status code for reporting
+          example: VET-01
+    Questionnaire:
+      type: object
+      description: A recruiting questionnaire used for candidate screening or assessment during the application process.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the questionnaire
+          example: 11111111-2222-3333-4444-555555555555
+        name:
+          type: string
+          description: Questionnaire name
+          example: Senior Software Engineer
+        description:
+          type: string
+          description: Description of the questionnaire purpose
+          example: Strong technical background with 8+ years of experience in distributed systems.
+        questions:
+          type: array
+          items:
+            type: object
+            properties:
+              questionText:
+                type: string
+                description: The question text
+                example: Describe a challenging project you've delivered.
+              questionType:
+                type: string
+                enum:
+                - Single Select
+                - Multi Select
+                - Free Text
+                - Numeric
+                description: Type of response expected
+                example: Single Select
+              required:
+                type: boolean
+                description: Whether the question requires a response
+                example: true
+              options:
+                type: array
+                items:
+                  type: string
+                description: Available answer options for select questions
+          description: Questions in the questionnaire
+        active:
+          type: boolean
+          description: Whether the questionnaire is currently active
+          example: true
+    JobPostingSite:
+      type: object
+      description: A career site or job board where job postings can be published for candidate attraction.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the posting site
+          example: 11111111-2222-3333-4444-555555555555
+        name:
+          type: string
+          description: Posting site name
+          example: Senior Software Engineer
+        siteUrl:
+          type: string
+          format: uri
+          description: URL of the posting site
+          example: https://example.com/resource
+        isInternal:
+          type: boolean
+          description: Whether this is an internal career site
+          example: false
+        active:
+          type: boolean
+          description: Whether the posting site is currently active
+          example: true
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Register an API client in Workday, grant recruiting scopes, and obtain access tokens.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://{tenant}.workday.com/authorize
+          tokenUrl: https://{tenant}.workday.com/ccx/oauth2/token
+          scopes:
+            recruiting:read: Read recruiting data
+            recruiting:write: Modify recruiting data
+externalDocs:
+  description: Workday Recruiting REST API Documentation
+  url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html

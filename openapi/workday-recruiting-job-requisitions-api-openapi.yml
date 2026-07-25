@@ -1,0 +1,758 @@
+openapi: 3.1.0
+info:
+  title: Workday Recruiting REST Applicants Job Requisitions API
+  description: RESTful API for managing recruiting operations within Workday Human Capital Management. Provides programmatic access to job requisitions, candidates, job applications, job postings, interviews, and hiring workflows. Supports integration with external talent management and applicant tracking systems using OAuth 2.0 authentication and JSON data format.
+  version: v41.2
+  contact:
+    name: Workday Support
+    url: https://www.workday.com/en-us/services/support.html
+  termsOfService: https://www.workday.com/en-us/legal.html
+  x-generated-from: documentation
+  x-source-url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  x-last-validated: '2026-05-03'
+servers:
+- url: https://{tenant}.workday.com/ccx/api/recruiting/v41.2
+  description: Workday Recruiting Production
+  variables:
+    tenant:
+      description: Workday tenant identifier (e.g., wd2-impl-services1)
+      default: your-tenant
+security:
+- oauth2: []
+tags:
+- name: Job Requisitions
+  description: Create, retrieve, edit, close, freeze, and manage job requisitions for open positions within Workday recruiting workflows.
+paths:
+  /jobRequisitions:
+    get:
+      operationId: listJobRequisitions
+      summary: Workday Recruiting List Job Requisitions
+      description: Retrieve a collection of job requisitions with optional filtering by status, supervisory organization, job profile, or date range. Returns requisition details including position references, hiring manager, recruiting status, and associated job postings.
+      tags:
+      - Job Requisitions
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - name: status
+        in: query
+        description: Filter job requisitions by recruiting status
+        schema:
+          type: string
+          enum:
+          - Open
+          - Filled
+          - Frozen
+          - Closed
+          - Draft
+        example: Open
+      - name: supervisoryOrganization
+        in: query
+        description: Filter by supervisory organization Workday ID
+        schema:
+          type: string
+        example: string
+      - name: updatedFrom
+        in: query
+        description: Return requisitions updated on or after this date-time
+        schema:
+          type: string
+          format: date-time
+        example: '2026-05-03T14:30:00Z'
+      responses:
+        '200':
+          description: Job requisitions retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total number of matching job requisitions
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/JobRequisition'
+              examples:
+                ListJobRequisitions200Example:
+                  summary: Default listJobRequisitions 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      requisitionNumber: REQ-100245
+                      title: Senior Software Engineer
+                      status: Open
+                      jobProfile:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      position:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      supervisoryOrganization:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      hiringManager:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      recruiter:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      numberOfOpenings: 3
+                      location:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      workerType:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      timeType: Full time
+                      targetHireDate: '2026-05-03'
+                      targetEndDate: '2026-05-03'
+                      compensationRange:
+                        minimum: 95000.0
+                        maximum: 145000.0
+                        currency:
+                          id: 11111111-2222-3333-4444-555555555555
+                          descriptor: Senior Software Engineer
+                        frequency: Annual
+                      jobDescription: Strong technical background with 8+ years of experience in distributed systems.
+                      qualifications: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+                      createdOn: '2026-05-03T14:30:00Z'
+                      updatedOn: '2026-05-03T14:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createJobRequisition
+      summary: Workday Recruiting Create a Job Requisition
+      description: Create a new job requisition for a position within a supervisory organization. The requisition defines the hiring need including job profile, number of openings, compensation details, and required qualifications.
+      tags:
+      - Job Requisitions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobRequisitionCreate'
+            examples:
+              CreateJobRequisitionRequestExample:
+                summary: Default createJobRequisition request
+                x-microcks-default: true
+                value:
+                  title: Senior Software Engineer
+                  jobProfile:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  position:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  supervisoryOrganization:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  hiringManager:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  recruiter:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  numberOfOpenings: 3
+                  location:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  workerType:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  timeType: Full time
+                  targetHireDate: '2026-05-03'
+                  jobDescription: Strong technical background with 8+ years of experience in distributed systems.
+                  qualifications: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+      responses:
+        '201':
+          description: Job requisition created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobRequisition'
+              examples:
+                CreateJobRequisition201Example:
+                  summary: Default createJobRequisition 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    requisitionNumber: REQ-100245
+                    title: Senior Software Engineer
+                    status: Open
+                    jobProfile:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    position:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    supervisoryOrganization:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    hiringManager:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    recruiter:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    numberOfOpenings: 3
+                    location:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    workerType:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    timeType: Full time
+                    targetHireDate: '2026-05-03'
+                    targetEndDate: '2026-05-03'
+                    compensationRange:
+                      minimum: 95000.0
+                      maximum: 145000.0
+                      currency:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      frequency: Annual
+                    jobDescription: Strong technical background with 8+ years of experience in distributed systems.
+                    qualifications: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+                    createdOn: '2026-05-03T14:30:00Z'
+                    updatedOn: '2026-05-03T14:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /jobRequisitions/{id}:
+    get:
+      operationId: getJobRequisition
+      summary: Workday Recruiting Get a Job Requisition
+      description: Retrieve detailed information for a specific job requisition including position reference, hiring manager, job profile, compensation range, recruiting status, and associated job postings.
+      tags:
+      - Job Requisitions
+      parameters:
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Job requisition retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobRequisition'
+              examples:
+                GetJobRequisition200Example:
+                  summary: Default getJobRequisition 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    requisitionNumber: REQ-100245
+                    title: Senior Software Engineer
+                    status: Open
+                    jobProfile:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    position:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    supervisoryOrganization:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    hiringManager:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    recruiter:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    numberOfOpenings: 3
+                    location:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    workerType:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    timeType: Full time
+                    targetHireDate: '2026-05-03'
+                    targetEndDate: '2026-05-03'
+                    compensationRange:
+                      minimum: 95000.0
+                      maximum: 145000.0
+                      currency:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      frequency: Annual
+                    jobDescription: Strong technical background with 8+ years of experience in distributed systems.
+                    qualifications: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+                    createdOn: '2026-05-03T14:30:00Z'
+                    updatedOn: '2026-05-03T14:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: editJobRequisition
+      summary: Workday Recruiting Edit a Job Requisition
+      description: Update an open job requisition. Allows modification of job profile, number of openings, compensation details, qualifications, and other requisition attributes.
+      tags:
+      - Job Requisitions
+      parameters:
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobRequisitionCreate'
+            examples:
+              EditJobRequisitionRequestExample:
+                summary: Default editJobRequisition request
+                x-microcks-default: true
+                value:
+                  title: Senior Software Engineer
+                  jobProfile:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  position:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  supervisoryOrganization:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  hiringManager:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  recruiter:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  numberOfOpenings: 3
+                  location:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  workerType:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  timeType: Full time
+                  targetHireDate: '2026-05-03'
+                  jobDescription: Strong technical background with 8+ years of experience in distributed systems.
+                  qualifications: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+      responses:
+        '200':
+          description: Job requisition updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobRequisition'
+              examples:
+                EditJobRequisition200Example:
+                  summary: Default editJobRequisition 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    requisitionNumber: REQ-100245
+                    title: Senior Software Engineer
+                    status: Open
+                    jobProfile:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    position:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    supervisoryOrganization:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    hiringManager:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    recruiter:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    numberOfOpenings: 3
+                    location:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    workerType:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    timeType: Full time
+                    targetHireDate: '2026-05-03'
+                    targetEndDate: '2026-05-03'
+                    compensationRange:
+                      minimum: 95000.0
+                      maximum: 145000.0
+                      currency:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      frequency: Annual
+                    jobDescription: Strong technical background with 8+ years of experience in distributed systems.
+                    qualifications: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+                    createdOn: '2026-05-03T14:30:00Z'
+                    updatedOn: '2026-05-03T14:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /jobRequisitions/{id}/close:
+    post:
+      operationId: closeJobRequisition
+      summary: Workday Recruiting Close a Job Requisition
+      description: Close a job requisition that has no pending events or filled status. Closing a requisition prevents new applications from being submitted and removes associated job postings.
+      tags:
+      - Job Requisitions
+      parameters:
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                closeReason:
+                  $ref: '#/components/schemas/Reference'
+                  description: Reason for closing the requisition
+            examples:
+              CloseJobRequisitionRequestExample:
+                summary: Default closeJobRequisition request
+                x-microcks-default: true
+                value:
+                  closeReason:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+      responses:
+        '200':
+          description: Job requisition closed successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /jobRequisitions/{id}/freeze:
+    post:
+      operationId: manageJobRequisitionFreeze
+      summary: Workday Recruiting Freeze or Unfreeze a Job Requisition
+      description: Freeze or unfreeze a job requisition to temporarily halt or resume recruiting activity. Freezing a requisition pauses the hiring process without closing the requisition.
+      tags:
+      - Job Requisitions
+      parameters:
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - freeze
+              properties:
+                freeze:
+                  type: boolean
+                  description: Set to true to freeze, false to unfreeze
+                reason:
+                  type: string
+                  description: Reason for freezing or unfreezing the requisition
+            examples:
+              ManageJobRequisitionFreezeRequestExample:
+                summary: Default manageJobRequisitionFreeze request
+                x-microcks-default: true
+                value:
+                  freeze: true
+                  reason: Position no longer needed
+      responses:
+        '200':
+          description: Job requisition freeze status updated successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
+    id:
+      name: id
+      in: path
+      required: true
+      description: Workday ID (WID) of the resource
+      schema:
+        type: string
+      example: 11111111-2222-3333-4444-555555555555
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of results to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      example: 20
+  schemas:
+    Error:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: string
+        message:
+          type: string
+          description: Human-readable error message
+          example: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+                example: string
+              message:
+                type: string
+                description: Description of the field-level error
+                example: string
+    JobRequisitionCreate:
+      type: object
+      description: Request body for creating or updating a job requisition
+      required:
+      - title
+      - jobProfile
+      - supervisoryOrganization
+      - numberOfOpenings
+      properties:
+        title:
+          type: string
+          description: Job requisition title
+          example: Senior Software Engineer
+        jobProfile:
+          $ref: '#/components/schemas/Reference'
+          description: Job profile to associate with the requisition
+        position:
+          $ref: '#/components/schemas/Reference'
+          description: Existing position to associate with the requisition
+        supervisoryOrganization:
+          $ref: '#/components/schemas/Reference'
+          description: Supervisory organization for the position
+        hiringManager:
+          $ref: '#/components/schemas/Reference'
+          description: Worker to designate as the hiring manager
+        recruiter:
+          $ref: '#/components/schemas/Reference'
+          description: Recruiter to assign to the requisition
+        numberOfOpenings:
+          type: integer
+          minimum: 1
+          description: Number of positions to fill
+          example: 3
+        location:
+          $ref: '#/components/schemas/Reference'
+          description: Primary work location
+        workerType:
+          $ref: '#/components/schemas/Reference'
+          description: Worker type
+        timeType:
+          type: string
+          enum:
+          - Full time
+          - Part time
+          description: Full-time or part-time designation
+          example: Full time
+        targetHireDate:
+          type: string
+          format: date
+          description: Target date for filling the position
+          example: '2026-05-03'
+        jobDescription:
+          type: string
+          description: Detailed job description
+          example: Strong technical background with 8+ years of experience in distributed systems.
+        qualifications:
+          type: string
+          description: Required qualifications
+          example: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+    Reference:
+      type: object
+      description: A reference to a related Workday resource
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the referenced resource
+          example: 11111111-2222-3333-4444-555555555555
+        descriptor:
+          type: string
+          description: Display name of the referenced resource
+          example: Senior Software Engineer
+    JobRequisition:
+      type: object
+      description: A job requisition represents a hiring need for a specific position within an organization, including the job profile, number of openings, compensation range, and recruiting status.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) uniquely identifying the job requisition
+          example: 11111111-2222-3333-4444-555555555555
+        requisitionNumber:
+          type: string
+          description: System-generated requisition reference number
+          example: REQ-100245
+        title:
+          type: string
+          description: Job requisition title
+          example: Senior Software Engineer
+        status:
+          type: string
+          enum:
+          - Open
+          - Filled
+          - Frozen
+          - Closed
+          - Draft
+          description: Current status of the job requisition
+          example: Open
+        jobProfile:
+          $ref: '#/components/schemas/Reference'
+          description: Job profile associated with the requisition
+        position:
+          $ref: '#/components/schemas/Reference'
+          description: Position associated with the requisition
+        supervisoryOrganization:
+          $ref: '#/components/schemas/Reference'
+          description: Supervisory organization for the position
+        hiringManager:
+          $ref: '#/components/schemas/Reference'
+          description: Worker designated as the hiring manager
+        recruiter:
+          $ref: '#/components/schemas/Reference'
+          description: Assigned recruiter for the requisition
+        numberOfOpenings:
+          type: integer
+          minimum: 1
+          description: Number of positions to fill
+          example: 3
+        location:
+          $ref: '#/components/schemas/Reference'
+          description: Primary work location for the position
+        workerType:
+          $ref: '#/components/schemas/Reference'
+          description: Worker type (e.g., Employee, Contingent Worker)
+        timeType:
+          type: string
+          enum:
+          - Full time
+          - Part time
+          description: Full-time or part-time designation
+          example: Full time
+        targetHireDate:
+          type: string
+          format: date
+          description: Target date for filling the position
+          example: '2026-05-03'
+        targetEndDate:
+          type: string
+          format: date
+          description: Target end date for temporary positions
+          example: '2026-05-03'
+        compensationRange:
+          type: object
+          properties:
+            minimum:
+              type: number
+              description: Minimum compensation amount
+              example: 95000.0
+            maximum:
+              type: number
+              description: Maximum compensation amount
+              example: 145000.0
+            currency:
+              $ref: '#/components/schemas/Reference'
+              description: Compensation currency
+            frequency:
+              type: string
+              enum:
+              - Annual
+              - Hourly
+              - Monthly
+              description: Compensation frequency
+              example: Annual
+          description: Compensation range for the position
+        jobDescription:
+          type: string
+          description: Detailed job description
+          example: Strong technical background with 8+ years of experience in distributed systems.
+        qualifications:
+          type: string
+          description: Required qualifications for the position
+          example: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+        createdOn:
+          type: string
+          format: date-time
+          description: Timestamp when the requisition was created
+          example: '2026-05-03T14:30:00Z'
+        updatedOn:
+          type: string
+          format: date-time
+          description: Timestamp when the requisition was last updated
+          example: '2026-05-03T14:30:00Z'
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Register an API client in Workday, grant recruiting scopes, and obtain access tokens.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://{tenant}.workday.com/authorize
+          tokenUrl: https://{tenant}.workday.com/ccx/oauth2/token
+          scopes:
+            recruiting:read: Read recruiting data
+            recruiting:write: Modify recruiting data
+externalDocs:
+  description: Workday Recruiting REST API Documentation
+  url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html

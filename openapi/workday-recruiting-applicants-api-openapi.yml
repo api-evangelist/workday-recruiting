@@ -1,0 +1,291 @@
+openapi: 3.1.0
+info:
+  title: Workday Recruiting REST Applicants API
+  description: RESTful API for managing recruiting operations within Workday Human Capital Management. Provides programmatic access to job requisitions, candidates, job applications, job postings, interviews, and hiring workflows. Supports integration with external talent management and applicant tracking systems using OAuth 2.0 authentication and JSON data format.
+  version: v41.2
+  contact:
+    name: Workday Support
+    url: https://www.workday.com/en-us/services/support.html
+  termsOfService: https://www.workday.com/en-us/legal.html
+  x-generated-from: documentation
+  x-source-url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  x-last-validated: '2026-05-03'
+servers:
+- url: https://{tenant}.workday.com/ccx/api/recruiting/v41.2
+  description: Workday Recruiting Production
+  variables:
+    tenant:
+      description: Workday tenant identifier (e.g., wd2-impl-services1)
+      default: your-tenant
+security:
+- oauth2: []
+tags:
+- name: Applicants
+  description: Retrieve and manage pre-hire and applicant records, including high-volume applicant import operations.
+paths:
+  /applicants:
+    get:
+      operationId: listApplicants
+      summary: Workday Recruiting List Applicants
+      description: Retrieve pre-hire and applicant information. Returns applicant records that have been processed through the recruiting pipeline.
+      tags:
+      - Applicants
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Applicants retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Applicant'
+              examples:
+                ListApplicants200Example:
+                  summary: Default listApplicants 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      candidate:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      firstName: Jordan
+                      lastName: Reyes
+                      email: candidate@example.com
+                      hireDate: '2026-05-03'
+                      position:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      status: Open
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /applicants/import:
+    post:
+      operationId: importApplicants
+      summary: Workday Recruiting Import Applicants in Bulk
+      description: High-volume applicant import service for processing multiple applicant records asynchronously. Designed for bulk loading of applicant data from external systems.
+      tags:
+      - Applicants
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - applicants
+              properties:
+                applicants:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ApplicantImport'
+                  description: Array of applicant records to import
+            examples:
+              ImportApplicantsRequestExample:
+                summary: Default importApplicants request
+                x-microcks-default: true
+                value:
+                  applicants:
+                  - firstName: Jordan
+                    lastName: Reyes
+                    email: candidate@example.com
+                    phone: +1-415-555-0123
+                    source:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    jobRequisition:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+      responses:
+        '202':
+          description: Import request accepted for asynchronous processing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  importId:
+                    type: string
+                    description: Identifier for tracking the import job
+                  status:
+                    type: string
+                    description: Current status of the import job
+              examples:
+                ImportApplicants202Example:
+                  summary: Default importApplicants 202 response
+                  x-microcks-default: true
+                  value:
+                    importId: 11111111-2222-3333-4444-555555555555
+                    status: Open
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of results to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      example: 20
+  schemas:
+    Error:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: string
+        message:
+          type: string
+          description: Human-readable error message
+          example: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+                example: string
+              message:
+                type: string
+                description: Description of the field-level error
+                example: string
+    ApplicantImport:
+      type: object
+      description: Request body for a single applicant in bulk import
+      required:
+      - firstName
+      - lastName
+      - email
+      properties:
+        firstName:
+          type: string
+          description: Applicant first name
+          example: Jordan
+        lastName:
+          type: string
+          description: Applicant last name
+          example: Reyes
+        email:
+          type: string
+          format: email
+          description: Primary email address
+          example: candidate@example.com
+        phone:
+          type: string
+          description: Phone number
+          example: +1-415-555-0123
+        source:
+          $ref: '#/components/schemas/Reference'
+          description: Application source
+        jobRequisition:
+          $ref: '#/components/schemas/Reference'
+          description: Job requisition to apply to
+    Reference:
+      type: object
+      description: A reference to a related Workday resource
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the referenced resource
+          example: 11111111-2222-3333-4444-555555555555
+        descriptor:
+          type: string
+          description: Display name of the referenced resource
+          example: Senior Software Engineer
+    Applicant:
+      type: object
+      description: A pre-hire or applicant record in Workday representing an individual who has been processed through the recruiting pipeline toward hire.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the applicant record
+          example: 11111111-2222-3333-4444-555555555555
+        candidate:
+          $ref: '#/components/schemas/Reference'
+          description: Associated candidate record
+        firstName:
+          type: string
+          description: Applicant first name
+          example: Jordan
+        lastName:
+          type: string
+          description: Applicant last name
+          example: Reyes
+        email:
+          type: string
+          format: email
+          description: Primary email address
+          example: candidate@example.com
+        hireDate:
+          type: string
+          format: date
+          description: Planned or actual hire date
+          example: '2026-05-03'
+        position:
+          $ref: '#/components/schemas/Reference'
+          description: Position being hired into
+        status:
+          type: string
+          description: Applicant processing status
+          example: Open
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Register an API client in Workday, grant recruiting scopes, and obtain access tokens.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://{tenant}.workday.com/authorize
+          tokenUrl: https://{tenant}.workday.com/ccx/oauth2/token
+          scopes:
+            recruiting:read: Read recruiting data
+            recruiting:write: Modify recruiting data
+externalDocs:
+  description: Workday Recruiting REST API Documentation
+  url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html

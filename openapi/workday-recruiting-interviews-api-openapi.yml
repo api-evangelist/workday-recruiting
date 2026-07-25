@@ -1,0 +1,610 @@
+openapi: 3.1.0
+info:
+  title: Workday Recruiting REST Applicants Interviews API
+  description: RESTful API for managing recruiting operations within Workday Human Capital Management. Provides programmatic access to job requisitions, candidates, job applications, job postings, interviews, and hiring workflows. Supports integration with external talent management and applicant tracking systems using OAuth 2.0 authentication and JSON data format.
+  version: v41.2
+  contact:
+    name: Workday Support
+    url: https://www.workday.com/en-us/services/support.html
+  termsOfService: https://www.workday.com/en-us/legal.html
+  x-generated-from: documentation
+  x-source-url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  x-last-validated: '2026-05-03'
+servers:
+- url: https://{tenant}.workday.com/ccx/api/recruiting/v41.2
+  description: Workday Recruiting Production
+  variables:
+    tenant:
+      description: Workday tenant identifier (e.g., wd2-impl-services1)
+      default: your-tenant
+security:
+- oauth2: []
+tags:
+- name: Interviews
+  description: Schedule interviews, submit interview feedback, manage interview settings, and configure self-schedule calendars.
+paths:
+  /interviews:
+    get:
+      operationId: listInterviews
+      summary: Workday Recruiting List Interviews
+      description: Retrieve a collection of scheduled interviews with optional filtering by job application, interviewer, or date range. Returns interview details including schedule, interviewer assignments, and status.
+      tags:
+      - Interviews
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - name: jobApplication
+        in: query
+        description: Filter by job application Workday ID
+        schema:
+          type: string
+        example: string
+      - name: dateFrom
+        in: query
+        description: Return interviews scheduled on or after this date
+        schema:
+          type: string
+          format: date
+        example: '2026-05-03'
+      - name: dateTo
+        in: query
+        description: Return interviews scheduled on or before this date
+        schema:
+          type: string
+          format: date
+        example: '2026-05-03'
+      responses:
+        '200':
+          description: Interviews retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total number of matching interviews
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Interview'
+              examples:
+                ListInterviews200Example:
+                  summary: Default listInterviews 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      jobApplication:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      interviewType: Phone Screen
+                      scheduledDate: '2026-05-03'
+                      startTime: 52200
+                      endTime: 52200
+                      interviewers:
+                      - id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      location: San Francisco, CA
+                      webConferenceUrl: https://example.com/resource
+                      status: Scheduled
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: scheduleInterview
+      summary: Workday Recruiting Schedule an Interview
+      description: Create a new interview schedule for a job application. Assigns interviewers, sets the date and time, and optionally configures web conferencing details.
+      tags:
+      - Interviews
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InterviewCreate'
+            examples:
+              ScheduleInterviewRequestExample:
+                summary: Default scheduleInterview request
+                x-microcks-default: true
+                value:
+                  jobApplication:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  interviewType: Phone Screen
+                  scheduledDate: '2026-05-03'
+                  startTime: 52200
+                  endTime: 52200
+                  interviewers:
+                  - id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  location: San Francisco, CA
+                  webConferenceUrl: https://example.com/resource
+      responses:
+        '201':
+          description: Interview scheduled successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Interview'
+              examples:
+                ScheduleInterview201Example:
+                  summary: Default scheduleInterview 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    jobApplication:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    interviewType: Phone Screen
+                    scheduledDate: '2026-05-03'
+                    startTime: 52200
+                    endTime: 52200
+                    interviewers:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    location: San Francisco, CA
+                    webConferenceUrl: https://example.com/resource
+                    status: Scheduled
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /interviews/{id}:
+    get:
+      operationId: getInterview
+      summary: Workday Recruiting Get an Interview
+      description: Retrieve detailed information for a specific interview including schedule, interviewers, job application reference, and any submitted feedback.
+      tags:
+      - Interviews
+      parameters:
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Interview retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Interview'
+              examples:
+                GetInterview200Example:
+                  summary: Default getInterview 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    jobApplication:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    interviewType: Phone Screen
+                    scheduledDate: '2026-05-03'
+                    startTime: 52200
+                    endTime: 52200
+                    interviewers:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    location: San Francisco, CA
+                    webConferenceUrl: https://example.com/resource
+                    status: Scheduled
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /interviews/{id}/feedback:
+    get:
+      operationId: listInterviewFeedback
+      summary: Workday Recruiting List Interview Feedback
+      description: Retrieve feedback submitted by interviewers for a specific interview including ratings, comments, and hiring recommendations.
+      tags:
+      - Interviews
+      parameters:
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Interview feedback retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/InterviewFeedback'
+              examples:
+                ListInterviewFeedback200Example:
+                  summary: Default listInterviewFeedback 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      interviewer:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      overallRating: Strong Hire
+                      competencyRatings:
+                      - competency:
+                          id: 11111111-2222-3333-4444-555555555555
+                          descriptor: Senior Software Engineer
+                        rating: 4
+                        comments: Strong technical background with 8+ years of experience in distributed systems.
+                      comments: Strong technical background with 8+ years of experience in distributed systems.
+                      submittedOn: '2026-05-03T14:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: submitInterviewFeedback
+      summary: Workday Recruiting Submit Interview Feedback
+      description: Submit feedback for a completed interview. Includes overall rating, competency assessments, comments, and a hiring recommendation. Submitting feedback may optionally advance the candidate to the next stage.
+      tags:
+      - Interviews
+      parameters:
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InterviewFeedbackCreate'
+            examples:
+              SubmitInterviewFeedbackRequestExample:
+                summary: Default submitInterviewFeedback request
+                x-microcks-default: true
+                value:
+                  overallRating: Strong Hire
+                  competencyRatings:
+                  - competency:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    rating: 4
+                    comments: Strong technical background with 8+ years of experience in distributed systems.
+                  comments: Strong technical background with 8+ years of experience in distributed systems.
+      responses:
+        '201':
+          description: Interview feedback submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InterviewFeedback'
+              examples:
+                SubmitInterviewFeedback201Example:
+                  summary: Default submitInterviewFeedback 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    interviewer:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    overallRating: Strong Hire
+                    competencyRatings:
+                    - competency:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      rating: 4
+                      comments: Strong technical background with 8+ years of experience in distributed systems.
+                    comments: Strong technical background with 8+ years of experience in distributed systems.
+                    submittedOn: '2026-05-03T14:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
+    id:
+      name: id
+      in: path
+      required: true
+      description: Workday ID (WID) of the resource
+      schema:
+        type: string
+      example: 11111111-2222-3333-4444-555555555555
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of results to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      example: 20
+  schemas:
+    InterviewFeedbackCreate:
+      type: object
+      description: Request body for submitting interview feedback
+      required:
+      - overallRating
+      properties:
+        overallRating:
+          type: string
+          enum:
+          - Strong Hire
+          - Hire
+          - No Decision
+          - Do Not Hire
+          - Strong Do Not Hire
+          description: Overall hiring recommendation
+          example: Strong Hire
+        competencyRatings:
+          type: array
+          items:
+            type: object
+            required:
+            - competency
+            - rating
+            properties:
+              competency:
+                $ref: '#/components/schemas/Reference'
+              rating:
+                type: integer
+                minimum: 1
+                maximum: 5
+                example: 4
+              comments:
+                type: string
+                example: Strong technical background with 8+ years of experience in distributed systems.
+          description: Individual competency ratings
+        comments:
+          type: string
+          description: General interview feedback comments
+          example: Strong technical background with 8+ years of experience in distributed systems.
+    Error:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: string
+        message:
+          type: string
+          description: Human-readable error message
+          example: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+                example: string
+              message:
+                type: string
+                description: Description of the field-level error
+                example: string
+    InterviewFeedback:
+      type: object
+      description: Feedback submitted by an interviewer after completing a candidate interview, including ratings and hiring recommendation.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the feedback record
+          example: 11111111-2222-3333-4444-555555555555
+        interviewer:
+          $ref: '#/components/schemas/Reference'
+          description: Interviewer who submitted the feedback
+        overallRating:
+          type: string
+          enum:
+          - Strong Hire
+          - Hire
+          - No Decision
+          - Do Not Hire
+          - Strong Do Not Hire
+          description: Overall hiring recommendation
+          example: Strong Hire
+        competencyRatings:
+          type: array
+          items:
+            type: object
+            properties:
+              competency:
+                $ref: '#/components/schemas/Reference'
+                description: Competency being rated
+              rating:
+                type: integer
+                minimum: 1
+                maximum: 5
+                description: Rating value (1-5 scale)
+                example: 4
+              comments:
+                type: string
+                description: Competency-level comments
+                example: Strong technical background with 8+ years of experience in distributed systems.
+          description: Individual competency ratings
+        comments:
+          type: string
+          description: General interview feedback comments
+          example: Strong technical background with 8+ years of experience in distributed systems.
+        submittedOn:
+          type: string
+          format: date-time
+          description: Timestamp when the feedback was submitted
+          example: '2026-05-03T14:30:00Z'
+    Reference:
+      type: object
+      description: A reference to a related Workday resource
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the referenced resource
+          example: 11111111-2222-3333-4444-555555555555
+        descriptor:
+          type: string
+          description: Display name of the referenced resource
+          example: Senior Software Engineer
+    Interview:
+      type: object
+      description: An interview represents a scheduled meeting between a candidate and one or more interviewers as part of the recruiting evaluation process.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) uniquely identifying the interview
+          example: 11111111-2222-3333-4444-555555555555
+        jobApplication:
+          $ref: '#/components/schemas/Reference'
+          description: Job application being evaluated
+        interviewType:
+          type: string
+          enum:
+          - Phone Screen
+          - Video Interview
+          - In-Person Interview
+          - Panel Interview
+          - Technical Interview
+          description: Type of interview
+          example: Phone Screen
+        scheduledDate:
+          type: string
+          format: date
+          description: Scheduled date of the interview
+          example: '2026-05-03'
+        startTime:
+          type: string
+          format: time
+          description: Start time of the interview
+          example: 52200
+        endTime:
+          type: string
+          format: time
+          description: End time of the interview
+          example: 52200
+        interviewers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reference'
+          description: Workers assigned as interviewers
+        location:
+          type: string
+          description: Interview location or virtual meeting details
+          example: San Francisco, CA
+        webConferenceUrl:
+          type: string
+          format: uri
+          description: URL for web conference interview
+          example: https://example.com/resource
+        status:
+          type: string
+          enum:
+          - Scheduled
+          - Completed
+          - Canceled
+          - No Show
+          description: Current interview status
+          example: Scheduled
+    InterviewCreate:
+      type: object
+      description: Request body for scheduling an interview
+      required:
+      - jobApplication
+      - scheduledDate
+      - startTime
+      - endTime
+      - interviewers
+      properties:
+        jobApplication:
+          $ref: '#/components/schemas/Reference'
+          description: Job application being evaluated
+        interviewType:
+          type: string
+          enum:
+          - Phone Screen
+          - Video Interview
+          - In-Person Interview
+          - Panel Interview
+          - Technical Interview
+          description: Type of interview
+          example: Phone Screen
+        scheduledDate:
+          type: string
+          format: date
+          description: Scheduled date of the interview
+          example: '2026-05-03'
+        startTime:
+          type: string
+          format: time
+          description: Start time
+          example: 52200
+        endTime:
+          type: string
+          format: time
+          description: End time
+          example: 52200
+        interviewers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reference'
+          description: Workers to assign as interviewers
+        location:
+          type: string
+          description: Interview location
+          example: San Francisco, CA
+        webConferenceUrl:
+          type: string
+          format: uri
+          description: URL for web conference
+          example: https://example.com/resource
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Register an API client in Workday, grant recruiting scopes, and obtain access tokens.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://{tenant}.workday.com/authorize
+          tokenUrl: https://{tenant}.workday.com/ccx/oauth2/token
+          scopes:
+            recruiting:read: Read recruiting data
+            recruiting:write: Modify recruiting data
+externalDocs:
+  description: Workday Recruiting REST API Documentation
+  url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html

@@ -1,0 +1,494 @@
+openapi: 3.1.0
+info:
+  title: Workday Recruiting REST Applicants Job Applications API
+  description: RESTful API for managing recruiting operations within Workday Human Capital Management. Provides programmatic access to job requisitions, candidates, job applications, job postings, interviews, and hiring workflows. Supports integration with external talent management and applicant tracking systems using OAuth 2.0 authentication and JSON data format.
+  version: v41.2
+  contact:
+    name: Workday Support
+    url: https://www.workday.com/en-us/services/support.html
+  termsOfService: https://www.workday.com/en-us/legal.html
+  x-generated-from: documentation
+  x-source-url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  x-last-validated: '2026-05-03'
+servers:
+- url: https://{tenant}.workday.com/ccx/api/recruiting/v41.2
+  description: Workday Recruiting Production
+  variables:
+    tenant:
+      description: Workday tenant identifier (e.g., wd2-impl-services1)
+      default: your-tenant
+security:
+- oauth2: []
+tags:
+- name: Job Applications
+  description: Manage the lifecycle of job applications from submission through disposition, including stage movement and offer initiation.
+paths:
+  /jobApplications:
+    get:
+      operationId: listJobApplications
+      summary: Workday Recruiting List Job Applications
+      description: Retrieve a collection of job applications with optional filtering by requisition, candidate, or status. Returns application details including current stage, disposition, and candidate reference.
+      tags:
+      - Job Applications
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - name: jobRequisition
+        in: query
+        description: Filter by job requisition Workday ID
+        schema:
+          type: string
+        example: string
+      - name: candidate
+        in: query
+        description: Filter by candidate Workday ID
+        schema:
+          type: string
+        example: string
+      - name: stage
+        in: query
+        description: Filter by current recruiting stage
+        schema:
+          type: string
+          enum:
+          - Review
+          - Screen
+          - Interview
+          - Assessment
+          - Offer
+          - Background Check
+          - Ready for Hire
+          - Hired
+        example: Review
+      responses:
+        '200':
+          description: Job applications retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total number of matching job applications
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/JobApplication'
+              examples:
+                ListJobApplications200Example:
+                  summary: Default listJobApplications 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 3
+                    data:
+                    - id: 11111111-2222-3333-4444-555555555555
+                      candidate:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      jobRequisition:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      currentStage: Review
+                      dispositionReason:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      isDispositioned: false
+                      source:
+                        id: 11111111-2222-3333-4444-555555555555
+                        descriptor: Senior Software Engineer
+                      appliedOn: '2026-05-03T14:30:00Z'
+                      updatedOn: '2026-05-03T14:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /jobApplications/{id}:
+    get:
+      operationId: getJobApplication
+      summary: Workday Recruiting Get a Job Application
+      description: Retrieve detailed information for a specific job application including candidate reference, job requisition, current recruiting stage, disposition status, and application history.
+      tags:
+      - Job Applications
+      parameters:
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Job application retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobApplication'
+              examples:
+                GetJobApplication200Example:
+                  summary: Default getJobApplication 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    candidate:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    jobRequisition:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    currentStage: Review
+                    dispositionReason:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    isDispositioned: false
+                    source:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    appliedOn: '2026-05-03T14:30:00Z'
+                    updatedOn: '2026-05-03T14:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /jobApplications/{id}/move:
+    post:
+      operationId: moveCandidateStage
+      summary: Workday Recruiting Move Candidate to a Different Stage
+      description: Move a candidate to a different recruiting stage or disposition stage within a job application. Used to advance candidates through the hiring pipeline or to disposition candidates who are no longer being considered.
+      tags:
+      - Job Applications
+      parameters:
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - stage
+              properties:
+                stage:
+                  $ref: '#/components/schemas/Reference'
+                  description: Target recruiting stage or disposition stage
+                reason:
+                  $ref: '#/components/schemas/Reference'
+                  description: Reason for the stage transition
+                comments:
+                  type: string
+                  description: Comments about the stage transition
+            examples:
+              MoveCandidateStageRequestExample:
+                summary: Default moveCandidateStage request
+                x-microcks-default: true
+                value:
+                  stage:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  reason:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  comments: Strong technical background with 8+ years of experience in distributed systems.
+      responses:
+        '200':
+          description: Candidate moved to new stage successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /jobApplications/{id}/offer:
+    post:
+      operationId: initiateOffer
+      summary: Workday Recruiting Initiate an Offer
+      description: Initiate an employment offer for a job application. Triggers the offer approval workflow and generates the offer letter based on the configured template.
+      tags:
+      - Job Applications
+      parameters:
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfferCreate'
+            examples:
+              InitiateOfferRequestExample:
+                summary: Default initiateOffer request
+                x-microcks-default: true
+                value:
+                  proposedStartDate: '2026-05-03'
+                  compensationAmount: 120000.0
+                  compensationFrequency: Annual
+                  currency:
+                    id: 11111111-2222-3333-4444-555555555555
+                    descriptor: Senior Software Engineer
+                  expirationDate: '2026-05-03'
+      responses:
+        '201':
+          description: Offer initiated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Offer'
+              examples:
+                InitiateOffer201Example:
+                  summary: Default initiateOffer 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 11111111-2222-3333-4444-555555555555
+                    jobApplication:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    status: Draft
+                    proposedStartDate: '2026-05-03'
+                    compensationAmount: 120000.0
+                    compensationFrequency: Annual
+                    currency:
+                      id: 11111111-2222-3333-4444-555555555555
+                      descriptor: Senior Software Engineer
+                    expirationDate: '2026-05-03'
+                    createdOn: '2026-05-03T14:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    OfferCreate:
+      type: object
+      description: Request body for initiating an employment offer
+      required:
+      - proposedStartDate
+      properties:
+        proposedStartDate:
+          type: string
+          format: date
+          description: Proposed start date for employment
+          example: '2026-05-03'
+        compensationAmount:
+          type: number
+          description: Offered compensation amount
+          example: 120000.0
+        compensationFrequency:
+          type: string
+          enum:
+          - Annual
+          - Hourly
+          - Monthly
+          description: Compensation frequency
+          example: Annual
+        currency:
+          $ref: '#/components/schemas/Reference'
+          description: Compensation currency
+        expirationDate:
+          type: string
+          format: date
+          description: Date the offer expires
+          example: '2026-05-03'
+    JobApplication:
+      type: object
+      description: A job application links a candidate to a job requisition and tracks their progress through the recruiting stages from application through hire or disposition.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) uniquely identifying the job application
+          example: 11111111-2222-3333-4444-555555555555
+        candidate:
+          $ref: '#/components/schemas/Reference'
+          description: Candidate associated with this application
+        jobRequisition:
+          $ref: '#/components/schemas/Reference'
+          description: Job requisition for this application
+        currentStage:
+          type: string
+          enum:
+          - Review
+          - Screen
+          - Interview
+          - Assessment
+          - Offer
+          - Background Check
+          - Ready for Hire
+          - Hired
+          description: Current recruiting stage
+          example: Review
+        dispositionReason:
+          $ref: '#/components/schemas/Reference'
+          description: Reason for disposition if the candidate was rejected
+        isDispositioned:
+          type: boolean
+          description: Whether the candidate has been dispositioned
+          example: false
+        source:
+          $ref: '#/components/schemas/Reference'
+          description: Application source
+        appliedOn:
+          type: string
+          format: date-time
+          description: Date and time the application was submitted
+          example: '2026-05-03T14:30:00Z'
+        updatedOn:
+          type: string
+          format: date-time
+          description: Timestamp when the application was last updated
+          example: '2026-05-03T14:30:00Z'
+    Error:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: string
+        message:
+          type: string
+          description: Human-readable error message
+          example: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+                example: string
+              message:
+                type: string
+                description: Description of the field-level error
+                example: string
+    Offer:
+      type: object
+      description: An employment offer extended to a candidate through a job application, including compensation details and start date.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the offer
+          example: 11111111-2222-3333-4444-555555555555
+        jobApplication:
+          $ref: '#/components/schemas/Reference'
+          description: Job application associated with the offer
+        status:
+          type: string
+          enum:
+          - Draft
+          - Pending Approval
+          - Approved
+          - Extended
+          - Accepted
+          - Declined
+          - Rescinded
+          description: Current offer status
+          example: Draft
+        proposedStartDate:
+          type: string
+          format: date
+          description: Proposed start date for employment
+          example: '2026-05-03'
+        compensationAmount:
+          type: number
+          description: Offered compensation amount
+          example: 120000.0
+        compensationFrequency:
+          type: string
+          enum:
+          - Annual
+          - Hourly
+          - Monthly
+          description: Compensation frequency
+          example: Annual
+        currency:
+          $ref: '#/components/schemas/Reference'
+          description: Compensation currency
+        expirationDate:
+          type: string
+          format: date
+          description: Date the offer expires
+          example: '2026-05-03'
+        createdOn:
+          type: string
+          format: date-time
+          description: Timestamp when the offer was created
+          example: '2026-05-03T14:30:00Z'
+    Reference:
+      type: object
+      description: A reference to a related Workday resource
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the referenced resource
+          example: 11111111-2222-3333-4444-555555555555
+        descriptor:
+          type: string
+          description: Display name of the referenced resource
+          example: Senior Software Engineer
+  parameters:
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
+    id:
+      name: id
+      in: path
+      required: true
+      description: Workday ID (WID) of the resource
+      schema:
+        type: string
+      example: 11111111-2222-3333-4444-555555555555
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of results to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      example: 20
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication. Register an API client in Workday, grant recruiting scopes, and obtain access tokens.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://{tenant}.workday.com/authorize
+          tokenUrl: https://{tenant}.workday.com/ccx/oauth2/token
+          scopes:
+            recruiting:read: Read recruiting data
+            recruiting:write: Modify recruiting data
+externalDocs:
+  description: Workday Recruiting REST API Documentation
+  url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
