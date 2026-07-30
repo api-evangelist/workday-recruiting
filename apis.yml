@@ -3,7 +3,20 @@ name: Workday Recruiting
 description: >-
   APIs for Workday's cloud-based recruiting and talent acquisition solution, providing programmatic access to job
   requisitions, candidate management, applications, interviews, job postings, and hiring workflows.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/workday-recruiting.png
 url: https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/apis.yml
 created: '2024-01-01'
 modified: '2026-05-19'
@@ -15,232 +28,2300 @@ tags:
   - SaaS
   - Talent Acquisition
 apis:
-  - name: Workday Recruiting REST API
-    description: >-
-      RESTful API for managing recruiting operations including job requisitions, candidates, applications, and hiring
-      processes in Workday. Supports OAuth 2.0 authentication and returns data in JSON format for integration with
-      talent management and applicant tracking systems.
-    image: https://www.workday.com/content/dam/web/images/logos/workday-logo.svg
-    humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
-    baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
-    tags:
-      - Applications
-      - Candidates
-      - Job Requisitions
-      - Recruiting
-      - Talent Acquisition
-    properties:
-      - type: Documentation
-        url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
-      - type: OpenAPI
-        url: >-
-          https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v41.2/Recruiting_OpenAPI.yaml
-      - type: OpenAPI
-        url: openapi/workday-recruiting-rest-api-openapi.yml
-      - type: Authentication
-        url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
-      - type: RateLimits
-        url: https://community.workday.com/articles/16827
-      - type: JSONLD
-        url: json-ld/workday-recruiting-rest-api-context.jsonld
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-applicant-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-applicant-import-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-attachment-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-background-check-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-background-check-create-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-background-check-package-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-candidate-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-candidate-create-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-candidate-assessment-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-evergreen-requisition-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-evergreen-requisition-create-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-interview-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-interview-create-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-interview-feedback-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-interview-feedback-create-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-job-application-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-job-posting-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-job-posting-site-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-job-requisition-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-job-requisition-create-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-offer-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-offer-create-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-position-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-position-create-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-questionnaire-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-recruiting-agency-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-reference-schema.json
-      - type: JSONSchema
-        url: json-schema/recruiting-rest-api-veteran-status-schema.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-applicant-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-applicant-import-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-attachment-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-background-check-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-background-check-create-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-background-check-package-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-candidate-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-candidate-create-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-candidate-assessment-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-evergreen-requisition-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-evergreen-requisition-create-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-interview-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-interview-create-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-interview-feedback-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-interview-feedback-create-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-job-application-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-job-posting-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-job-posting-site-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-job-requisition-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-job-requisition-create-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-offer-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-offer-create-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-position-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-position-create-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-questionnaire-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-recruiting-agency-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-reference-structure.json
-      - type: JSONStructure
-        url: json-structure/recruiting-rest-api-veteran-status-structure.json
-      - type: Examples
-        url: examples/recruiting-rest-api-applicant-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-applicant-import-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-attachment-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-background-check-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-background-check-create-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-background-check-package-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-candidate-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-candidate-create-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-candidate-assessment-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-evergreen-requisition-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-evergreen-requisition-create-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-interview-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-interview-create-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-interview-feedback-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-interview-feedback-create-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-job-application-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-job-posting-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-job-posting-site-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-job-requisition-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-job-requisition-create-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-offer-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-offer-create-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-position-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-position-create-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-questionnaire-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-recruiting-agency-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-reference-example.json
-      - type: Examples
-        url: examples/recruiting-rest-api-veteran-status-example.json
-  - name: Workday Recruiting SOAP Web Services API
-    description: >-
-      SOAP-based web service providing comprehensive access to Workday Recruiting business services data for integration
-      with talent management and applicant tracking systems. Includes over 120 operations covering candidate management,
-      job requisitions, evergreen requisitions, job postings, interviews, background checks, recruiting agencies, and
-      self-schedule calendars.
-    image: https://www.workday.com/content/dam/web/images/logos/workday-logo.svg
-    humanURL: https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v45.2/Recruiting.html
-    baseURL: https://wd2-impl-services1.workday.com/ccx/service/
-    tags:
-      - Candidates
-      - Job Requisitions
-      - Recruiting
-      - SOAP API
-      - Web Services
-    properties:
-      - type: Documentation
-        url: https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v45.2/Recruiting.html
-      - type: APIReference
-        url: https://community.workday.com/sites/default/files/file-hosting/productionapi/index.html
-      - type: WSDL
-        url: wsdl/workday-recruiting-soap.wsdl
-      - type: WSDL
-        url: https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v45.2/Recruiting.wsdl
-      - type: XSD
-        url: xsd/workday-recruiting-soap.xsd
-      - type: XSD
-        url: https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v45.2/Recruiting.xsd
-      - type: ChangeLog
-        url: https://community.workday.com/api-versions
+- name: Workday Recruiting SOAP Web Services API
+  description: >-
+    SOAP-based web service providing comprehensive access to Workday Recruiting business services data
+    for integration with talent management and applicant tracking systems. Includes over 120 operations
+    covering candidate management, job requisitions, evergreen requisitions, job postings, interviews,
+    background checks, recruiting agencies, and self-schedule calendars.
+  image: https://www.workday.com/content/dam/web/images/logos/workday-logo.svg
+  humanURL: >-
+    https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v45.2/Recruiting.html
+  baseURL: https://wd2-impl-services1.workday.com/ccx/service/
+  tags:
+  - Candidates
+  - Job Requisitions
+  - Recruiting
+  - SOAP API
+  - Web Services
+  properties:
+  - type: Documentation
+    url: >-
+      https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v45.2/Recruiting.html
+  - type: APIReference
+    url: https://community.workday.com/sites/default/files/file-hosting/productionapi/index.html
+  - type: WSDL
+    url: wsdl/workday-recruiting-soap.wsdl
+  - type: WSDL
+    url: >-
+      https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v45.2/Recruiting.wsdl
+  - type: XSD
+    url: xsd/workday-recruiting-soap.xsd
+  - type: XSD
+    url: >-
+      https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v45.2/Recruiting.xsd
+  - type: ChangeLog
+    url: https://community.workday.com/api-versions
+- aid: workday-recruiting:workday-recruiting-agentdefinition-api
+  name: Workday Recruiting agentDefinition API
+  description: To view and maintain Agent Definitions with the Agent System of Record.
+  humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
+  tags:
+  - agentDefinition
+  properties:
+  - type: OpenAPI
+    url: openapi/workday-recruiting-agentdefinition-api-openapi.yml
+  - type: Documentation
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  - type: Authentication
+    url: >-
+      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+  - type: RateLimits
+    url: https://community.workday.com/articles/16827
+  - type: JSONLD
+    url: json-ld/workday-recruiting-rest-api-context.jsonld
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-import-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-attachment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-package-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-assessment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-application-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-site-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-questionnaire-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-recruiting-agency-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-reference-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-veteran-status-schema.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-import-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-attachment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-package-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-assessment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-application-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-site-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-questionnaire-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-recruiting-agency-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-reference-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-veteran-status-structure.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-import-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-attachment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-package-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-assessment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-application-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-site-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-questionnaire-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-recruiting-agency-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-reference-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-veteran-status-example.json
+- aid: workday-recruiting:workday-recruiting-applicants-api
+  name: Workday Recruiting Applicants API
+  description: >-
+    Retrieve and manage pre-hire and applicant records, including high-volume applicant import operations.
+  humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
+  tags:
+  - Applicants
+  properties:
+  - type: OpenAPI
+    url: openapi/workday-recruiting-applicants-api-openapi.yml
+  - type: Documentation
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  - type: Authentication
+    url: >-
+      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+  - type: RateLimits
+    url: https://community.workday.com/articles/16827
+  - type: JSONLD
+    url: json-ld/workday-recruiting-rest-api-context.jsonld
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-import-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-attachment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-package-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-assessment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-application-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-site-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-questionnaire-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-recruiting-agency-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-reference-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-veteran-status-schema.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-import-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-attachment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-package-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-assessment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-application-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-site-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-questionnaire-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-recruiting-agency-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-reference-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-veteran-status-structure.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-import-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-attachment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-package-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-assessment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-application-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-site-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-questionnaire-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-recruiting-agency-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-reference-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-veteran-status-example.json
+- aid: workday-recruiting:workday-recruiting-background-checks-api
+  name: Workday Recruiting Background Checks API
+  description: >-
+    Submit and retrieve background check results and manage background check packages for candidate screening.
+  humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
+  tags:
+  - Background Checks
+  properties:
+  - type: OpenAPI
+    url: openapi/workday-recruiting-background-checks-api-openapi.yml
+  - type: Documentation
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  - type: Authentication
+    url: >-
+      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+  - type: RateLimits
+    url: https://community.workday.com/articles/16827
+  - type: JSONLD
+    url: json-ld/workday-recruiting-rest-api-context.jsonld
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-import-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-attachment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-package-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-assessment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-application-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-site-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-questionnaire-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-recruiting-agency-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-reference-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-veteran-status-schema.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-import-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-attachment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-package-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-assessment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-application-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-site-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-questionnaire-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-recruiting-agency-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-reference-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-veteran-status-structure.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-import-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-attachment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-package-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-assessment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-application-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-site-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-questionnaire-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-recruiting-agency-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-reference-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-veteran-status-example.json
+- aid: workday-recruiting:workday-recruiting-candidates-api
+  name: Workday Recruiting Candidates API
+  description: >-
+    Create, retrieve, and update candidate profiles including personal information, attachments, photos,
+    and assessment data.
+  humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
+  tags:
+  - Candidates
+  properties:
+  - type: OpenAPI
+    url: openapi/workday-recruiting-candidates-api-openapi.yml
+  - type: Documentation
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  - type: Authentication
+    url: >-
+      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+  - type: RateLimits
+    url: https://community.workday.com/articles/16827
+  - type: JSONLD
+    url: json-ld/workday-recruiting-rest-api-context.jsonld
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-import-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-attachment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-package-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-assessment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-application-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-site-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-questionnaire-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-recruiting-agency-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-reference-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-veteran-status-schema.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-import-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-attachment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-package-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-assessment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-application-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-site-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-questionnaire-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-recruiting-agency-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-reference-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-veteran-status-structure.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-import-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-attachment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-package-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-assessment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-application-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-site-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-questionnaire-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-recruiting-agency-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-reference-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-veteran-status-example.json
+- aid: workday-recruiting:workday-recruiting-configuration-api
+  name: Workday Recruiting Configuration API
+  description: >-
+    Manage recruiting configuration settings including questionnaires, assessment categories, veteran
+    statuses, site brands, and regions.
+  humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
+  tags:
+  - Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/workday-recruiting-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  - type: Authentication
+    url: >-
+      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+  - type: RateLimits
+    url: https://community.workday.com/articles/16827
+  - type: JSONLD
+    url: json-ld/workday-recruiting-rest-api-context.jsonld
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-import-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-attachment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-package-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-assessment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-application-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-site-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-questionnaire-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-recruiting-agency-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-reference-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-veteran-status-schema.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-import-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-attachment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-package-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-assessment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-application-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-site-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-questionnaire-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-recruiting-agency-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-reference-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-veteran-status-structure.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-import-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-attachment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-package-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-assessment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-application-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-site-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-questionnaire-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-recruiting-agency-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-reference-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-veteran-status-example.json
+- aid: workday-recruiting:workday-recruiting-evergreen-requisitions-api
+  name: Workday Recruiting Evergreen Requisitions API
+  description: >-
+    Manage evergreen requisitions used for ongoing hiring needs without a specific number of openings
+    or close date.
+  humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
+  tags:
+  - Evergreen Requisitions
+  properties:
+  - type: OpenAPI
+    url: openapi/workday-recruiting-evergreen-requisitions-api-openapi.yml
+  - type: Documentation
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  - type: Authentication
+    url: >-
+      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+  - type: RateLimits
+    url: https://community.workday.com/articles/16827
+  - type: JSONLD
+    url: json-ld/workday-recruiting-rest-api-context.jsonld
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-import-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-attachment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-package-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-assessment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-application-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-site-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-questionnaire-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-recruiting-agency-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-reference-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-veteran-status-schema.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-import-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-attachment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-package-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-assessment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-application-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-site-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-questionnaire-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-recruiting-agency-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-reference-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-veteran-status-structure.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-import-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-attachment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-package-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-assessment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-application-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-site-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-questionnaire-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-recruiting-agency-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-reference-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-veteran-status-example.json
+- aid: workday-recruiting:workday-recruiting-interviews-api
+  name: Workday Recruiting Interviews API
+  description: >-
+    Schedule interviews, submit interview feedback, manage interview settings, and configure self-schedule
+    calendars.
+  humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
+  tags:
+  - Interviews
+  properties:
+  - type: OpenAPI
+    url: openapi/workday-recruiting-interviews-api-openapi.yml
+  - type: Documentation
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  - type: Authentication
+    url: >-
+      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+  - type: RateLimits
+    url: https://community.workday.com/articles/16827
+  - type: JSONLD
+    url: json-ld/workday-recruiting-rest-api-context.jsonld
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-import-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-attachment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-package-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-assessment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-application-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-site-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-questionnaire-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-recruiting-agency-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-reference-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-veteran-status-schema.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-import-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-attachment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-package-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-assessment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-application-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-site-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-questionnaire-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-recruiting-agency-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-reference-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-veteran-status-structure.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-import-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-attachment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-package-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-assessment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-application-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-site-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-questionnaire-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-recruiting-agency-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-reference-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-veteran-status-example.json
+- aid: workday-recruiting:workday-recruiting-job-applications-api
+  name: Workday Recruiting Job Applications API
+  description: >-
+    Manage the lifecycle of job applications from submission through disposition, including stage movement
+    and offer initiation.
+  humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
+  tags:
+  - Job Applications
+  properties:
+  - type: OpenAPI
+    url: openapi/workday-recruiting-job-applications-api-openapi.yml
+  - type: Documentation
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  - type: Authentication
+    url: >-
+      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+  - type: RateLimits
+    url: https://community.workday.com/articles/16827
+  - type: JSONLD
+    url: json-ld/workday-recruiting-rest-api-context.jsonld
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-import-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-attachment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-package-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-assessment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-application-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-site-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-questionnaire-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-recruiting-agency-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-reference-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-veteran-status-schema.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-import-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-attachment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-package-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-assessment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-application-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-site-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-questionnaire-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-recruiting-agency-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-reference-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-veteran-status-structure.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-import-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-attachment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-package-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-assessment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-application-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-site-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-questionnaire-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-recruiting-agency-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-reference-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-veteran-status-example.json
+- aid: workday-recruiting:workday-recruiting-job-postings-api
+  name: Workday Recruiting Job Postings API
+  description: >-
+    Post, update, and unpost jobs to internal and external career sites, and manage job posting site configurations.
+  humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
+  tags:
+  - Job Postings
+  properties:
+  - type: OpenAPI
+    url: openapi/workday-recruiting-job-postings-api-openapi.yml
+  - type: Documentation
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  - type: Authentication
+    url: >-
+      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+  - type: RateLimits
+    url: https://community.workday.com/articles/16827
+  - type: JSONLD
+    url: json-ld/workday-recruiting-rest-api-context.jsonld
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-import-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-attachment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-package-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-assessment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-application-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-site-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-questionnaire-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-recruiting-agency-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-reference-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-veteran-status-schema.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-import-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-attachment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-package-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-assessment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-application-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-site-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-questionnaire-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-recruiting-agency-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-reference-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-veteran-status-structure.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-import-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-attachment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-package-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-assessment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-application-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-site-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-questionnaire-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-recruiting-agency-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-reference-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-veteran-status-example.json
+- aid: workday-recruiting:workday-recruiting-job-requisitions-api
+  name: Workday Recruiting Job Requisitions API
+  description: >-
+    Create, retrieve, edit, close, freeze, and manage job requisitions for open positions within Workday
+    recruiting workflows.
+  humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
+  tags:
+  - Job Requisitions
+  properties:
+  - type: OpenAPI
+    url: openapi/workday-recruiting-job-requisitions-api-openapi.yml
+  - type: Documentation
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  - type: Authentication
+    url: >-
+      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+  - type: RateLimits
+    url: https://community.workday.com/articles/16827
+  - type: JSONLD
+    url: json-ld/workday-recruiting-rest-api-context.jsonld
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-import-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-attachment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-package-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-assessment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-application-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-site-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-questionnaire-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-recruiting-agency-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-reference-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-veteran-status-schema.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-import-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-attachment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-package-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-assessment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-application-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-site-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-questionnaire-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-recruiting-agency-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-reference-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-veteran-status-structure.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-import-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-attachment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-package-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-assessment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-application-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-site-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-questionnaire-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-recruiting-agency-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-reference-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-veteran-status-example.json
+- aid: workday-recruiting:workday-recruiting-positions-api
+  name: Workday Recruiting Positions API
+  description: >-
+    Create and manage positions and position restrictions within the position management staffing model.
+  humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
+  tags:
+  - Positions
+  properties:
+  - type: OpenAPI
+    url: openapi/workday-recruiting-positions-api-openapi.yml
+  - type: Documentation
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  - type: Authentication
+    url: >-
+      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+  - type: RateLimits
+    url: https://community.workday.com/articles/16827
+  - type: JSONLD
+    url: json-ld/workday-recruiting-rest-api-context.jsonld
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-import-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-attachment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-package-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-assessment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-application-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-site-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-questionnaire-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-recruiting-agency-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-reference-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-veteran-status-schema.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-import-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-attachment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-package-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-assessment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-application-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-site-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-questionnaire-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-recruiting-agency-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-reference-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-veteran-status-structure.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-import-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-attachment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-package-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-assessment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-application-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-site-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-questionnaire-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-recruiting-agency-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-reference-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-veteran-status-example.json
+- aid: workday-recruiting:workday-recruiting-recruiting-agencies-api
+  name: Workday Recruiting Recruiting Agencies API
+  description: Manage recruiting agency relationships, agency users, and agency candidate submissions.
+  humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
+  tags:
+  - Recruiting Agencies
+  properties:
+  - type: OpenAPI
+    url: openapi/workday-recruiting-recruiting-agencies-api-openapi.yml
+  - type: Documentation
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
+  - type: Authentication
+    url: >-
+      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+  - type: RateLimits
+    url: https://community.workday.com/articles/16827
+  - type: JSONLD
+    url: json-ld/workday-recruiting-rest-api-context.jsonld
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-applicant-import-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-attachment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-background-check-package-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-candidate-assessment-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-evergreen-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-interview-feedback-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-application-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-posting-site-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-job-requisition-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-offer-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-position-create-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-questionnaire-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-recruiting-agency-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-reference-schema.json
+  - type: JSONSchema
+    url: json-schema/recruiting-rest-api-veteran-status-schema.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-applicant-import-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-attachment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-background-check-package-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-candidate-assessment-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-evergreen-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-interview-feedback-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-application-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-posting-site-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-job-requisition-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-offer-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-position-create-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-questionnaire-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-recruiting-agency-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-reference-structure.json
+  - type: JSONStructure
+    url: json-structure/recruiting-rest-api-veteran-status-structure.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-applicant-import-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-attachment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-background-check-package-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-candidate-assessment-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-evergreen-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-interview-feedback-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-application-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-posting-site-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-job-requisition-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-offer-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-position-create-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-questionnaire-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-recruiting-agency-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-reference-example.json
+  - type: Examples
+    url: examples/recruiting-rest-api-veteran-status-example.json
 common:
   - type: AgenticAccess
     url: agentic-access/workday-recruiting-agentic-access.yml
