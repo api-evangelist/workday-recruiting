@@ -1,0 +1,40 @@
+{
+  "provider": "workday-recruiting",
+  "sources": [
+    "workday-recruiting-applicants-api-openapi.yml",
+    "workday-recruiting-background-checks-api-openapi.yml",
+    "workday-recruiting-candidates-api-openapi.yml",
+    "workday-recruiting-configuration-api-openapi.yml",
+    "workday-recruiting-evergreen-requisitions-api-openapi.yml",
+    "workday-recruiting-interviews-api-openapi.yml",
+    "workday-recruiting-job-applications-api-openapi.yml",
+    "workday-recruiting-job-postings-api-openapi.yml",
+    "workday-recruiting-job-requisitions-api-openapi.yml",
+    "workday-recruiting-positions-api-openapi.yml",
+    "workday-recruiting-recruiting-agencies-api-openapi.yml",
+    "Workday-repos/asor/versions/v1.2.json"
+  ],
+  "outputs": [
+    "workday-recruiting-applicants-api-openapi.yml",
+    "workday-recruiting-background-checks-api-openapi.yml",
+    "workday-recruiting-candidates-api-openapi.yml",
+    "workday-recruiting-configuration-api-openapi.yml",
+    "workday-recruiting-evergreen-requisitions-api-openapi.yml",
+    "workday-recruiting-interviews-api-openapi.yml",
+    "workday-recruiting-job-applications-api-openapi.yml",
+    "workday-recruiting-job-postings-api-openapi.yml",
+    "workday-recruiting-job-requisitions-api-openapi.yml",
+    "workday-recruiting-positions-api-openapi.yml",
+    "workday-recruiting-recruiting-agencies-api-openapi.yml",
+    "workday-recruiting-agentdefinition-api-openapi.yml"
+  ],
+  "archived": [
+    "archived Workday-repos/asor/versions/v1.2.json"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "discovered stray spec: Workday-repos/asor/versions/v1.2.json"
+  ],
+  "skipped": []
+}
