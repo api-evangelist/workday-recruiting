@@ -1,0 +1,1380 @@
+{
+  "item": [
+    {
+      "id": "dd90f236-a38c-4848-8255-ccd04b98447e",
+      "name": "Job Postings",
+      "description": {
+        "content": "Post, update, and unpost jobs to internal and external career sites, and manage job posting site configurations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f11c1c0d-66b0-4658-b950-28180b5ce5af",
+          "name": "Workday Recruiting List Job Postings",
+          "request": {
+            "name": "Workday Recruiting List Job Postings",
+            "description": {
+              "content": "Retrieve a collection of job postings with optional filtering by requisition, posting site, or status. Returns posting details including title, description, location, and posting dates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "jobPostings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Maximum number of results to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of results to skip for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "jobRequisition",
+                  "value": "<string>",
+                  "description": "Filter by job requisition Workday ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "postingSite",
+                  "value": "<string>",
+                  "description": "Filter by posting site Workday ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "active",
+                  "value": "<boolean>",
+                  "description": "Filter by active posting status"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "303542bc-2c9c-4938-bc71-bb0126ca59e6",
+              "name": "Job postings retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobPostings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "jobRequisition",
+                      "value": "string"
+                    },
+                    {
+                      "key": "postingSite",
+                      "value": "Corporate Careers"
+                    },
+                    {
+                      "key": "active",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 3,\n  \"data\": [\n    {\n      \"id\": \"11111111-2222-3333-4444-555555555555\",\n      \"title\": \"Senior Software Engineer\",\n      \"jobRequisition\": {\n        \"id\": \"11111111-2222-3333-4444-555555555555\",\n        \"descriptor\": \"Senior Software Engineer\"\n      },\n      \"postingSite\": {\n        \"id\": \"11111111-2222-3333-4444-555555555555\",\n        \"descriptor\": \"Senior Software Engineer\"\n      },\n      \"description\": \"Strong technical background with 8+ years of experience in distributed systems.\",\n      \"qualifications\": \"Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.\",\n      \"location\": {\n        \"id\": \"11111111-2222-3333-4444-555555555555\",\n        \"descriptor\": \"Senior Software Engineer\"\n      },\n      \"compensationRange\": {\n        \"minimum\": 95000,\n        \"maximum\": 145000,\n        \"currency\": {\n          \"id\": \"11111111-2222-3333-4444-555555555555\",\n          \"descriptor\": \"Senior Software Engineer\"\n        },\n        \"frequency\": \"Annual\"\n      },\n      \"isActive\": true,\n      \"isPrimary\": true,\n      \"startDate\": \"2026-05-03\",\n      \"endDate\": \"2026-05-03\",\n      \"postedOn\": \"2026-05-03T14:30:00Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "430f987c-65ea-405b-8dfc-f69f628c4c56",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobPostings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "jobRequisition",
+                      "value": "string"
+                    },
+                    {
+                      "key": "postingSite",
+                      "value": "Corporate Careers"
+                    },
+                    {
+                      "key": "active",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae4a98ea-a982-4fc5-915b-2866b3f2be04",
+          "name": "Workday Recruiting Get a Job Posting",
+          "request": {
+            "name": "Workday Recruiting Get a Job Posting",
+            "description": {
+              "content": "Retrieve detailed information for a specific job posting including title, description, qualifications, location, compensation, posting dates, and associated job requisition.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "jobPostings",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Workday ID (WID) of the resource"
+                },
+                {
+                  "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cebb6a46-5f21-4507-b446-701bc716ab1f",
+              "name": "Job posting retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobPostings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"11111111-2222-3333-4444-555555555555\",\n  \"title\": \"Senior Software Engineer\",\n  \"jobRequisition\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"postingSite\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"description\": \"Strong technical background with 8+ years of experience in distributed systems.\",\n  \"qualifications\": \"Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.\",\n  \"location\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"compensationRange\": {\n    \"minimum\": 95000,\n    \"maximum\": 145000,\n    \"currency\": {\n      \"id\": \"11111111-2222-3333-4444-555555555555\",\n      \"descriptor\": \"Senior Software Engineer\"\n    },\n    \"frequency\": \"Annual\"\n  },\n  \"isActive\": true,\n  \"isPrimary\": true,\n  \"startDate\": \"2026-05-03\",\n  \"endDate\": \"2026-05-03\",\n  \"postedOn\": \"2026-05-03T14:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f6c3835-41f0-4600-95d2-f23062e7fb66",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobPostings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee30e5e1-d67b-4da7-be74-49f1d1e3694b",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobPostings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e4674f83-207b-4f3c-9eb3-72f808b416d8",
+          "name": "Workday Recruiting Update a Job Posting",
+          "request": {
+            "name": "Workday Recruiting Update a Job Posting",
+            "description": {
+              "content": "Update an existing job posting with new content, dates, or configuration. Can be used to modify the posting start and end dates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "jobPostings",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Workday ID (WID) of the resource"
+                },
+                {
+                  "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "97a7b709-4644-440b-828e-bdf721139ba4",
+              "name": "Job posting updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobPostings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startDate\": \"2026-05-03\",\n  \"endDate\": \"2026-05-03\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"11111111-2222-3333-4444-555555555555\",\n  \"title\": \"Senior Software Engineer\",\n  \"jobRequisition\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"postingSite\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"description\": \"Strong technical background with 8+ years of experience in distributed systems.\",\n  \"qualifications\": \"Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.\",\n  \"location\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"compensationRange\": {\n    \"minimum\": 95000,\n    \"maximum\": 145000,\n    \"currency\": {\n      \"id\": \"11111111-2222-3333-4444-555555555555\",\n      \"descriptor\": \"Senior Software Engineer\"\n    },\n    \"frequency\": \"Annual\"\n  },\n  \"isActive\": true,\n  \"isPrimary\": true,\n  \"startDate\": \"2026-05-03\",\n  \"endDate\": \"2026-05-03\",\n  \"postedOn\": \"2026-05-03T14:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80a62d9a-34a5-4262-a69a-0fdcad03caa8",
+              "name": "Invalid request parameters or request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobPostings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startDate\": \"2026-05-03\",\n  \"endDate\": \"2026-05-03\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "335ff4b6-c3c3-4cb3-b9e8-c5c077bc1aa4",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobPostings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startDate\": \"2026-05-03\",\n  \"endDate\": \"2026-05-03\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "554a5a9c-7bb3-4678-aed4-7d825044dacd",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobPostings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startDate\": \"2026-05-03\",\n  \"endDate\": \"2026-05-03\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c271adf-49b9-4683-9992-9585a9287623",
+          "name": "Workday Recruiting Post a Job to Career Sites",
+          "request": {
+            "name": "Workday Recruiting Post a Job to Career Sites",
+            "description": {
+              "content": "Post a job to internal and external career sites. Requires an associated job requisition in an open status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "jobPostings",
+                ":id",
+                "post"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Workday ID (WID) of the resource"
+                },
+                {
+                  "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"postingSites\": [\n    {\n      \"id\": \"<string>\",\n      \"descriptor\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"descriptor\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d16a9a36-b38c-40cd-9e97-df029f38523b",
+              "name": "Job posted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobPostings",
+                    ":id",
+                    "post"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"postingSites\": [\n    {\n      \"id\": \"11111111-2222-3333-4444-555555555555\",\n      \"descriptor\": \"Senior Software Engineer\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c79b605b-10b2-4f2e-9b82-819821ae49a3",
+              "name": "Invalid request parameters or request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobPostings",
+                    ":id",
+                    "post"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"postingSites\": [\n    {\n      \"id\": \"11111111-2222-3333-4444-555555555555\",\n      \"descriptor\": \"Senior Software Engineer\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b082444-0d08-4a61-aa44-928d21968dea",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobPostings",
+                    ":id",
+                    "post"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"postingSites\": [\n    {\n      \"id\": \"11111111-2222-3333-4444-555555555555\",\n      \"descriptor\": \"Senior Software Engineer\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2c2f42d-59f4-4bf6-8d7c-51edabb86ace",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobPostings",
+                    ":id",
+                    "post"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"postingSites\": [\n    {\n      \"id\": \"11111111-2222-3333-4444-555555555555\",\n      \"descriptor\": \"Senior Software Engineer\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7018a4ac-2288-4f54-b75d-f51f66c93adc",
+          "name": "Workday Recruiting Unpost a Job",
+          "request": {
+            "name": "Workday Recruiting Unpost a Job",
+            "description": {
+              "content": "Remove a job posting from career sites. The job posting record is retained but is no longer visible to external candidates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "jobPostings",
+                ":id",
+                "unpost"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Workday ID (WID) of the resource"
+                },
+                {
+                  "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fa7d446d-8659-42ce-999f-dc7b1333f332",
+              "name": "Job unposted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobPostings",
+                    ":id",
+                    "unpost"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ddb0791c-7245-46ee-96ac-5d2a435620d6",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobPostings",
+                    ":id",
+                    "unpost"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "450647ff-8364-46c2-b1c3-9d0c3c067f6f",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "jobPostings",
+                    ":id",
+                    "unpost"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Workday tenant identifier (e.g., wd2-impl-services1)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-tenant",
+      "key": "tenant"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenant}}.workday.com/ccx/api/recruiting/v41.2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "recruiting:read recruiting:write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://{tenant}.workday.com/ccx/oauth2/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://{tenant}.workday.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "29e4e2c5-4aa0-40ba-8b2a-c63a0b655d85",
+    "name": "Workday Recruiting REST Applicants Job Postings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful API for managing recruiting operations within Workday Human Capital Management. Provides programmatic access to job requisitions, candidates, job applications, job postings, interviews, and hiring workflows. Supports integration with external talent management and applicant tracking systems using OAuth 2.0 authentication and JSON data format.\n\nContact Support:\n Name: Workday Support",
+      "type": "text/plain"
+    }
+  }
+}

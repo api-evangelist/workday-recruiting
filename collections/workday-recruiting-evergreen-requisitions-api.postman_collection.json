@@ -1,0 +1,971 @@
+{
+  "item": [
+    {
+      "id": "072d47b4-12aa-49ed-b791-5f2aaa19fdfd",
+      "name": "Evergreen Requisitions",
+      "description": {
+        "content": "Manage evergreen requisitions used for ongoing hiring needs without a specific number of openings or close date.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c02f5d0a-45d5-42fa-85f3-5dfb0f25f021",
+          "name": "Workday Recruiting List Evergreen Requisitions",
+          "request": {
+            "name": "Workday Recruiting List Evergreen Requisitions",
+            "description": {
+              "content": "Retrieve a collection of evergreen requisitions. Evergreen requisitions represent ongoing hiring needs without a specific number of openings or anticipated close date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "evergreenRequisitions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Maximum number of results to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of results to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "26ae2ff3-949a-4a7e-b05e-01bcd070c903",
+              "name": "Evergreen requisitions retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "evergreenRequisitions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 3,\n  \"data\": [\n    {\n      \"id\": \"11111111-2222-3333-4444-555555555555\",\n      \"requisitionNumber\": \"REQ-100245\",\n      \"title\": \"Senior Software Engineer\",\n      \"status\": \"Open\",\n      \"jobProfile\": {\n        \"id\": \"11111111-2222-3333-4444-555555555555\",\n        \"descriptor\": \"Senior Software Engineer\"\n      },\n      \"supervisoryOrganization\": {\n        \"id\": \"11111111-2222-3333-4444-555555555555\",\n        \"descriptor\": \"Senior Software Engineer\"\n      },\n      \"hiringManager\": {\n        \"id\": \"11111111-2222-3333-4444-555555555555\",\n        \"descriptor\": \"Senior Software Engineer\"\n      },\n      \"linkedJobRequisitions\": [\n        {\n          \"id\": \"11111111-2222-3333-4444-555555555555\",\n          \"descriptor\": \"Senior Software Engineer\"\n        }\n      ],\n      \"createdOn\": \"2026-05-03T14:30:00Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55299bcb-a135-4fac-b233-2819391024f4",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "evergreenRequisitions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3449aa55-6afe-4030-a196-ca4fc9e7e790",
+          "name": "Workday Recruiting Create an Evergreen Requisition",
+          "request": {
+            "name": "Workday Recruiting Create an Evergreen Requisition",
+            "description": {
+              "content": "Create a new evergreen requisition for ongoing hiring needs. Evergreen requisitions remain open indefinitely and can be linked to standard job requisitions for candidate pipeline management.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "evergreenRequisitions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"jobProfile\": {\n    \"id\": \"<string>\",\n    \"descriptor\": \"<string>\"\n  },\n  \"supervisoryOrganization\": {\n    \"id\": \"<string>\",\n    \"descriptor\": \"<string>\"\n  },\n  \"hiringManager\": {\n    \"id\": \"<string>\",\n    \"descriptor\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5a0c4aae-edb6-4d13-a49e-7288fc8fa8d4",
+              "name": "Evergreen requisition created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "evergreenRequisitions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Senior Software Engineer\",\n  \"jobProfile\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"supervisoryOrganization\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"hiringManager\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"11111111-2222-3333-4444-555555555555\",\n  \"requisitionNumber\": \"REQ-100245\",\n  \"title\": \"Senior Software Engineer\",\n  \"status\": \"Open\",\n  \"jobProfile\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"supervisoryOrganization\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"hiringManager\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"linkedJobRequisitions\": [\n    {\n      \"id\": \"11111111-2222-3333-4444-555555555555\",\n      \"descriptor\": \"Senior Software Engineer\"\n    }\n  ],\n  \"createdOn\": \"2026-05-03T14:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "07368b28-8a66-49ad-8eae-fa5cc8c6e21d",
+              "name": "Invalid request parameters or request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "evergreenRequisitions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Senior Software Engineer\",\n  \"jobProfile\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"supervisoryOrganization\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"hiringManager\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "483623d0-8487-42a0-b768-92b0b06d8b61",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "evergreenRequisitions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Senior Software Engineer\",\n  \"jobProfile\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"supervisoryOrganization\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"hiringManager\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b4831c3-5005-4bbd-9376-44eabdf0d14b",
+          "name": "Workday Recruiting Get an Evergreen Requisition",
+          "request": {
+            "name": "Workday Recruiting Get an Evergreen Requisition",
+            "description": {
+              "content": "Retrieve detailed information for a specific evergreen requisition including position reference, linked job requisitions, and candidate pipeline status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "evergreenRequisitions",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Workday ID (WID) of the resource"
+                },
+                {
+                  "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e876b14a-a1d6-4310-9ce9-95e53c602987",
+              "name": "Evergreen requisition retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "evergreenRequisitions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"11111111-2222-3333-4444-555555555555\",\n  \"requisitionNumber\": \"REQ-100245\",\n  \"title\": \"Senior Software Engineer\",\n  \"status\": \"Open\",\n  \"jobProfile\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"supervisoryOrganization\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"hiringManager\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"linkedJobRequisitions\": [\n    {\n      \"id\": \"11111111-2222-3333-4444-555555555555\",\n      \"descriptor\": \"Senior Software Engineer\"\n    }\n  ],\n  \"createdOn\": \"2026-05-03T14:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd916d7e-d7e6-4957-a33f-f4dd26ecd2b2",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "evergreenRequisitions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "138def72-accb-4e33-87b9-0ebc6efb87ce",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "evergreenRequisitions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "806d5e89-ee3d-44ca-838f-21efd1f4c8f8",
+          "name": "Workday Recruiting Close an Evergreen Requisition",
+          "request": {
+            "name": "Workday Recruiting Close an Evergreen Requisition",
+            "description": {
+              "content": "Close an evergreen requisition that has no pending events. Closing removes the requisition from active recruiting workflows.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "evergreenRequisitions",
+                ":id",
+                "close"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Workday ID (WID) of the resource"
+                },
+                {
+                  "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5bddaceb-eb08-41fb-b24d-47e742b0c555",
+              "name": "Evergreen requisition closed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "evergreenRequisitions",
+                    ":id",
+                    "close"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e311b26d-965b-40c6-a8d0-bfe3142b383a",
+              "name": "Invalid request parameters or request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "evergreenRequisitions",
+                    ":id",
+                    "close"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "225d1a82-e662-42be-8154-e59292dbe136",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "evergreenRequisitions",
+                    ":id",
+                    "close"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43b87c7f-7840-4f12-b787-98352b636bb0",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "evergreenRequisitions",
+                    ":id",
+                    "close"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Workday ID (WID) of the resource"
+                    },
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Workday tenant identifier (e.g., wd2-impl-services1)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-tenant",
+      "key": "tenant"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenant}}.workday.com/ccx/api/recruiting/v41.2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "recruiting:read recruiting:write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://{tenant}.workday.com/ccx/oauth2/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://{tenant}.workday.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e8c7fae8-6fcc-43de-b32e-0f7f24eee6e4",
+    "name": "Workday Recruiting REST Applicants Evergreen Requisitions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful API for managing recruiting operations within Workday Human Capital Management. Provides programmatic access to job requisitions, candidates, job applications, job postings, interviews, and hiring workflows. Supports integration with external talent management and applicant tracking systems using OAuth 2.0 authentication and JSON data format.\n\nContact Support:\n Name: Workday Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,464 @@
+{
+  "item": [
+    {
+      "id": "90989200-25c3-4948-b88c-fd8f6cc571a5",
+      "name": "Positions",
+      "description": {
+        "content": "Create and manage positions and position restrictions within the position management staffing model.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "550054c7-d632-458f-8155-989f2cca55b2",
+          "name": "Workday Recruiting List Positions",
+          "request": {
+            "name": "Workday Recruiting List Positions",
+            "description": {
+              "content": "Retrieve position management positions including position details, restrictions, and associated job requisitions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "positions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Maximum number of results to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of results to skip for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3cf353fe-8ef1-4d40-8161-f794ed8090fd",
+              "name": "Positions retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 3,\n  \"data\": [\n    {\n      \"id\": \"11111111-2222-3333-4444-555555555555\",\n      \"positionId\": \"11111111-2222-3333-4444-555555555555\",\n      \"title\": \"Senior Software Engineer\",\n      \"jobProfile\": {\n        \"id\": \"11111111-2222-3333-4444-555555555555\",\n        \"descriptor\": \"Senior Software Engineer\"\n      },\n      \"supervisoryOrganization\": {\n        \"id\": \"11111111-2222-3333-4444-555555555555\",\n        \"descriptor\": \"Senior Software Engineer\"\n      },\n      \"location\": {\n        \"id\": \"11111111-2222-3333-4444-555555555555\",\n        \"descriptor\": \"Senior Software Engineer\"\n      },\n      \"workerType\": {\n        \"id\": \"11111111-2222-3333-4444-555555555555\",\n        \"descriptor\": \"Senior Software Engineer\"\n      },\n      \"timeType\": \"Full time\",\n      \"availableDate\": \"2026-05-03\",\n      \"isFilled\": false,\n      \"worker\": {\n        \"id\": \"11111111-2222-3333-4444-555555555555\",\n        \"descriptor\": \"Senior Software Engineer\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59bac8a5-08e6-4532-a74d-bb5f4662ae23",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f4eeceba-6902-4716-97eb-260ab977ef73",
+          "name": "Workday Recruiting Create a Position",
+          "request": {
+            "name": "Workday Recruiting Create a Position",
+            "description": {
+              "content": "Create and open a new position using the position management staffing model. The position can subsequently be associated with a job requisition for recruiting.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "positions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobProfile\": {\n    \"id\": \"<string>\",\n    \"descriptor\": \"<string>\"\n  },\n  \"supervisoryOrganization\": {\n    \"id\": \"<string>\",\n    \"descriptor\": \"<string>\"\n  },\n  \"title\": \"<string>\",\n  \"location\": {\n    \"id\": \"<string>\",\n    \"descriptor\": \"<string>\"\n  },\n  \"workerType\": {\n    \"id\": \"<string>\",\n    \"descriptor\": \"<string>\"\n  },\n  \"timeType\": \"<string>\",\n  \"availableDate\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7f10e16b-8844-4bb6-aada-7ab5dbfb9994",
+              "name": "Position created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Senior Software Engineer\",\n  \"jobProfile\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"supervisoryOrganization\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"location\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"workerType\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"timeType\": \"Full time\",\n  \"availableDate\": \"2026-05-03\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"11111111-2222-3333-4444-555555555555\",\n  \"positionId\": \"11111111-2222-3333-4444-555555555555\",\n  \"title\": \"Senior Software Engineer\",\n  \"jobProfile\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"supervisoryOrganization\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"location\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"workerType\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"timeType\": \"Full time\",\n  \"availableDate\": \"2026-05-03\",\n  \"isFilled\": false,\n  \"worker\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9527577-6c0a-4c9a-ae41-dbd47adf5599",
+              "name": "Invalid request parameters or request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Senior Software Engineer\",\n  \"jobProfile\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"supervisoryOrganization\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"location\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"workerType\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"timeType\": \"Full time\",\n  \"availableDate\": \"2026-05-03\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6207f0a2-125f-42eb-841f-30a59517d8e5",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Workday tenant identifier (e.g., wd2-impl-services1)",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Senior Software Engineer\",\n  \"jobProfile\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"supervisoryOrganization\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"location\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"workerType\": {\n    \"id\": \"11111111-2222-3333-4444-555555555555\",\n    \"descriptor\": \"Senior Software Engineer\"\n  },\n  \"timeType\": \"Full time\",\n  \"availableDate\": \"2026-05-03\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Workday tenant identifier (e.g., wd2-impl-services1)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-tenant",
+      "key": "tenant"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenant}}.workday.com/ccx/api/recruiting/v41.2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "recruiting:read recruiting:write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://{tenant}.workday.com/ccx/oauth2/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://{tenant}.workday.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9ee38101-eb5e-4abb-ae9f-0cbe29159159",
+    "name": "Workday Recruiting REST Applicants Positions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful API for managing recruiting operations within Workday Human Capital Management. Provides programmatic access to job requisitions, candidates, job applications, job postings, interviews, and hiring workflows. Supports integration with external talent management and applicant tracking systems using OAuth 2.0 authentication and JSON data format.\n\nContact Support:\n Name: Workday Support",
+      "type": "text/plain"
+    }
+  }
+}

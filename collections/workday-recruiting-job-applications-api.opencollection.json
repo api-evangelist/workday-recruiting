@@ -1,0 +1,138 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Recruiting REST Applicants Job Applications API",
+    "version": "v41.2"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://{tenant}.workday.com/authorize",
+      "accessTokenUrl": "https://{tenant}.workday.com/ccx/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Job Applications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Workday Recruiting List Job Applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobApplications",
+            "params": [
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of results to return per page"
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "Number of results to skip for pagination"
+              },
+              {
+                "name": "jobRequisition",
+                "value": "string",
+                "type": "query",
+                "description": "Filter by job requisition Workday ID"
+              },
+              {
+                "name": "candidate",
+                "value": "string",
+                "type": "query",
+                "description": "Filter by candidate Workday ID"
+              },
+              {
+                "name": "stage",
+                "value": "Review",
+                "type": "query",
+                "description": "Filter by current recruiting stage"
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of job applications with optional filtering by requisition, candidate, or status. Returns application details including current stage, disposition, and candidate reference."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Get a Job Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobApplications/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific job application including candidate reference, job requisition, current recruiting stage, disposition status, and application history."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Move Candidate to a Different Stage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobApplications/:id/move",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Move a candidate to a different recruiting stage or disposition stage within a job application. Used to advance candidates through the hiring pipeline or to disposition candidates who are no longer being considered."
+        },
+        {
+          "info": {
+            "name": "Workday Recruiting Initiate an Offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/ccx/api/recruiting/v41.2/jobApplications/:id/offer",
+            "params": [
+              {
+                "name": "id",
+                "value": "11111111-2222-3333-4444-555555555555",
+                "type": "path",
+                "description": "Workday ID (WID) of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate an employment offer for a job application. Triggers the offer approval workflow and generates the offer letter based on the configured template."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
