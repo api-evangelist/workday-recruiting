@@ -25,6 +25,12 @@ tags:
   - HCM
   - Human Resources
   - Recruiting
+  - Software-as-a-Service
+  - Talent Acquisition
+tags_raw:
+  - HCM
+  - Human Resources
+  - Recruiting
   - SaaS
   - Talent Acquisition
 apis:
@@ -67,7 +73,8 @@ apis:
   description: To view and maintain Agent Definitions with the Agent System of Record.
   humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
-  tags:
+  tags: []
+  tags_raw:
   - agentDefinition
   properties:
   - type: OpenAPI
