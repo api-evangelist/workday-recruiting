@@ -12,8 +12,11 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: workdayRecruitingApi
-  url: ../openapi/workday-recruiting-rest-api-openapi.yml
+- name: jobApplicationsApi
+  url: ../openapi/workday-recruiting-job-applications-api-openapi.yml
+  type: openapi
+- name: recruitingAgenciesApi
+  url: ../openapi/workday-recruiting-recruiting-agencies-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: agency-candidate-submission

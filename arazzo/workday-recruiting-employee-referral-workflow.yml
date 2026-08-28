@@ -12,8 +12,11 @@ info:
     OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: workdayRecruitingApi
-  url: ../openapi/workday-recruiting-rest-api-openapi.yml
+- name: candidatesApi
+  url: ../openapi/workday-recruiting-candidates-api-openapi.yml
+  type: openapi
+- name: jobRequisitionsApi
+  url: ../openapi/workday-recruiting-job-requisitions-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: employee-referral
