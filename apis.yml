@@ -3,6 +3,18 @@ name: Workday Recruiting
 description: >-
   APIs for Workday's cloud-based recruiting and talent acquisition solution, providing programmatic access to job
   requisitions, candidate management, applications, interviews, job postings, and hiring workflows.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
