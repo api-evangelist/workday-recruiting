@@ -1,6 +1,7 @@
 {
   "provider": "workday-recruiting",
   "sources": [
+    "workday-recruiting-agentdefinition-api-openapi.yml",
     "workday-recruiting-applicants-api-openapi.yml",
     "workday-recruiting-background-checks-api-openapi.yml",
     "workday-recruiting-candidates-api-openapi.yml",
@@ -11,10 +12,10 @@
     "workday-recruiting-job-postings-api-openapi.yml",
     "workday-recruiting-job-requisitions-api-openapi.yml",
     "workday-recruiting-positions-api-openapi.yml",
-    "workday-recruiting-recruiting-agencies-api-openapi.yml",
-    "Workday-repos/asor/versions/v1.2.json"
+    "workday-recruiting-recruiting-agencies-api-openapi.yml"
   ],
   "outputs": [
+    "workday-recruiting-agentdefinition-api-openapi.yml",
     "workday-recruiting-applicants-api-openapi.yml",
     "workday-recruiting-background-checks-api-openapi.yml",
     "workday-recruiting-candidates-api-openapi.yml",
@@ -25,16 +26,25 @@
     "workday-recruiting-job-postings-api-openapi.yml",
     "workday-recruiting-job-requisitions-api-openapi.yml",
     "workday-recruiting-positions-api-openapi.yml",
-    "workday-recruiting-recruiting-agencies-api-openapi.yml",
-    "workday-recruiting-agentdefinition-api-openapi.yml"
+    "workday-recruiting-recruiting-agencies-api-openapi.yml"
   ],
-  "archived": [
-    "archived Workday-repos/asor/versions/v1.2.json"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
-    "discovered stray spec: Workday-repos/asor/versions/v1.2.json"
+    "workday-recruiting-agentdefinition-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "workday-recruiting-applicants-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "workday-recruiting-background-checks-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "workday-recruiting-candidates-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "workday-recruiting-configuration-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "workday-recruiting-evergreen-requisitions-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "workday-recruiting-interviews-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "workday-recruiting-job-applications-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "workday-recruiting-job-postings-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "workday-recruiting-job-requisitions-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "workday-recruiting-positions-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "workday-recruiting-recruiting-agencies-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
   ],
   "skipped": []
 }

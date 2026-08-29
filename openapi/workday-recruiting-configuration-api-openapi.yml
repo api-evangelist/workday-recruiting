@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Workday Recruiting REST Applicants Configuration API
   description: RESTful API for managing recruiting operations within Workday Human Capital Management. Provides programmatic access to job requisitions, candidates, job applications, job postings, interviews, and hiring workflows. Supports integration with external talent management and applicant tracking systems using OAuth 2.0 authentication and JSON data format.
@@ -171,6 +171,22 @@ components:
         default: 20
       example: 20
   schemas:
+    VeteranStatus:
+      type: object
+      description: A veteran status reference value for EEO compliance reporting and candidate self-identification.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the veteran status
+          example: 11111111-2222-3333-4444-555555555555
+        name:
+          type: string
+          description: Veteran status display name
+          example: Senior Software Engineer
+        code:
+          type: string
+          description: Status code for reporting
+          example: VET-01
     Error:
       type: object
       description: API error response
@@ -196,22 +212,6 @@ components:
                 type: string
                 description: Description of the field-level error
                 example: string
-    VeteranStatus:
-      type: object
-      description: A veteran status reference value for EEO compliance reporting and candidate self-identification.
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the veteran status
-          example: 11111111-2222-3333-4444-555555555555
-        name:
-          type: string
-          description: Veteran status display name
-          example: Senior Software Engineer
-        code:
-          type: string
-          description: Status code for reporting
-          example: VET-01
     Questionnaire:
       type: object
       description: A recruiting questionnaire used for candidate screening or assessment during the application process.

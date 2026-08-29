@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Workday Recruiting REST Applicants Evergreen Requisitions API
   description: RESTful API for managing recruiting operations within Workday Human Capital Management. Provides programmatic access to job requisitions, candidates, job applications, job postings, interviews, and hiring workflows. Supports integration with external talent management and applicant tracking systems using OAuth 2.0 authentication and JSON data format.
@@ -207,6 +207,25 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     EvergreenRequisitionCreate:
       type: object
@@ -229,6 +248,18 @@ components:
         hiringManager:
           $ref: '#/components/schemas/Reference'
           description: Hiring manager
+    Reference:
+      type: object
+      description: A reference to a related Workday resource
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the referenced resource
+          example: 11111111-2222-3333-4444-555555555555
+        descriptor:
+          type: string
+          description: Display name of the referenced resource
+          example: Senior Software Engineer
     EvergreenRequisition:
       type: object
       description: An evergreen requisition represents an ongoing hiring need without a specific number of openings or close date, used to maintain a continuous candidate pipeline.
@@ -296,18 +327,6 @@ components:
                 type: string
                 description: Description of the field-level error
                 example: string
-    Reference:
-      type: object
-      description: A reference to a related Workday resource
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the referenced resource
-          example: 11111111-2222-3333-4444-555555555555
-        descriptor:
-          type: string
-          description: Display name of the referenced resource
-          example: Senior Software Engineer
   parameters:
     offset:
       name: offset
@@ -336,25 +355,6 @@ components:
         maximum: 100
         default: 20
       example: 20
-  responses:
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters or request body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2
