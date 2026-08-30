@@ -1,16 +1,16 @@
 ---
 kin_checks:
   slug: workday-recruiting
-  schema_version: 0.15.1
-  scored_at: '2026-08-27'
-  run_ts: 2026-08-27T140727
+  schema_version: 0.16.0
+  scored_at: '2026-08-29'
+  run_ts: 2026-08-29T213958
   note: Actionable checks only (missed + partial). earned/na are every other check
-    in rubric/scoring-0.15.1.yml; counts below let you verify that.
+    in rubric/scoring-0.16.0.yml; counts below let you verify that.
   counts:
     total: 130
     earned: 39
-    partial: 30
-    missed: 37
+    partial: 29
+    missed: 38
     na: 24
   checks:
   - id: maintainer_present
@@ -22,6 +22,9 @@ kin_checks:
   - id: apis_json_self_hosted
     status: missed
   - id: openapi_3_2
+    status: missed
+    detail: 0 of 12 openapi documents pass
+  - id: openapi_3_1
     status: missed
     detail: 0 of 12 openapi documents pass
   - id: webhooks_or_callbacks
@@ -95,10 +98,6 @@ kin_checks:
   - id: contract_present
     status: partial
     earned: 5.0
-  - id: openapi_3_1
-    status: partial
-    earned: 1.25
-    detail: 12 of 12 openapi documents pass
   - id: openapi_3_0
     status: partial
     earned: 0.75
