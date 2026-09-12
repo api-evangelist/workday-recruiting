@@ -2342,6 +2342,8 @@ apis:
   - type: Examples
     url: examples/recruiting-rest-api-veteran-status-example.json
 common:
+  - type: Website
+    url: https://www.workday.com/
   - type: AgenticAccess
     url: agentic-access/workday-recruiting-agentic-access.yml
   - type: TrustCenter
