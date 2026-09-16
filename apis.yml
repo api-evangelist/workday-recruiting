@@ -1,8 +1,8 @@
 aid: workday-recruiting
 name: Workday Recruiting
-description: >-
-  APIs for Workday's cloud-based recruiting and talent acquisition solution, providing programmatic access to job
-  requisitions, candidate management, applications, interviews, job postings, and hiring workflows.
+description: APIs for Workday's cloud-based recruiting and talent acquisition solution, providing programmatic
+  access to job requisitions, candidate management, applications, interviews, job postings, and hiring
+  workflows.
 deliveryModel:
   model: saas
   open_source: false
@@ -31,30 +31,28 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/workday-recruiting.png
 url: https://raw.githubusercontent.com/api-evangelist/workday-recruiting/refs/heads/main/apis.yml
 created: '2024-01-01'
-modified: '2026-05-19'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 tags:
-  - HCM
-  - Human Resources
-  - Recruiting
-  - Software-as-a-Service
-  - Talent Acquisition
+- HCM
+- Human Resources
+- Recruiting
+- Software-as-a-Service
+- Talent Acquisition
 tags_raw:
-  - HCM
-  - Human Resources
-  - Recruiting
-  - SaaS
-  - Talent Acquisition
+- HCM
+- Human Resources
+- Recruiting
+- SaaS
+- Talent Acquisition
 apis:
 - name: Workday Recruiting SOAP Web Services API
-  description: >-
-    SOAP-based web service providing comprehensive access to Workday Recruiting business services data
-    for integration with talent management and applicant tracking systems. Includes over 120 operations
+  description: SOAP-based web service providing comprehensive access to Workday Recruiting business services
+    data for integration with talent management and applicant tracking systems. Includes over 120 operations
     covering candidate management, job requisitions, evergreen requisitions, job postings, interviews,
     background checks, recruiting agencies, and self-schedule calendars.
   image: https://www.workday.com/content/dam/web/images/logos/workday-logo.svg
-  humanURL: >-
-    https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v45.2/Recruiting.html
+  humanURL: https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v45.2/Recruiting.html
   baseURL: https://wd2-impl-services1.workday.com/ccx/service/
   tags:
   - Candidates
@@ -64,20 +62,17 @@ apis:
   - Web Services
   properties:
   - type: Documentation
-    url: >-
-      https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v45.2/Recruiting.html
+    url: https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v45.2/Recruiting.html
   - type: APIReference
     url: https://community.workday.com/sites/default/files/file-hosting/productionapi/index.html
   - type: WSDL
     url: wsdl/workday-recruiting-soap.wsdl
   - type: WSDL
-    url: >-
-      https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v45.2/Recruiting.wsdl
+    url: https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v45.2/Recruiting.wsdl
   - type: XSD
     url: xsd/workday-recruiting-soap.xsd
   - type: XSD
-    url: >-
-      https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v45.2/Recruiting.xsd
+    url: https://community.workday.com/sites/default/files/file-hosting/productionapi/Recruiting/v45.2/Recruiting.xsd
   - type: ChangeLog
     url: https://community.workday.com/api-versions
 - aid: workday-recruiting:workday-recruiting-agentdefinition-api
@@ -94,8 +89,7 @@ apis:
   - type: Documentation
     url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   - type: Authentication
-    url: >-
-      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
   - type: RateLimits
     url: https://community.workday.com/articles/16827
   - type: JSONLD
@@ -270,8 +264,8 @@ apis:
     url: examples/recruiting-rest-api-veteran-status-example.json
 - aid: workday-recruiting:workday-recruiting-applicants-api
   name: Workday Recruiting Applicants API
-  description: >-
-    Retrieve and manage pre-hire and applicant records, including high-volume applicant import operations.
+  description: Retrieve and manage pre-hire and applicant records, including high-volume applicant import
+    operations.
   humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
   tags:
@@ -282,8 +276,7 @@ apis:
   - type: Documentation
     url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   - type: Authentication
-    url: >-
-      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
   - type: RateLimits
     url: https://community.workday.com/articles/16827
   - type: JSONLD
@@ -458,8 +451,8 @@ apis:
     url: examples/recruiting-rest-api-veteran-status-example.json
 - aid: workday-recruiting:workday-recruiting-background-checks-api
   name: Workday Recruiting Background Checks API
-  description: >-
-    Submit and retrieve background check results and manage background check packages for candidate screening.
+  description: Submit and retrieve background check results and manage background check packages for candidate
+    screening.
   humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
   tags:
@@ -470,8 +463,7 @@ apis:
   - type: Documentation
     url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   - type: Authentication
-    url: >-
-      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
   - type: RateLimits
     url: https://community.workday.com/articles/16827
   - type: JSONLD
@@ -646,9 +638,8 @@ apis:
     url: examples/recruiting-rest-api-veteran-status-example.json
 - aid: workday-recruiting:workday-recruiting-candidates-api
   name: Workday Recruiting Candidates API
-  description: >-
-    Create, retrieve, and update candidate profiles including personal information, attachments, photos,
-    and assessment data.
+  description: Create, retrieve, and update candidate profiles including personal information, attachments,
+    photos, and assessment data.
   humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
   tags:
@@ -659,8 +650,7 @@ apis:
   - type: Documentation
     url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   - type: Authentication
-    url: >-
-      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
   - type: RateLimits
     url: https://community.workday.com/articles/16827
   - type: JSONLD
@@ -835,9 +825,8 @@ apis:
     url: examples/recruiting-rest-api-veteran-status-example.json
 - aid: workday-recruiting:workday-recruiting-configuration-api
   name: Workday Recruiting Configuration API
-  description: >-
-    Manage recruiting configuration settings including questionnaires, assessment categories, veteran
-    statuses, site brands, and regions.
+  description: Manage recruiting configuration settings including questionnaires, assessment categories,
+    veteran statuses, site brands, and regions.
   humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
   tags:
@@ -848,8 +837,7 @@ apis:
   - type: Documentation
     url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   - type: Authentication
-    url: >-
-      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
   - type: RateLimits
     url: https://community.workday.com/articles/16827
   - type: JSONLD
@@ -1024,9 +1012,8 @@ apis:
     url: examples/recruiting-rest-api-veteran-status-example.json
 - aid: workday-recruiting:workday-recruiting-evergreen-requisitions-api
   name: Workday Recruiting Evergreen Requisitions API
-  description: >-
-    Manage evergreen requisitions used for ongoing hiring needs without a specific number of openings
-    or close date.
+  description: Manage evergreen requisitions used for ongoing hiring needs without a specific number of
+    openings or close date.
   humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
   tags:
@@ -1037,8 +1024,7 @@ apis:
   - type: Documentation
     url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   - type: Authentication
-    url: >-
-      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
   - type: RateLimits
     url: https://community.workday.com/articles/16827
   - type: JSONLD
@@ -1213,9 +1199,8 @@ apis:
     url: examples/recruiting-rest-api-veteran-status-example.json
 - aid: workday-recruiting:workday-recruiting-interviews-api
   name: Workday Recruiting Interviews API
-  description: >-
-    Schedule interviews, submit interview feedback, manage interview settings, and configure self-schedule
-    calendars.
+  description: Schedule interviews, submit interview feedback, manage interview settings, and configure
+    self-schedule calendars.
   humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
   tags:
@@ -1226,8 +1211,7 @@ apis:
   - type: Documentation
     url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   - type: Authentication
-    url: >-
-      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
   - type: RateLimits
     url: https://community.workday.com/articles/16827
   - type: JSONLD
@@ -1402,9 +1386,8 @@ apis:
     url: examples/recruiting-rest-api-veteran-status-example.json
 - aid: workday-recruiting:workday-recruiting-job-applications-api
   name: Workday Recruiting Job Applications API
-  description: >-
-    Manage the lifecycle of job applications from submission through disposition, including stage movement
-    and offer initiation.
+  description: Manage the lifecycle of job applications from submission through disposition, including
+    stage movement and offer initiation.
   humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
   tags:
@@ -1415,8 +1398,7 @@ apis:
   - type: Documentation
     url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   - type: Authentication
-    url: >-
-      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
   - type: RateLimits
     url: https://community.workday.com/articles/16827
   - type: JSONLD
@@ -1591,8 +1573,8 @@ apis:
     url: examples/recruiting-rest-api-veteran-status-example.json
 - aid: workday-recruiting:workday-recruiting-job-postings-api
   name: Workday Recruiting Job Postings API
-  description: >-
-    Post, update, and unpost jobs to internal and external career sites, and manage job posting site configurations.
+  description: Post, update, and unpost jobs to internal and external career sites, and manage job posting
+    site configurations.
   humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
   tags:
@@ -1603,8 +1585,7 @@ apis:
   - type: Documentation
     url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   - type: Authentication
-    url: >-
-      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
   - type: RateLimits
     url: https://community.workday.com/articles/16827
   - type: JSONLD
@@ -1779,9 +1760,8 @@ apis:
     url: examples/recruiting-rest-api-veteran-status-example.json
 - aid: workday-recruiting:workday-recruiting-job-requisitions-api
   name: Workday Recruiting Job Requisitions API
-  description: >-
-    Create, retrieve, edit, close, freeze, and manage job requisitions for open positions within Workday
-    recruiting workflows.
+  description: Create, retrieve, edit, close, freeze, and manage job requisitions for open positions within
+    Workday recruiting workflows.
   humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
   tags:
@@ -1792,8 +1772,7 @@ apis:
   - type: Documentation
     url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   - type: Authentication
-    url: >-
-      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
   - type: RateLimits
     url: https://community.workday.com/articles/16827
   - type: JSONLD
@@ -1968,8 +1947,8 @@ apis:
     url: examples/recruiting-rest-api-veteran-status-example.json
 - aid: workday-recruiting:workday-recruiting-positions-api
   name: Workday Recruiting Positions API
-  description: >-
-    Create and manage positions and position restrictions within the position management staffing model.
+  description: Create and manage positions and position restrictions within the position management staffing
+    model.
   humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
   tags:
@@ -1980,8 +1959,7 @@ apis:
   - type: Documentation
     url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   - type: Authentication
-    url: >-
-      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
   - type: RateLimits
     url: https://community.workday.com/articles/16827
   - type: JSONLD
@@ -2155,7 +2133,7 @@ apis:
   - type: Examples
     url: examples/recruiting-rest-api-veteran-status-example.json
 - aid: workday-recruiting:workday-recruiting-recruiting-agencies-api
-  name: Workday Recruiting Recruiting Agencies API
+  name: Workday Recruiting Agencies API
   description: Manage recruiting agency relationships, agency users, and agency candidate submissions.
   humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/
@@ -2167,8 +2145,7 @@ apis:
   - type: Documentation
     url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   - type: Authentication
-    url: >-
-      https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
   - type: RateLimits
     url: https://community.workday.com/articles/16827
   - type: JSONLD
@@ -2342,198 +2319,205 @@ apis:
   - type: Examples
     url: examples/recruiting-rest-api-veteran-status-example.json
 common:
-  - type: Website
-    url: https://www.workday.com/
-  - type: AgenticAccess
-    url: agentic-access/workday-recruiting-agentic-access.yml
-  - type: TrustCenter
-    url: security/workday-recruiting-trust-center.yml
-  - type: DomainSecurity
-    url: security/workday-recruiting-domain-security.yml
-  - type: Authentication
-    url: authentication/workday-recruiting-authentication.yml
-  - type: OAuthScopes
-    url: scopes/workday-recruiting-scopes.yml
-  - type: PostmanWorkspace
-    url: https://www.postman.com/kinlaneapi/workday-recruiting/overview
-  - type: Arazzo
-    url: arazzo/workday-recruiting-agency-candidate-submission-workflow.yml
-    name: Workday Recruiting Agency Candidate Submission
-  - type: Arazzo
-    url: arazzo/workday-recruiting-bulk-applicant-import-workflow.yml
-    name: Workday Recruiting Bulk Applicant Import
-  - type: Arazzo
-    url: arazzo/workday-recruiting-close-requisition-and-unpost-workflow.yml
-    name: Workday Recruiting Close a Requisition and Unpost Its Jobs
-  - type: Arazzo
-    url: arazzo/workday-recruiting-employee-referral-workflow.yml
-    name: Workday Recruiting Employee Referral
-  - type: Arazzo
-    url: arazzo/workday-recruiting-interview-to-offer-workflow.yml
-    name: Workday Recruiting Interview to Offer
-  - type: Arazzo
-    url: arazzo/workday-recruiting-onboard-candidate-with-resume-workflow.yml
-    name: Workday Recruiting Onboard a Candidate with Resume and Assessment
-  - type: Arazzo
-    url: arazzo/workday-recruiting-post-and-source-requisition-workflow.yml
-    name: Workday Recruiting Create and Source a Job Requisition
-  - type: Arazzo
-    url: arazzo/workday-recruiting-screen-and-advance-application-workflow.yml
-    name: Workday Recruiting Screen and Advance a Job Application
-  - type: Portal
-    url: https://community.workday.com
-  - type: GettingStarted
-    url: https://community.workday.com/api-start
-  - type: Documentation
-    url: https://community.workday.com/api
-  - type: Authentication
-    url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
-  - type: Console
-    url: https://developer.workday.com/about
-  - type: Blog
-    url: https://blog.workday.com/en-us/application-development.html
-  - type: StatusPage
-    url: https://community.workday.com/trust/status
-  - type: Support
-    url: https://www.workday.com/en-us/services/support.html
-  - type: Signup
-    url: https://resourcecenter.workday.com/
-  - type: TermsOfService
-    url: https://www.workday.com/en-us/legal.html
-  - type: PrivacyPolicy
-    url: https://www.workday.com/en-us/privacy.html
-  - type: RateLimits
-    url: https://community.workday.com/articles/16827
-  - type: ChangeLog
-    url: https://community.workday.com/api-versions
-  - type: GitHubOrganization
-    url: https://github.com/Workday
-  - type: Tools
-    url: https://www.npmjs.com/package/@workday/everywhere
-    title: Workday Everywhere SDK
-  - type: Tools
-    url: https://github.com/Workday/canvas-kit
-    title: Workday Canvas Kit
-  - type: CodeExamples
-    url: https://github.com/Workday/extend-js-example
-    title: Workday Extend JavaScript Example
-  - type: Marketplace
-    url: https://marketplace.workday.com/en-US/home
-  - type: Partners
-    url: https://www.workday.com/en-us/company/partners/overview.html
-  - type: SpectralRules
-    url: rules/workday-recruiting-spectral-rules.yml
-  - type: Vocabulary
-    url: vocabulary/workday-recruiting-vocabulary.yaml
-  - type: Features
-    data:
-      - name: Job Requisition Management
-        description: >-
-          Create, edit, close, freeze, and reopen job requisitions for open positions, with full lifecycle and approval
-          workflow support.
-      - name: Evergreen Requisitions
-        description: >-
-          Manage ongoing requisitions used for continuous hiring needs without a specific number of openings or close
-          date.
-      - name: Candidate Management
-        description: >-
-          Create, retrieve, and update candidate profiles including personal information, attachments, photos, and
-          assessment data.
-      - name: Job Application Lifecycle
-        description: >-
-          Manage applications from submission through disposition, including stage movement, advancement, and offer
-          initiation.
-      - name: Job Posting Distribution
-        description: >-
-          Post, update, and unpost jobs to internal and external career sites and manage job posting site brands and
-          configurations.
-      - name: Interview Scheduling
-        description: >-
-          Schedule interviews, submit interview feedback, configure interview settings, and manage self-schedule
-          calendars.
-      - name: Background Check Integration
-        description: Submit and retrieve background check results and manage background check packages for candidate screening.
-      - name: Recruiting Agency Workflows
-        description: Manage agency relationships, agency users, and agency candidate submissions tied to job requisitions.
-      - name: High-Volume Applicant Import
-        description: Bulk applicant import operations to support high-volume hiring and third-party sourcing pipelines.
-      - name: Position Management
-        description: Create and manage positions and position restrictions within the position management staffing model.
-      - name: Recruiting Configuration
-        description: >-
-          Manage recruiting configuration including questionnaires, assessment categories, veteran statuses, site
-          brands, and regions.
-      - name: OAuth 2.0 Authentication
-        description: Standards-based OAuth 2.0 authentication for secure programmatic access to recruiting data.
-      - name: SOAP Web Services
-        description: Comprehensive SOAP web services with over 120 recruiting operations for deep enterprise integration.
-  - type: UseCases
-    data:
-      - name: Applicant Tracking System Integration
-        description: Sync requisitions, candidates, and applications between Workday and third-party ATS or CRM platforms.
-      - name: Talent Sourcing Automation
-        description: Push candidates from sourcing tools and job boards into Workday requisition pipelines.
-      - name: Job Board Distribution
-        description: Automatically distribute Workday job postings to external job boards and career site networks.
-      - name: Background Screening Workflow
-        description: Trigger and ingest background check results from screening vendors tied to candidate stages.
-      - name: Interview Coordination
-        description: >-
-          Integrate with calendar and scheduling tools to coordinate interviewer availability and candidate
-          self-scheduling.
-      - name: Assessment and Skills Testing
-        description: Connect Workday Recruiting to assessment platforms for skills, behavioral, and technical evaluations.
-      - name: Hiring Analytics and Reporting
-        description: Extract recruiting data for reporting in BI tools, data warehouses, and people analytics platforms.
-      - name: Onboarding Handoff
-        description: Trigger onboarding workflows in HRIS or onboarding platforms upon requisition fill or hire stage.
-      - name: Recruiting Agency Submissions
-        description: Enable third-party staffing agencies to submit candidates directly into Workday requisitions.
-      - name: Compliance and EEO Reporting
-        description: >-
-          Capture self-identification data and applicant flow logs to satisfy EEO, OFCCP, and regional reporting
-          requirements.
-      - name: Internal Mobility
-        description: Connect internal career site workflows to surface roles to existing employees.
-      - name: High-Volume Hiring
-        description: Power retail, hospitality, and seasonal hiring with bulk applicant import and rapid-disposition workflows.
-  - type: Integrations
-    data:
-      - name: Workday HCM
-        description: Native integration with Workday Human Capital Management for seamless transition from candidate to employee.
-      - name: LinkedIn Talent Solutions
-        description: Connect with LinkedIn Recruiter and LinkedIn Job Postings for sourcing and posting workflows.
-      - name: Indeed
-        description: Distribute Workday job postings to Indeed and ingest applications back into Workday.
-      - name: HireRight
-        description: Background check integration for criminal, employment, and education verification.
-      - name: Sterling
-        description: Background screening, drug testing, and identity verification integration.
-      - name: HackerRank
-        description: Technical assessment integration for engineering and developer hiring pipelines.
-      - name: Calendly
-        description: Self-schedule interview integration for candidate-driven scheduling.
-      - name: Microsoft Outlook and Teams
-        description: Calendar and meeting integration for interview scheduling and coordination.
-      - name: Google Workspace
-        description: Calendar and meeting integration for interview scheduling.
-      - name: DocuSign
-        description: E-signature integration for offer letter and onboarding document workflows.
-      - name: Workday Marketplace Partners
-        description: Pre-built integrations with talent acquisition vendors listed in the Workday Marketplace.
-  - type: Solutions
-    data:
-      - name: Workday Talent Acquisition
-        description: >-
-          End-to-end recruiting solution from sourcing through hire, unifying recruiting with the broader Workday HCM
-          platform.
-      - name: HiredScore AI for Recruiting
-        description: AI-driven candidate matching, screening, and recruiter productivity embedded in Workday Recruiting.
-      - name: Workday Onboarding
-        description: Native onboarding handoff that converts hires into engaged employees inside the Workday HCM system of record.
-      - name: Workday Skills Cloud
-        description: Skills-driven hiring leveraging the Workday skills ontology across requisitions and candidate profiles.
+- type: Website
+  url: https://www.workday.com/
+- type: AgenticAccess
+  url: agentic-access/workday-recruiting-agentic-access.yml
+- type: TrustCenter
+  url: security/workday-recruiting-trust-center.yml
+- type: DomainSecurity
+  url: security/workday-recruiting-domain-security.yml
+- type: Authentication
+  url: authentication/workday-recruiting-authentication.yml
+- type: OAuthScopes
+  url: scopes/workday-recruiting-scopes.yml
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/workday-recruiting/overview
+- type: Arazzo
+  url: arazzo/workday-recruiting-agency-candidate-submission-workflow.yml
+  name: Workday Recruiting Agency Candidate Submission
+- type: Arazzo
+  url: arazzo/workday-recruiting-bulk-applicant-import-workflow.yml
+  name: Workday Recruiting Bulk Applicant Import
+- type: Arazzo
+  url: arazzo/workday-recruiting-close-requisition-and-unpost-workflow.yml
+  name: Workday Recruiting Close a Requisition and Unpost Its Jobs
+- type: Arazzo
+  url: arazzo/workday-recruiting-employee-referral-workflow.yml
+  name: Workday Recruiting Employee Referral
+- type: Arazzo
+  url: arazzo/workday-recruiting-interview-to-offer-workflow.yml
+  name: Workday Recruiting Interview to Offer
+- type: Arazzo
+  url: arazzo/workday-recruiting-onboard-candidate-with-resume-workflow.yml
+  name: Workday Recruiting Onboard a Candidate with Resume and Assessment
+- type: Arazzo
+  url: arazzo/workday-recruiting-post-and-source-requisition-workflow.yml
+  name: Workday Recruiting Create and Source a Job Requisition
+- type: Arazzo
+  url: arazzo/workday-recruiting-screen-and-advance-application-workflow.yml
+  name: Workday Recruiting Screen and Advance a Job Application
+- type: Portal
+  url: https://community.workday.com
+- type: GettingStarted
+  url: https://community.workday.com/api-start
+- type: Documentation
+  url: https://community.workday.com/api
+- type: Authentication
+  url: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html#authentication
+- type: Console
+  url: https://developer.workday.com/about
+- type: Blog
+  url: https://blog.workday.com/en-us/application-development.html
+- type: StatusPage
+  url: https://community.workday.com/trust/status
+- type: Support
+  url: https://www.workday.com/en-us/services/support.html
+- type: Signup
+  url: https://resourcecenter.workday.com/
+- type: TermsOfService
+  url: https://www.workday.com/en-us/legal.html
+- type: PrivacyPolicy
+  url: https://www.workday.com/en-us/privacy.html
+- type: RateLimits
+  url: https://community.workday.com/articles/16827
+- type: ChangeLog
+  url: https://community.workday.com/api-versions
+- type: GitHubOrganization
+  url: https://github.com/Workday
+- type: Tools
+  url: https://www.npmjs.com/package/@workday/everywhere
+  title: Workday Everywhere SDK
+- type: Tools
+  url: https://github.com/Workday/canvas-kit
+  title: Workday Canvas Kit
+- type: CodeExamples
+  url: https://github.com/Workday/extend-js-example
+  title: Workday Extend JavaScript Example
+- type: Marketplace
+  url: https://marketplace.workday.com/en-US/home
+- type: Partners
+  url: https://www.workday.com/en-us/company/partners/overview.html
+- type: SpectralRules
+  url: rules/workday-recruiting-spectral-rules.yml
+- type: Vocabulary
+  url: vocabulary/workday-recruiting-vocabulary.yaml
+- type: Features
+  data:
+  - name: Job Requisition Management
+    description: Create, edit, close, freeze, and reopen job requisitions for open positions, with full
+      lifecycle and approval workflow support.
+  - name: Evergreen Requisitions
+    description: Manage ongoing requisitions used for continuous hiring needs without a specific number
+      of openings or close date.
+  - name: Candidate Management
+    description: Create, retrieve, and update candidate profiles including personal information, attachments,
+      photos, and assessment data.
+  - name: Job Application Lifecycle
+    description: Manage applications from submission through disposition, including stage movement, advancement,
+      and offer initiation.
+  - name: Job Posting Distribution
+    description: Post, update, and unpost jobs to internal and external career sites and manage job posting
+      site brands and configurations.
+  - name: Interview Scheduling
+    description: Schedule interviews, submit interview feedback, configure interview settings, and manage
+      self-schedule calendars.
+  - name: Background Check Integration
+    description: Submit and retrieve background check results and manage background check packages for
+      candidate screening.
+  - name: Recruiting Agency Workflows
+    description: Manage agency relationships, agency users, and agency candidate submissions tied to job
+      requisitions.
+  - name: High-Volume Applicant Import
+    description: Bulk applicant import operations to support high-volume hiring and third-party sourcing
+      pipelines.
+  - name: Position Management
+    description: Create and manage positions and position restrictions within the position management
+      staffing model.
+  - name: Recruiting Configuration
+    description: Manage recruiting configuration including questionnaires, assessment categories, veteran
+      statuses, site brands, and regions.
+  - name: OAuth 2.0 Authentication
+    description: Standards-based OAuth 2.0 authentication for secure programmatic access to recruiting
+      data.
+  - name: SOAP Web Services
+    description: Comprehensive SOAP web services with over 120 recruiting operations for deep enterprise
+      integration.
+- type: UseCases
+  data:
+  - name: Applicant Tracking System Integration
+    description: Sync requisitions, candidates, and applications between Workday and third-party ATS or
+      CRM platforms.
+  - name: Talent Sourcing Automation
+    description: Push candidates from sourcing tools and job boards into Workday requisition pipelines.
+  - name: Job Board Distribution
+    description: Automatically distribute Workday job postings to external job boards and career site
+      networks.
+  - name: Background Screening Workflow
+    description: Trigger and ingest background check results from screening vendors tied to candidate
+      stages.
+  - name: Interview Coordination
+    description: Integrate with calendar and scheduling tools to coordinate interviewer availability and
+      candidate self-scheduling.
+  - name: Assessment and Skills Testing
+    description: Connect Workday Recruiting to assessment platforms for skills, behavioral, and technical
+      evaluations.
+  - name: Hiring Analytics and Reporting
+    description: Extract recruiting data for reporting in BI tools, data warehouses, and people analytics
+      platforms.
+  - name: Onboarding Handoff
+    description: Trigger onboarding workflows in HRIS or onboarding platforms upon requisition fill or
+      hire stage.
+  - name: Recruiting Agency Submissions
+    description: Enable third-party staffing agencies to submit candidates directly into Workday requisitions.
+  - name: Compliance and EEO Reporting
+    description: Capture self-identification data and applicant flow logs to satisfy EEO, OFCCP, and regional
+      reporting requirements.
+  - name: Internal Mobility
+    description: Connect internal career site workflows to surface roles to existing employees.
+  - name: High-Volume Hiring
+    description: Power retail, hospitality, and seasonal hiring with bulk applicant import and rapid-disposition
+      workflows.
+- type: Integrations
+  data:
+  - name: Workday HCM
+    description: Native integration with Workday Human Capital Management for seamless transition from
+      candidate to employee.
+  - name: LinkedIn Talent Solutions
+    description: Connect with LinkedIn Recruiter and LinkedIn Job Postings for sourcing and posting workflows.
+  - name: Indeed
+    description: Distribute Workday job postings to Indeed and ingest applications back into Workday.
+  - name: HireRight
+    description: Background check integration for criminal, employment, and education verification.
+  - name: Sterling
+    description: Background screening, drug testing, and identity verification integration.
+  - name: HackerRank
+    description: Technical assessment integration for engineering and developer hiring pipelines.
+  - name: Calendly
+    description: Self-schedule interview integration for candidate-driven scheduling.
+  - name: Microsoft Outlook and Teams
+    description: Calendar and meeting integration for interview scheduling and coordination.
+  - name: Google Workspace
+    description: Calendar and meeting integration for interview scheduling.
+  - name: DocuSign
+    description: E-signature integration for offer letter and onboarding document workflows.
+  - name: Workday Marketplace Partners
+    description: Pre-built integrations with talent acquisition vendors listed in the Workday Marketplace.
+- type: Solutions
+  data:
+  - name: Workday Talent Acquisition
+    description: End-to-end recruiting solution from sourcing through hire, unifying recruiting with the
+      broader Workday HCM platform.
+  - name: HiredScore AI for Recruiting
+    description: AI-driven candidate matching, screening, and recruiter productivity embedded in Workday
+      Recruiting.
+  - name: Workday Onboarding
+    description: Native onboarding handoff that converts hires into engaged employees inside the Workday
+      HCM system of record.
+  - name: Workday Skills Cloud
+    description: Skills-driven hiring leveraging the Workday skills ontology across requisitions and candidate
+      profiles.
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
-    url: https://apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+  url: https://apievangelist.com
