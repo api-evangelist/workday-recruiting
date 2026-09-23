@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Workday Recruiting REST Applicants Positions API
+  title: Workday Recruiting REST Positions API
   description: RESTful API for managing recruiting operations within Workday Human Capital Management. Provides programmatic access to job requisitions, candidates, job applications, job postings, interviews, and hiring workflows. Supports integration with external talent management and applicant tracking systems using OAuth 2.0 authentication and JSON data format.
   version: v41.2
   contact:
@@ -154,53 +154,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Position:
-      type: object
-      description: A position in the position management staffing model representing an allocated headcount within a supervisory organization.
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the position
-          example: 11111111-2222-3333-4444-555555555555
-        positionId:
-          type: string
-          description: System-generated position identifier
-          example: 11111111-2222-3333-4444-555555555555
-        title:
-          type: string
-          description: Position title
-          example: Senior Software Engineer
-        jobProfile:
-          $ref: '#/components/schemas/Reference'
-          description: Job profile for the position
-        supervisoryOrganization:
-          $ref: '#/components/schemas/Reference'
-          description: Supervisory organization
-        location:
-          $ref: '#/components/schemas/Reference'
-          description: Primary work location
-        workerType:
-          $ref: '#/components/schemas/Reference'
-          description: Worker type
-        timeType:
-          type: string
-          enum:
-          - Full time
-          - Part time
-          description: Full-time or part-time designation
-          example: Full time
-        availableDate:
-          type: string
-          format: date
-          description: Date the position becomes available
-          example: '2026-05-03'
-        isFilled:
-          type: boolean
-          description: Whether the position is currently filled
-          example: false
-        worker:
-          $ref: '#/components/schemas/Reference'
-          description: Worker currently occupying the position (if filled)
     PositionCreate:
       type: object
       description: Request body for creating a position
@@ -273,16 +226,54 @@ components:
                 type: string
                 description: Description of the field-level error
                 example: string
+    Position:
+      type: object
+      description: A position in the position management staffing model representing an allocated headcount within a supervisory organization.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the position
+          example: 11111111-2222-3333-4444-555555555555
+        positionId:
+          type: string
+          description: System-generated position identifier
+          example: 11111111-2222-3333-4444-555555555555
+        title:
+          type: string
+          description: Position title
+          example: Senior Software Engineer
+        jobProfile:
+          $ref: '#/components/schemas/Reference'
+          description: Job profile for the position
+        supervisoryOrganization:
+          $ref: '#/components/schemas/Reference'
+          description: Supervisory organization
+        location:
+          $ref: '#/components/schemas/Reference'
+          description: Primary work location
+        workerType:
+          $ref: '#/components/schemas/Reference'
+          description: Worker type
+        timeType:
+          type: string
+          enum:
+          - Full time
+          - Part time
+          description: Full-time or part-time designation
+          example: Full time
+        availableDate:
+          type: string
+          format: date
+          description: Date the position becomes available
+          example: '2026-05-03'
+        isFilled:
+          type: boolean
+          description: Whether the position is currently filled
+          example: false
+        worker:
+          $ref: '#/components/schemas/Reference'
+          description: Worker currently occupying the position (if filled)
   parameters:
-    offset:
-      name: offset
-      in: query
-      description: Number of results to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-      example: 0
     limit:
       name: limit
       in: query
@@ -293,15 +284,24 @@ components:
         maximum: 100
         default: 20
       example: 20
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
   responses:
-    Unauthorized:
-      description: Authentication required or token expired
+    BadRequest:
+      description: Invalid request parameters or request body
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters or request body
+    Unauthorized:
+      description: Authentication required or token expired
       content:
         application/json:
           schema:

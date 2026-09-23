@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Workday Recruiting REST Applicants Configuration API
+  title: Workday Recruiting REST Configuration API
   description: RESTful API for managing recruiting operations within Workday Human Capital Management. Provides programmatic access to job requisitions, candidates, job applications, job postings, interviews, and hiring workflows. Supports integration with external talent management and applicant tracking systems using OAuth 2.0 authentication and JSON data format.
   version: v41.2
   contact:
@@ -212,6 +212,31 @@ components:
                 type: string
                 description: Description of the field-level error
                 example: string
+    JobPostingSite:
+      type: object
+      description: A career site or job board where job postings can be published for candidate attraction.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the posting site
+          example: 11111111-2222-3333-4444-555555555555
+        name:
+          type: string
+          description: Posting site name
+          example: Senior Software Engineer
+        siteUrl:
+          type: string
+          format: uri
+          description: URL of the posting site
+          example: https://example.com/resource
+        isInternal:
+          type: boolean
+          description: Whether this is an internal career site
+          example: false
+        active:
+          type: boolean
+          description: Whether the posting site is currently active
+          example: true
     Questionnaire:
       type: object
       description: A recruiting questionnaire used for candidate screening or assessment during the application process.
@@ -259,31 +284,6 @@ components:
         active:
           type: boolean
           description: Whether the questionnaire is currently active
-          example: true
-    JobPostingSite:
-      type: object
-      description: A career site or job board where job postings can be published for candidate attraction.
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the posting site
-          example: 11111111-2222-3333-4444-555555555555
-        name:
-          type: string
-          description: Posting site name
-          example: Senior Software Engineer
-        siteUrl:
-          type: string
-          format: uri
-          description: URL of the posting site
-          example: https://example.com/resource
-        isInternal:
-          type: boolean
-          description: Whether this is an internal career site
-          example: false
-        active:
-          type: boolean
-          description: Whether the posting site is currently active
           example: true
   responses:
     Unauthorized:

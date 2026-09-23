@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Workday Recruiting REST Applicants Recruiting Agencies API
+  title: Workday Recruiting REST Recruiting Agencies API
   description: RESTful API for managing recruiting operations within Workday Human Capital Management. Provides programmatic access to job requisitions, candidates, job applications, job postings, interviews, and hiring workflows. Supports integration with external talent management and applicant tracking systems using OAuth 2.0 authentication and JSON data format.
   version: v41.2
   contact:
@@ -169,26 +169,44 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters or request body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Reference:
+      type: object
+      description: A reference to a related Workday resource
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the referenced resource
+          example: 11111111-2222-3333-4444-555555555555
+        descriptor:
+          type: string
+          description: Display name of the referenced resource
+          example: Senior Software Engineer
+    Error:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: string
+        message:
+          type: string
+          description: Human-readable error message
+          example: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+                example: string
+              message:
+                type: string
+                description: Description of the field-level error
+                example: string
     CandidateCreate:
       type: object
       description: Request body for creating or updating a candidate
@@ -273,61 +291,7 @@ components:
           type: boolean
           description: Whether the agency relationship is currently active
           example: true
-    Reference:
-      type: object
-      description: A reference to a related Workday resource
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the referenced resource
-          example: 11111111-2222-3333-4444-555555555555
-        descriptor:
-          type: string
-          description: Display name of the referenced resource
-          example: Senior Software Engineer
-    Error:
-      type: object
-      description: API error response
-      properties:
-        error:
-          type: string
-          description: Error code
-          example: string
-        message:
-          type: string
-          description: Human-readable error message
-          example: string
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field that caused the error
-                example: string
-              message:
-                type: string
-                description: Description of the field-level error
-                example: string
   parameters:
-    offset:
-      name: offset
-      in: query
-      description: Number of results to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-      example: 0
-    id:
-      name: id
-      in: path
-      required: true
-      description: Workday ID (WID) of the resource
-      schema:
-        type: string
-      example: 11111111-2222-3333-4444-555555555555
     limit:
       name: limit
       in: query
@@ -338,6 +302,42 @@ components:
         maximum: 100
         default: 20
       example: 20
+    id:
+      name: id
+      in: path
+      required: true
+      description: Workday ID (WID) of the resource
+      schema:
+        type: string
+      example: 11111111-2222-3333-4444-555555555555
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
+  responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2

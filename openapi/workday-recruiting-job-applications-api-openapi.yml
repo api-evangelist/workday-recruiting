@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Workday Recruiting REST Applicants Job Applications API
+  title: Workday Recruiting REST Job Applications API
   description: RESTful API for managing recruiting operations within Workday Human Capital Management. Provides programmatic access to job requisitions, candidates, job applications, job postings, interviews, and hiring workflows. Supports integration with external talent management and applicant tracking systems using OAuth 2.0 authentication and JSON data format.
   version: v41.2
   contact:
@@ -262,53 +262,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters or request body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    offset:
-      name: offset
-      in: query
-      description: Number of results to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-      example: 0
-    id:
-      name: id
-      in: path
-      required: true
-      description: Workday ID (WID) of the resource
-      schema:
-        type: string
-      example: 11111111-2222-3333-4444-555555555555
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of results to return per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 20
-      example: 20
   schemas:
     Reference:
       type: object
@@ -478,6 +431,53 @@ components:
           format: date-time
           description: Timestamp when the application was last updated
           example: '2026-05-03T14:30:00Z'
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of results to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      example: 20
+    id:
+      name: id
+      in: path
+      required: true
+      description: Workday ID (WID) of the resource
+      schema:
+        type: string
+      example: 11111111-2222-3333-4444-555555555555
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
+  responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2
