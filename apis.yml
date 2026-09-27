@@ -76,7 +76,7 @@ apis:
   - type: ChangeLog
     url: https://community.workday.com/api-versions
 - aid: workday-recruiting:workday-recruiting-agentdefinition-api
-  name: Workday Recruiting agentDefinition API
+  name: Workday Recruiting Agent Definition API
   description: To view and maintain Agent Definitions with the Agent System of Record.
   humanURL: https://community.workday.com/sites/default/files/file-hosting/restapi/index.html
   baseURL: https://wd2-impl-services1.workday.com/ccx/api/recruiting/

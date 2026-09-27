@@ -151,15 +151,6 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
-    offset:
-      name: offset
-      in: query
-      description: Number of results to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-      example: 0
     limit:
       name: limit
       in: query
@@ -170,48 +161,16 @@ components:
         maximum: 100
         default: 20
       example: 20
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
   schemas:
-    VeteranStatus:
-      type: object
-      description: A veteran status reference value for EEO compliance reporting and candidate self-identification.
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the veteran status
-          example: 11111111-2222-3333-4444-555555555555
-        name:
-          type: string
-          description: Veteran status display name
-          example: Senior Software Engineer
-        code:
-          type: string
-          description: Status code for reporting
-          example: VET-01
-    Error:
-      type: object
-      description: API error response
-      properties:
-        error:
-          type: string
-          description: Error code
-          example: string
-        message:
-          type: string
-          description: Human-readable error message
-          example: string
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field that caused the error
-                example: string
-              message:
-                type: string
-                description: Description of the field-level error
-                example: string
     JobPostingSite:
       type: object
       description: A career site or job board where job postings can be published for candidate attraction.
@@ -237,6 +196,31 @@ components:
           type: boolean
           description: Whether the posting site is currently active
           example: true
+    Error:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: string
+        message:
+          type: string
+          description: Human-readable error message
+          example: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+                example: string
+              message:
+                type: string
+                description: Description of the field-level error
+                example: string
     Questionnaire:
       type: object
       description: A recruiting questionnaire used for candidate screening or assessment during the application process.
@@ -285,6 +269,22 @@ components:
           type: boolean
           description: Whether the questionnaire is currently active
           example: true
+    VeteranStatus:
+      type: object
+      description: A veteran status reference value for EEO compliance reporting and candidate self-identification.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the veteran status
+          example: 11111111-2222-3333-4444-555555555555
+        name:
+          type: string
+          description: Veteran status display name
+          example: Senior Software Engineer
+        code:
+          type: string
+          description: Status code for reporting
+          example: VET-01
   responses:
     Unauthorized:
       description: Authentication required or token expired
