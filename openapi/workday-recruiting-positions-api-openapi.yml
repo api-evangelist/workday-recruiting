@@ -256,6 +256,18 @@ components:
           format: date
           description: Date the position becomes available
           example: '2026-05-03'
+    Reference:
+      type: object
+      description: A reference to a related Workday resource
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the referenced resource
+          example: 11111111-2222-3333-4444-555555555555
+        descriptor:
+          type: string
+          description: Display name of the referenced resource
+          example: Senior Software Engineer
     Error:
       type: object
       description: API error response
@@ -281,18 +293,6 @@ components:
                 type: string
                 description: Description of the field-level error
                 example: string
-    Reference:
-      type: object
-      description: A reference to a related Workday resource
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the referenced resource
-          example: 11111111-2222-3333-4444-555555555555
-        descriptor:
-          type: string
-          description: Display name of the referenced resource
-          example: Senior Software Engineer
   responses:
     BadRequest:
       description: Invalid request parameters or request body

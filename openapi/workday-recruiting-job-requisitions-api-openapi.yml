@@ -517,31 +517,77 @@ components:
         default: 0
       example: 0
   schemas:
-    Error:
+    JobRequisitionCreate:
       type: object
-      description: API error response
+      description: Request body for creating or updating a job requisition
+      required:
+      - title
+      - jobProfile
+      - supervisoryOrganization
+      - numberOfOpenings
       properties:
-        error:
+        title:
           type: string
-          description: Error code
-          example: string
-        message:
+          description: Job requisition title
+          example: Senior Software Engineer
+        jobProfile:
+          $ref: '#/components/schemas/Reference'
+          description: Job profile to associate with the requisition
+        position:
+          $ref: '#/components/schemas/Reference'
+          description: Existing position to associate with the requisition
+        supervisoryOrganization:
+          $ref: '#/components/schemas/Reference'
+          description: Supervisory organization for the position
+        hiringManager:
+          $ref: '#/components/schemas/Reference'
+          description: Worker to designate as the hiring manager
+        recruiter:
+          $ref: '#/components/schemas/Reference'
+          description: Recruiter to assign to the requisition
+        numberOfOpenings:
+          type: integer
+          minimum: 1
+          description: Number of positions to fill
+          example: 3
+        location:
+          $ref: '#/components/schemas/Reference'
+          description: Primary work location
+        workerType:
+          $ref: '#/components/schemas/Reference'
+          description: Worker type
+        timeType:
           type: string
-          description: Human-readable error message
-          example: string
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field that caused the error
-                example: string
-              message:
-                type: string
-                description: Description of the field-level error
-                example: string
+          enum:
+          - Full time
+          - Part time
+          description: Full-time or part-time designation
+          example: Full time
+        targetHireDate:
+          type: string
+          format: date
+          description: Target date for filling the position
+          example: '2026-05-03'
+        jobDescription:
+          type: string
+          description: Detailed job description
+          example: Strong technical background with 8+ years of experience in distributed systems.
+        qualifications:
+          type: string
+          description: Required qualifications
+          example: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+    Reference:
+      type: object
+      description: A reference to a related Workday resource
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the referenced resource
+          example: 11111111-2222-3333-4444-555555555555
+        descriptor:
+          type: string
+          description: Display name of the referenced resource
+          example: Senior Software Engineer
     JobRequisition:
       type: object
       description: A job requisition represents a hiring need for a specific position within an organization, including the job profile, number of openings, compensation range, and recruiting status.
@@ -652,78 +698,38 @@ components:
           format: date-time
           description: Timestamp when the requisition was last updated
           example: '2026-05-03T14:30:00Z'
-    Reference:
+    Error:
       type: object
-      description: A reference to a related Workday resource
+      description: API error response
       properties:
-        id:
+        error:
           type: string
-          description: Workday ID (WID) of the referenced resource
-          example: 11111111-2222-3333-4444-555555555555
-        descriptor:
+          description: Error code
+          example: string
+        message:
           type: string
-          description: Display name of the referenced resource
-          example: Senior Software Engineer
-    JobRequisitionCreate:
-      type: object
-      description: Request body for creating or updating a job requisition
-      required:
-      - title
-      - jobProfile
-      - supervisoryOrganization
-      - numberOfOpenings
-      properties:
-        title:
-          type: string
-          description: Job requisition title
-          example: Senior Software Engineer
-        jobProfile:
-          $ref: '#/components/schemas/Reference'
-          description: Job profile to associate with the requisition
-        position:
-          $ref: '#/components/schemas/Reference'
-          description: Existing position to associate with the requisition
-        supervisoryOrganization:
-          $ref: '#/components/schemas/Reference'
-          description: Supervisory organization for the position
-        hiringManager:
-          $ref: '#/components/schemas/Reference'
-          description: Worker to designate as the hiring manager
-        recruiter:
-          $ref: '#/components/schemas/Reference'
-          description: Recruiter to assign to the requisition
-        numberOfOpenings:
-          type: integer
-          minimum: 1
-          description: Number of positions to fill
-          example: 3
-        location:
-          $ref: '#/components/schemas/Reference'
-          description: Primary work location
-        workerType:
-          $ref: '#/components/schemas/Reference'
-          description: Worker type
-        timeType:
-          type: string
-          enum:
-          - Full time
-          - Part time
-          description: Full-time or part-time designation
-          example: Full time
-        targetHireDate:
-          type: string
-          format: date
-          description: Target date for filling the position
-          example: '2026-05-03'
-        jobDescription:
-          type: string
-          description: Detailed job description
-          example: Strong technical background with 8+ years of experience in distributed systems.
-        qualifications:
-          type: string
-          description: Required qualifications
-          example: Bachelor's degree in Computer Science or equivalent experience; 5+ years of professional software development.
+          description: Human-readable error message
+          example: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+                example: string
+              message:
+                type: string
+                description: Description of the field-level error
+                example: string
   responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Invalid request parameters or request body
       content:
@@ -732,12 +738,6 @@ components:
             $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
       content:
         application/json:
           schema:

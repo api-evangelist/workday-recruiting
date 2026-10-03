@@ -194,31 +194,6 @@ components:
           type: string
           description: Applicant processing status
           example: Open
-    Error:
-      type: object
-      description: API error response
-      properties:
-        error:
-          type: string
-          description: Error code
-          example: string
-        message:
-          type: string
-          description: Human-readable error message
-          example: string
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field that caused the error
-                example: string
-              message:
-                type: string
-                description: Description of the field-level error
-                example: string
     Reference:
       type: object
       description: A reference to a related Workday resource
@@ -262,6 +237,31 @@ components:
         jobRequisition:
           $ref: '#/components/schemas/Reference'
           description: Job requisition to apply to
+    Error:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: string
+        message:
+          type: string
+          description: Human-readable error message
+          example: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+                example: string
+              message:
+                type: string
+                description: Description of the field-level error
+                example: string
   responses:
     BadRequest:
       description: Invalid request parameters or request body

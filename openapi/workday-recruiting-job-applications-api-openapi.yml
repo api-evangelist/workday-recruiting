@@ -291,74 +291,6 @@ components:
         default: 0
       example: 0
   schemas:
-    Error:
-      type: object
-      description: API error response
-      properties:
-        error:
-          type: string
-          description: Error code
-          example: string
-        message:
-          type: string
-          description: Human-readable error message
-          example: string
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field that caused the error
-                example: string
-              message:
-                type: string
-                description: Description of the field-level error
-                example: string
-    Reference:
-      type: object
-      description: A reference to a related Workday resource
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the referenced resource
-          example: 11111111-2222-3333-4444-555555555555
-        descriptor:
-          type: string
-          description: Display name of the referenced resource
-          example: Senior Software Engineer
-    OfferCreate:
-      type: object
-      description: Request body for initiating an employment offer
-      required:
-      - proposedStartDate
-      properties:
-        proposedStartDate:
-          type: string
-          format: date
-          description: Proposed start date for employment
-          example: '2026-05-03'
-        compensationAmount:
-          type: number
-          description: Offered compensation amount
-          example: 120000.0
-        compensationFrequency:
-          type: string
-          enum:
-          - Annual
-          - Hourly
-          - Monthly
-          description: Compensation frequency
-          example: Annual
-        currency:
-          $ref: '#/components/schemas/Reference'
-          description: Compensation currency
-        expirationDate:
-          type: string
-          format: date
-          description: Date the offer expires
-          example: '2026-05-03'
     JobApplication:
       type: object
       description: A job application links a candidate to a job requisition and tracks their progress through the recruiting stages from application through hire or disposition.
@@ -406,6 +338,74 @@ components:
           format: date-time
           description: Timestamp when the application was last updated
           example: '2026-05-03T14:30:00Z'
+    OfferCreate:
+      type: object
+      description: Request body for initiating an employment offer
+      required:
+      - proposedStartDate
+      properties:
+        proposedStartDate:
+          type: string
+          format: date
+          description: Proposed start date for employment
+          example: '2026-05-03'
+        compensationAmount:
+          type: number
+          description: Offered compensation amount
+          example: 120000.0
+        compensationFrequency:
+          type: string
+          enum:
+          - Annual
+          - Hourly
+          - Monthly
+          description: Compensation frequency
+          example: Annual
+        currency:
+          $ref: '#/components/schemas/Reference'
+          description: Compensation currency
+        expirationDate:
+          type: string
+          format: date
+          description: Date the offer expires
+          example: '2026-05-03'
+    Reference:
+      type: object
+      description: A reference to a related Workday resource
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the referenced resource
+          example: 11111111-2222-3333-4444-555555555555
+        descriptor:
+          type: string
+          description: Display name of the referenced resource
+          example: Senior Software Engineer
+    Error:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: string
+        message:
+          type: string
+          description: Human-readable error message
+          example: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+                example: string
+              message:
+                type: string
+                description: Description of the field-level error
+                example: string
     Offer:
       type: object
       description: An employment offer extended to a candidate through a job application, including compensation details and start date.
@@ -460,6 +460,12 @@ components:
           description: Timestamp when the offer was created
           example: '2026-05-03T14:30:00Z'
   responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Invalid request parameters or request body
       content:
@@ -468,12 +474,6 @@ components:
             $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Requested resource not found
       content:
         application/json:
           schema:

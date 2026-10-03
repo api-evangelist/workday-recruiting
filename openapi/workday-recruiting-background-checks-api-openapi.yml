@@ -203,29 +203,6 @@ components:
         default: 0
       example: 0
   schemas:
-    BackgroundCheckPackage:
-      type: object
-      description: A background check package defines a set of screening checks to perform on candidates during the hiring process.
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the package
-          example: 11111111-2222-3333-4444-555555555555
-        name:
-          type: string
-          description: Package name
-          example: Senior Software Engineer
-        description:
-          type: string
-          description: Description of the checks included
-          example: Strong technical background with 8+ years of experience in distributed systems.
-        provider:
-          $ref: '#/components/schemas/Reference'
-          description: Background check provider
-        active:
-          type: boolean
-          description: Whether the package is currently active
-          example: true
     BackgroundCheckCreate:
       type: object
       description: Request body for submitting background check results
@@ -260,31 +237,41 @@ components:
           - Adverse Action
           description: Background check result
           example: Clear
-    Error:
+    BackgroundCheckPackage:
       type: object
-      description: API error response
+      description: A background check package defines a set of screening checks to perform on candidates during the hiring process.
       properties:
-        error:
+        id:
           type: string
-          description: Error code
-          example: string
-        message:
+          description: Workday ID (WID) of the package
+          example: 11111111-2222-3333-4444-555555555555
+        name:
           type: string
-          description: Human-readable error message
-          example: string
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field that caused the error
-                example: string
-              message:
-                type: string
-                description: Description of the field-level error
-                example: string
+          description: Package name
+          example: Senior Software Engineer
+        description:
+          type: string
+          description: Description of the checks included
+          example: Strong technical background with 8+ years of experience in distributed systems.
+        provider:
+          $ref: '#/components/schemas/Reference'
+          description: Background check provider
+        active:
+          type: boolean
+          description: Whether the package is currently active
+          example: true
+    Reference:
+      type: object
+      description: A reference to a related Workday resource
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the referenced resource
+          example: 11111111-2222-3333-4444-555555555555
+        descriptor:
+          type: string
+          description: Display name of the referenced resource
+          example: Senior Software Engineer
     BackgroundCheck:
       type: object
       description: Background check results for a candidate, provided by an external screening provider.
@@ -324,18 +311,31 @@ components:
           format: date-time
           description: Timestamp when the check was completed
           example: '2026-05-03T14:30:00Z'
-    Reference:
+    Error:
       type: object
-      description: A reference to a related Workday resource
+      description: API error response
       properties:
-        id:
+        error:
           type: string
-          description: Workday ID (WID) of the referenced resource
-          example: 11111111-2222-3333-4444-555555555555
-        descriptor:
+          description: Error code
+          example: string
+        message:
           type: string
-          description: Display name of the referenced resource
-          example: Senior Software Engineer
+          description: Human-readable error message
+          example: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+                example: string
+              message:
+                type: string
+                description: Description of the field-level error
+                example: string
   responses:
     BadRequest:
       description: Invalid request parameters or request body

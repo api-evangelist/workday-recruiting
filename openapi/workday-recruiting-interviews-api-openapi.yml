@@ -339,58 +339,6 @@ components:
         default: 0
       example: 0
   schemas:
-    InterviewCreate:
-      type: object
-      description: Request body for scheduling an interview
-      required:
-      - jobApplication
-      - scheduledDate
-      - startTime
-      - endTime
-      - interviewers
-      properties:
-        jobApplication:
-          $ref: '#/components/schemas/Reference'
-          description: Job application being evaluated
-        interviewType:
-          type: string
-          enum:
-          - Phone Screen
-          - Video Interview
-          - In-Person Interview
-          - Panel Interview
-          - Technical Interview
-          description: Type of interview
-          example: Phone Screen
-        scheduledDate:
-          type: string
-          format: date
-          description: Scheduled date of the interview
-          example: '2026-05-03'
-        startTime:
-          type: string
-          format: time
-          description: Start time
-          example: 52200
-        endTime:
-          type: string
-          format: time
-          description: End time
-          example: 52200
-        interviewers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Reference'
-          description: Workers to assign as interviewers
-        location:
-          type: string
-          description: Interview location
-          example: San Francisco, CA
-        webConferenceUrl:
-          type: string
-          format: uri
-          description: URL for web conference
-          example: https://example.com/resource
     InterviewFeedbackCreate:
       type: object
       description: Request body for submitting interview feedback
@@ -430,92 +378,6 @@ components:
           type: string
           description: General interview feedback comments
           example: Strong technical background with 8+ years of experience in distributed systems.
-    InterviewFeedback:
-      type: object
-      description: Feedback submitted by an interviewer after completing a candidate interview, including ratings and hiring recommendation.
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the feedback record
-          example: 11111111-2222-3333-4444-555555555555
-        interviewer:
-          $ref: '#/components/schemas/Reference'
-          description: Interviewer who submitted the feedback
-        overallRating:
-          type: string
-          enum:
-          - Strong Hire
-          - Hire
-          - No Decision
-          - Do Not Hire
-          - Strong Do Not Hire
-          description: Overall hiring recommendation
-          example: Strong Hire
-        competencyRatings:
-          type: array
-          items:
-            type: object
-            properties:
-              competency:
-                $ref: '#/components/schemas/Reference'
-                description: Competency being rated
-              rating:
-                type: integer
-                minimum: 1
-                maximum: 5
-                description: Rating value (1-5 scale)
-                example: 4
-              comments:
-                type: string
-                description: Competency-level comments
-                example: Strong technical background with 8+ years of experience in distributed systems.
-          description: Individual competency ratings
-        comments:
-          type: string
-          description: General interview feedback comments
-          example: Strong technical background with 8+ years of experience in distributed systems.
-        submittedOn:
-          type: string
-          format: date-time
-          description: Timestamp when the feedback was submitted
-          example: '2026-05-03T14:30:00Z'
-    Error:
-      type: object
-      description: API error response
-      properties:
-        error:
-          type: string
-          description: Error code
-          example: string
-        message:
-          type: string
-          description: Human-readable error message
-          example: string
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field that caused the error
-                example: string
-              message:
-                type: string
-                description: Description of the field-level error
-                example: string
-    Reference:
-      type: object
-      description: A reference to a related Workday resource
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the referenced resource
-          example: 11111111-2222-3333-4444-555555555555
-        descriptor:
-          type: string
-          description: Display name of the referenced resource
-          example: Senior Software Engineer
     Interview:
       type: object
       description: An interview represents a scheduled meeting between a candidate and one or more interviewers as part of the recruiting evaluation process.
@@ -575,6 +437,144 @@ components:
           - No Show
           description: Current interview status
           example: Scheduled
+    InterviewFeedback:
+      type: object
+      description: Feedback submitted by an interviewer after completing a candidate interview, including ratings and hiring recommendation.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the feedback record
+          example: 11111111-2222-3333-4444-555555555555
+        interviewer:
+          $ref: '#/components/schemas/Reference'
+          description: Interviewer who submitted the feedback
+        overallRating:
+          type: string
+          enum:
+          - Strong Hire
+          - Hire
+          - No Decision
+          - Do Not Hire
+          - Strong Do Not Hire
+          description: Overall hiring recommendation
+          example: Strong Hire
+        competencyRatings:
+          type: array
+          items:
+            type: object
+            properties:
+              competency:
+                $ref: '#/components/schemas/Reference'
+                description: Competency being rated
+              rating:
+                type: integer
+                minimum: 1
+                maximum: 5
+                description: Rating value (1-5 scale)
+                example: 4
+              comments:
+                type: string
+                description: Competency-level comments
+                example: Strong technical background with 8+ years of experience in distributed systems.
+          description: Individual competency ratings
+        comments:
+          type: string
+          description: General interview feedback comments
+          example: Strong technical background with 8+ years of experience in distributed systems.
+        submittedOn:
+          type: string
+          format: date-time
+          description: Timestamp when the feedback was submitted
+          example: '2026-05-03T14:30:00Z'
+    Reference:
+      type: object
+      description: A reference to a related Workday resource
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the referenced resource
+          example: 11111111-2222-3333-4444-555555555555
+        descriptor:
+          type: string
+          description: Display name of the referenced resource
+          example: Senior Software Engineer
+    InterviewCreate:
+      type: object
+      description: Request body for scheduling an interview
+      required:
+      - jobApplication
+      - scheduledDate
+      - startTime
+      - endTime
+      - interviewers
+      properties:
+        jobApplication:
+          $ref: '#/components/schemas/Reference'
+          description: Job application being evaluated
+        interviewType:
+          type: string
+          enum:
+          - Phone Screen
+          - Video Interview
+          - In-Person Interview
+          - Panel Interview
+          - Technical Interview
+          description: Type of interview
+          example: Phone Screen
+        scheduledDate:
+          type: string
+          format: date
+          description: Scheduled date of the interview
+          example: '2026-05-03'
+        startTime:
+          type: string
+          format: time
+          description: Start time
+          example: 52200
+        endTime:
+          type: string
+          format: time
+          description: End time
+          example: 52200
+        interviewers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reference'
+          description: Workers to assign as interviewers
+        location:
+          type: string
+          description: Interview location
+          example: San Francisco, CA
+        webConferenceUrl:
+          type: string
+          format: uri
+          description: URL for web conference
+          example: https://example.com/resource
+    Error:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: string
+        message:
+          type: string
+          description: Human-readable error message
+          example: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+                example: string
+              message:
+                type: string
+                description: Description of the field-level error
+                example: string
   responses:
     NotFound:
       description: Requested resource not found

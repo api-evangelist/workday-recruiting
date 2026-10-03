@@ -171,56 +171,6 @@ components:
         default: 0
       example: 0
   schemas:
-    JobPostingSite:
-      type: object
-      description: A career site or job board where job postings can be published for candidate attraction.
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the posting site
-          example: 11111111-2222-3333-4444-555555555555
-        name:
-          type: string
-          description: Posting site name
-          example: Senior Software Engineer
-        siteUrl:
-          type: string
-          format: uri
-          description: URL of the posting site
-          example: https://example.com/resource
-        isInternal:
-          type: boolean
-          description: Whether this is an internal career site
-          example: false
-        active:
-          type: boolean
-          description: Whether the posting site is currently active
-          example: true
-    Error:
-      type: object
-      description: API error response
-      properties:
-        error:
-          type: string
-          description: Error code
-          example: string
-        message:
-          type: string
-          description: Human-readable error message
-          example: string
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field that caused the error
-                example: string
-              message:
-                type: string
-                description: Description of the field-level error
-                example: string
     Questionnaire:
       type: object
       description: A recruiting questionnaire used for candidate screening or assessment during the application process.
@@ -285,6 +235,56 @@ components:
           type: string
           description: Status code for reporting
           example: VET-01
+    JobPostingSite:
+      type: object
+      description: A career site or job board where job postings can be published for candidate attraction.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the posting site
+          example: 11111111-2222-3333-4444-555555555555
+        name:
+          type: string
+          description: Posting site name
+          example: Senior Software Engineer
+        siteUrl:
+          type: string
+          format: uri
+          description: URL of the posting site
+          example: https://example.com/resource
+        isInternal:
+          type: boolean
+          description: Whether this is an internal career site
+          example: false
+        active:
+          type: boolean
+          description: Whether the posting site is currently active
+          example: true
+    Error:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: string
+        message:
+          type: string
+          description: Human-readable error message
+          example: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+                example: string
+              message:
+                type: string
+                description: Description of the field-level error
+                example: string
   responses:
     Unauthorized:
       description: Authentication required or token expired
