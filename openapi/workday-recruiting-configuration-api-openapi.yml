@@ -151,6 +151,15 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
     limit:
       name: limit
       in: query
@@ -161,16 +170,32 @@ components:
         maximum: 100
         default: 20
       example: 20
-    offset:
-      name: offset
-      in: query
-      description: Number of results to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-      example: 0
   schemas:
+    JobPostingSite:
+      type: object
+      description: A career site or job board where job postings can be published for candidate attraction.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the posting site
+          example: 11111111-2222-3333-4444-555555555555
+        name:
+          type: string
+          description: Posting site name
+          example: Senior Software Engineer
+        siteUrl:
+          type: string
+          format: uri
+          description: URL of the posting site
+          example: https://example.com/resource
+        isInternal:
+          type: boolean
+          description: Whether this is an internal career site
+          example: false
+        active:
+          type: boolean
+          description: Whether the posting site is currently active
+          example: true
     Questionnaire:
       type: object
       description: A recruiting questionnaire used for candidate screening or assessment during the application process.
@@ -235,31 +260,6 @@ components:
           type: string
           description: Status code for reporting
           example: VET-01
-    JobPostingSite:
-      type: object
-      description: A career site or job board where job postings can be published for candidate attraction.
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the posting site
-          example: 11111111-2222-3333-4444-555555555555
-        name:
-          type: string
-          description: Posting site name
-          example: Senior Software Engineer
-        siteUrl:
-          type: string
-          format: uri
-          description: URL of the posting site
-          example: https://example.com/resource
-        isInternal:
-          type: boolean
-          description: Whether this is an internal career site
-          example: false
-        active:
-          type: boolean
-          description: Whether the posting site is currently active
-          example: true
     Error:
       type: object
       description: API error response

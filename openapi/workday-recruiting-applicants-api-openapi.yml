@@ -138,6 +138,15 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
     limit:
       name: limit
       in: query
@@ -148,16 +157,50 @@ components:
         maximum: 100
         default: 20
       example: 20
-    offset:
-      name: offset
-      in: query
-      description: Number of results to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-      example: 0
   schemas:
+    ApplicantImport:
+      type: object
+      description: Request body for a single applicant in bulk import
+      required:
+      - firstName
+      - lastName
+      - email
+      properties:
+        firstName:
+          type: string
+          description: Applicant first name
+          example: Jordan
+        lastName:
+          type: string
+          description: Applicant last name
+          example: Reyes
+        email:
+          type: string
+          format: email
+          description: Primary email address
+          example: candidate@example.com
+        phone:
+          type: string
+          description: Phone number
+          example: +1-415-555-0123
+        source:
+          $ref: '#/components/schemas/Reference'
+          description: Application source
+        jobRequisition:
+          $ref: '#/components/schemas/Reference'
+          description: Job requisition to apply to
+    Reference:
+      type: object
+      description: A reference to a related Workday resource
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the referenced resource
+          example: 11111111-2222-3333-4444-555555555555
+        descriptor:
+          type: string
+          description: Display name of the referenced resource
+          example: Senior Software Engineer
     Applicant:
       type: object
       description: A pre-hire or applicant record in Workday representing an individual who has been processed through the recruiting pipeline toward hire.
@@ -194,49 +237,6 @@ components:
           type: string
           description: Applicant processing status
           example: Open
-    Reference:
-      type: object
-      description: A reference to a related Workday resource
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the referenced resource
-          example: 11111111-2222-3333-4444-555555555555
-        descriptor:
-          type: string
-          description: Display name of the referenced resource
-          example: Senior Software Engineer
-    ApplicantImport:
-      type: object
-      description: Request body for a single applicant in bulk import
-      required:
-      - firstName
-      - lastName
-      - email
-      properties:
-        firstName:
-          type: string
-          description: Applicant first name
-          example: Jordan
-        lastName:
-          type: string
-          description: Applicant last name
-          example: Reyes
-        email:
-          type: string
-          format: email
-          description: Primary email address
-          example: candidate@example.com
-        phone:
-          type: string
-          description: Phone number
-          example: +1-415-555-0123
-        source:
-          $ref: '#/components/schemas/Reference'
-          description: Application source
-        jobRequisition:
-          $ref: '#/components/schemas/Reference'
-          description: Job requisition to apply to
     Error:
       type: object
       description: API error response
@@ -263,14 +263,14 @@ components:
                 description: Description of the field-level error
                 example: string
   responses:
-    BadRequest:
-      description: Invalid request parameters or request body
+    Unauthorized:
+      description: Authentication required or token expired
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or token expired
+    BadRequest:
+      description: Invalid request parameters or request body
       content:
         application/json:
           schema:

@@ -169,7 +169,43 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
+    id:
+      name: id
+      in: path
+      required: true
+      description: Workday ID (WID) of the resource
+      schema:
+        type: string
+      example: 11111111-2222-3333-4444-555555555555
     limit:
       name: limit
       in: query
@@ -180,59 +216,7 @@ components:
         maximum: 100
         default: 20
       example: 20
-    id:
-      name: id
-      in: path
-      required: true
-      description: Workday ID (WID) of the resource
-      schema:
-        type: string
-      example: 11111111-2222-3333-4444-555555555555
-    offset:
-      name: offset
-      in: query
-      description: Number of results to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-      example: 0
   schemas:
-    RecruitingAgency:
-      type: object
-      description: A recruiting agency represents an external staffing or recruitment firm that submits candidates for open positions.
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the recruiting agency
-          example: 11111111-2222-3333-4444-555555555555
-        name:
-          type: string
-          description: Agency name
-          example: Senior Software Engineer
-        contactName:
-          type: string
-          description: Primary contact name
-          example: Senior Software Engineer
-        contactEmail:
-          type: string
-          format: email
-          description: Primary contact email
-          example: candidate@example.com
-        phone:
-          type: string
-          description: Agency phone number
-          example: +1-415-555-0123
-        feePercentage:
-          type: number
-          minimum: 0
-          maximum: 100
-          description: Agency fee as a percentage of first-year compensation
-          example: 22.5
-        active:
-          type: boolean
-          description: Whether the agency relationship is currently active
-          example: true
     CandidateCreate:
       type: object
       description: Request body for creating or updating a candidate
@@ -294,6 +278,41 @@ components:
           type: string
           description: Display name of the referenced resource
           example: Senior Software Engineer
+    RecruitingAgency:
+      type: object
+      description: A recruiting agency represents an external staffing or recruitment firm that submits candidates for open positions.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the recruiting agency
+          example: 11111111-2222-3333-4444-555555555555
+        name:
+          type: string
+          description: Agency name
+          example: Senior Software Engineer
+        contactName:
+          type: string
+          description: Primary contact name
+          example: Senior Software Engineer
+        contactEmail:
+          type: string
+          format: email
+          description: Primary contact email
+          example: candidate@example.com
+        phone:
+          type: string
+          description: Agency phone number
+          example: +1-415-555-0123
+        feePercentage:
+          type: number
+          minimum: 0
+          maximum: 100
+          description: Agency fee as a percentage of first-year compensation
+          example: 22.5
+        active:
+          type: boolean
+          description: Whether the agency relationship is currently active
+          example: true
     Error:
       type: object
       description: API error response
@@ -319,25 +338,6 @@ components:
                 type: string
                 description: Description of the field-level error
                 example: string
-  responses:
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters or request body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2

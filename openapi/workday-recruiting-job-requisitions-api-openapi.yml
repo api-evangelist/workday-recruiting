@@ -488,7 +488,43 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
+    id:
+      name: id
+      in: path
+      required: true
+      description: Workday ID (WID) of the resource
+      schema:
+        type: string
+      example: 11111111-2222-3333-4444-555555555555
     limit:
       name: limit
       in: query
@@ -499,23 +535,6 @@ components:
         maximum: 100
         default: 20
       example: 20
-    id:
-      name: id
-      in: path
-      required: true
-      description: Workday ID (WID) of the resource
-      schema:
-        type: string
-      example: 11111111-2222-3333-4444-555555555555
-    offset:
-      name: offset
-      in: query
-      description: Number of results to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-      example: 0
   schemas:
     JobRequisitionCreate:
       type: object
@@ -723,25 +742,6 @@ components:
                 type: string
                 description: Description of the field-level error
                 example: string
-  responses:
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters or request body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2
