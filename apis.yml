@@ -2319,6 +2319,10 @@ apis:
   - type: Examples
     url: examples/recruiting-rest-api-veteran-status-example.json
 common:
+- type: Plans
+  url: plans/workday-recruiting-plans-pricing.yml
+- type: FinOps
+  url: finops/workday-recruiting-finops.yml
 - type: Website
   url: https://www.workday.com/
 - type: AgenticAccess
