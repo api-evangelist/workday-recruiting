@@ -183,40 +183,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    BackgroundCheckCreate:
-      type: object
-      description: Request body for submitting background check results
-      required:
-      - candidate
-      - jobApplication
-      - status
-      properties:
-        candidate:
-          $ref: '#/components/schemas/Reference'
-          description: Candidate being screened
-        jobApplication:
-          $ref: '#/components/schemas/Reference'
-          description: Associated job application
-        package:
-          $ref: '#/components/schemas/Reference'
-          description: Background check package
-        status:
-          type: string
-          enum:
-          - Initiated
-          - In Progress
-          - Completed
-          - Canceled
-          description: Background check status
-          example: Initiated
-        result:
-          type: string
-          enum:
-          - Clear
-          - Consider
-          - Adverse Action
-          description: Background check result
-          example: Clear
     BackgroundCheck:
       type: object
       description: Background check results for a candidate, provided by an external screening provider.
@@ -279,18 +245,6 @@ components:
           type: boolean
           description: Whether the package is currently active
           example: true
-    Reference:
-      type: object
-      description: A reference to a related Workday resource
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the referenced resource
-          example: 11111111-2222-3333-4444-555555555555
-        descriptor:
-          type: string
-          description: Display name of the referenced resource
-          example: Senior Software Engineer
     Error:
       type: object
       description: API error response
@@ -316,16 +270,66 @@ components:
                 type: string
                 description: Description of the field-level error
                 example: string
+    Reference:
+      type: object
+      description: A reference to a related Workday resource
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the referenced resource
+          example: 11111111-2222-3333-4444-555555555555
+        descriptor:
+          type: string
+          description: Display name of the referenced resource
+          example: Senior Software Engineer
+    BackgroundCheckCreate:
+      type: object
+      description: Request body for submitting background check results
+      required:
+      - candidate
+      - jobApplication
+      - status
+      properties:
+        candidate:
+          $ref: '#/components/schemas/Reference'
+          description: Candidate being screened
+        jobApplication:
+          $ref: '#/components/schemas/Reference'
+          description: Associated job application
+        package:
+          $ref: '#/components/schemas/Reference'
+          description: Background check package
+        status:
+          type: string
+          enum:
+          - Initiated
+          - In Progress
+          - Completed
+          - Canceled
+          description: Background check status
+          example: Initiated
+        result:
+          type: string
+          enum:
+          - Clear
+          - Consider
+          - Adverse Action
+          description: Background check result
+          example: Clear
+  responses:
+    BadRequest:
+      description: Invalid request parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    offset:
-      name: offset
-      in: query
-      description: Number of results to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-      example: 0
     limit:
       name: limit
       in: query
@@ -336,19 +340,15 @@ components:
         maximum: 100
         default: 20
       example: 20
-  responses:
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters or request body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
   securitySchemes:
     oauth2:
       type: oauth2

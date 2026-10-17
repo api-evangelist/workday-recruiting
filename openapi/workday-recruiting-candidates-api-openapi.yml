@@ -581,53 +581,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters or request body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    offset:
-      name: offset
-      in: query
-      description: Number of results to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-      example: 0
-    id:
-      name: id
-      in: path
-      required: true
-      description: Workday ID (WID) of the resource
-      schema:
-        type: string
-      example: 11111111-2222-3333-4444-555555555555
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of results to return per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 20
-      example: 20
   schemas:
     Attachment:
       type: object
@@ -663,67 +616,38 @@ components:
           format: date-time
           description: Timestamp when the attachment was uploaded
           example: '2026-05-03T14:30:00Z'
-    CandidateCreate:
+    CandidateAssessment:
       type: object
-      description: Request body for creating or updating a candidate
-      required:
-      - firstName
-      - lastName
-      - email
-      properties:
-        firstName:
-          type: string
-          description: Candidate first name
-          example: Jordan
-        lastName:
-          type: string
-          description: Candidate last name
-          example: Reyes
-        email:
-          type: string
-          format: email
-          description: Primary email address
-          example: candidate@example.com
-        phone:
-          type: string
-          description: Primary phone number
-          example: +1-415-555-0123
-        address:
-          type: object
-          properties:
-            addressLine1:
-              type: string
-              example: 123 Market Street
-            addressLine2:
-              type: string
-              example: 123 Market Street
-            city:
-              type: string
-              example: San Francisco
-            stateProvince:
-              type: string
-              example: CA
-            postalCode:
-              type: string
-              example: '94105'
-            country:
-              $ref: '#/components/schemas/Reference'
-          description: Candidate mailing address
-        source:
-          $ref: '#/components/schemas/Reference'
-          description: Candidate source
-    Reference:
-      type: object
-      description: A reference to a related Workday resource
+      description: A candidate assessment captures evaluation results from screening tools or manual review processes during the recruiting workflow.
       properties:
         id:
           type: string
-          description: Workday ID (WID) of the referenced resource
+          description: Workday ID (WID) of the assessment
           example: 11111111-2222-3333-4444-555555555555
-        descriptor:
+        assessmentCategory:
+          $ref: '#/components/schemas/Reference'
+          description: Assessment category
+        result:
           type: string
-          description: Display name of the referenced resource
-          example: Senior Software Engineer
+          enum:
+          - Pass
+          - Fail
+          - Pending
+          description: Assessment outcome
+          example: Pass
+        score:
+          type: number
+          description: Numeric assessment score
+          example: 87.5
+        comments:
+          type: string
+          description: Assessment comments or notes
+          example: Strong technical background with 8+ years of experience in distributed systems.
+        assessedOn:
+          type: string
+          format: date-time
+          description: Date and time the assessment was completed
+          example: '2026-05-03T14:30:00Z'
     Candidate:
       type: object
       description: A candidate represents an individual being considered for employment, including their personal information, contact details, source, and associated job applications.
@@ -807,38 +731,6 @@ components:
           format: date-time
           description: Timestamp when the candidate was last updated
           example: '2026-05-03T14:30:00Z'
-    CandidateAssessment:
-      type: object
-      description: A candidate assessment captures evaluation results from screening tools or manual review processes during the recruiting workflow.
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the assessment
-          example: 11111111-2222-3333-4444-555555555555
-        assessmentCategory:
-          $ref: '#/components/schemas/Reference'
-          description: Assessment category
-        result:
-          type: string
-          enum:
-          - Pass
-          - Fail
-          - Pending
-          description: Assessment outcome
-          example: Pass
-        score:
-          type: number
-          description: Numeric assessment score
-          example: 87.5
-        comments:
-          type: string
-          description: Assessment comments or notes
-          example: Strong technical background with 8+ years of experience in distributed systems.
-        assessedOn:
-          type: string
-          format: date-time
-          description: Date and time the assessment was completed
-          example: '2026-05-03T14:30:00Z'
     Error:
       type: object
       description: API error response
@@ -864,6 +756,114 @@ components:
                 type: string
                 description: Description of the field-level error
                 example: string
+    Reference:
+      type: object
+      description: A reference to a related Workday resource
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the referenced resource
+          example: 11111111-2222-3333-4444-555555555555
+        descriptor:
+          type: string
+          description: Display name of the referenced resource
+          example: Senior Software Engineer
+    CandidateCreate:
+      type: object
+      description: Request body for creating or updating a candidate
+      required:
+      - firstName
+      - lastName
+      - email
+      properties:
+        firstName:
+          type: string
+          description: Candidate first name
+          example: Jordan
+        lastName:
+          type: string
+          description: Candidate last name
+          example: Reyes
+        email:
+          type: string
+          format: email
+          description: Primary email address
+          example: candidate@example.com
+        phone:
+          type: string
+          description: Primary phone number
+          example: +1-415-555-0123
+        address:
+          type: object
+          properties:
+            addressLine1:
+              type: string
+              example: 123 Market Street
+            addressLine2:
+              type: string
+              example: 123 Market Street
+            city:
+              type: string
+              example: San Francisco
+            stateProvince:
+              type: string
+              example: CA
+            postalCode:
+              type: string
+              example: '94105'
+            country:
+              $ref: '#/components/schemas/Reference'
+          description: Candidate mailing address
+        source:
+          $ref: '#/components/schemas/Reference'
+          description: Candidate source
+  parameters:
+    id:
+      name: id
+      in: path
+      required: true
+      description: Workday ID (WID) of the resource
+      schema:
+        type: string
+      example: 11111111-2222-3333-4444-555555555555
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of results to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      example: 20
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
+  responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2

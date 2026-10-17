@@ -150,52 +150,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    offset:
-      name: offset
-      in: query
-      description: Number of results to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-      example: 0
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of results to return per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 20
-      example: 20
   schemas:
-    JobPostingSite:
-      type: object
-      description: A career site or job board where job postings can be published for candidate attraction.
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the posting site
-          example: 11111111-2222-3333-4444-555555555555
-        name:
-          type: string
-          description: Posting site name
-          example: Senior Software Engineer
-        siteUrl:
-          type: string
-          format: uri
-          description: URL of the posting site
-          example: https://example.com/resource
-        isInternal:
-          type: boolean
-          description: Whether this is an internal career site
-          example: false
-        active:
-          type: boolean
-          description: Whether the posting site is currently active
-          example: true
     Questionnaire:
       type: object
       description: A recruiting questionnaire used for candidate screening or assessment during the application process.
@@ -244,22 +199,6 @@ components:
           type: boolean
           description: Whether the questionnaire is currently active
           example: true
-    VeteranStatus:
-      type: object
-      description: A veteran status reference value for EEO compliance reporting and candidate self-identification.
-      properties:
-        id:
-          type: string
-          description: Workday ID (WID) of the veteran status
-          example: 11111111-2222-3333-4444-555555555555
-        name:
-          type: string
-          description: Veteran status display name
-          example: Senior Software Engineer
-        code:
-          type: string
-          description: Status code for reporting
-          example: VET-01
     Error:
       type: object
       description: API error response
@@ -285,6 +224,47 @@ components:
                 type: string
                 description: Description of the field-level error
                 example: string
+    VeteranStatus:
+      type: object
+      description: A veteran status reference value for EEO compliance reporting and candidate self-identification.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the veteran status
+          example: 11111111-2222-3333-4444-555555555555
+        name:
+          type: string
+          description: Veteran status display name
+          example: Senior Software Engineer
+        code:
+          type: string
+          description: Status code for reporting
+          example: VET-01
+    JobPostingSite:
+      type: object
+      description: A career site or job board where job postings can be published for candidate attraction.
+      properties:
+        id:
+          type: string
+          description: Workday ID (WID) of the posting site
+          example: 11111111-2222-3333-4444-555555555555
+        name:
+          type: string
+          description: Posting site name
+          example: Senior Software Engineer
+        siteUrl:
+          type: string
+          format: uri
+          description: URL of the posting site
+          example: https://example.com/resource
+        isInternal:
+          type: boolean
+          description: Whether this is an internal career site
+          example: false
+        active:
+          type: boolean
+          description: Whether the posting site is currently active
+          example: true
   responses:
     Unauthorized:
       description: Authentication required or token expired
@@ -292,6 +272,26 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of results to return per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      example: 20
+    offset:
+      name: offset
+      in: query
+      description: Number of results to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
   securitySchemes:
     oauth2:
       type: oauth2
